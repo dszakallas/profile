@@ -5,6 +5,7 @@ install:
   - gem install jekyll
   - gem install jekyll-text-theme
   - jekyll build
+test:
 deploy:
   provider: s3
   bucket: szakallas.eu
