@@ -88,6 +88,9 @@ highlighter: rouge
 permalink: date
 
 exclude:
+  - .travis.yml
+  - Dockerfile
+  - docker-compose.yml
   - CHANGELOG.md
   - CHECKLIST.md
   - Gemfile
@@ -104,6 +107,7 @@ exclude:
   - /screenshots
   - /test
   - /vendor
+  - /tmp
 
 ## Plugins ##
 plugins:
