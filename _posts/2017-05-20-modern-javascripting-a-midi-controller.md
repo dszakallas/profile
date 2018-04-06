@@ -25,7 +25,7 @@ If you already use Mixxx for DJing, and you are only interested in the script it
 
 Serato and Traktor are the two leading digital DJ software on the market, but I wonder if you have heard about [Mixxx](https://www.mixxx.org/)? It serves exactly the same purpose as its commercial counterparts but with a moral advantage: it's free and open-source.
 
-![Reference screenshot]({{ "/assets/2017-05-20-modern-javascripting-a-midi-controller/zzz_mixxx_200_deere_skin.png" | absolute_url }})
+![Reference screenshot](/assets/2017-05-20-modern-javascripting-a-midi-controller/zzz_mixxx_200_deere_skin.png)
 
 Creating a successful community-driven project in the pro-audio software industry has a specific difficulty: not only you have to write software that meets high standards in terms of UX and stability, you also have to support a range of hardware devices to convert the crowd. See, there's not much use of a live performance software without the ability to control it and you can expect the target audience consisting of DJs and electronic musicians to be fond of their expensive hardware and simply choose software that support their arsenal and not the other way around.
 

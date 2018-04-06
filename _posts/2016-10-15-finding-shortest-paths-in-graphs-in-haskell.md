@@ -128,7 +128,7 @@ This way, we can iteratively assign costs to paths:
 
 When does this iteration terminate? Possibly never as shown below:
 
-![endless]({{ "/assets/2016-10-15-finding-shortest-paths-in-graphs-in-haskell/ZZZ-endless.png" | absolute_url }})
+![endless](/assets/2016-10-15-finding-shortest-paths-in-graphs-in-haskell/ZZZ-endless.png)
 
 ```
 0: (a, a, -1), (a, b, 1)
@@ -149,7 +149,7 @@ be still smaller than in any of the previous iterations.
 
 How do we filter out the shortest paths?
 
-![diamond]({{ "/assets/2016-10-15-finding-shortest-paths-in-graphs-in-haskell/ZZZ-diamond.png" | absolute_url }})
+![diamond](/assets/2016-10-15-finding-shortest-paths-in-graphs-in-haskell/ZZZ-diamond.png)
 
 ```
 0: (a, b, 1) (a, c, 2) (b, d, 1) (c, d, 2)

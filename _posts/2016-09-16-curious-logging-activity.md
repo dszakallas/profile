@@ -11,7 +11,7 @@ tags:
 
 Logentries draws a neat linechart to visualize your logging activity. This chart is great for seeing if there are any errors appearing after a change, so you see at a glance if it's worth to check the logs. Looking at one of our services, this chart caught my eye:
 
-![Entries]({{ "/assets/2016-09-16-curious-logging-activity/screenshot.png" | absolute_url }})
+![Entries](/assets/2016-09-16-curious-logging-activity/screenshot.png)
 
 At first sight this doesn't say very much apart from the fact that there are large bumps appearing at every 2 minutes (that's the frequency of the vertical lines). Regarding the other bumps there's not much we can say as they kind of blend in and it's hard to tell what's going on. Are they random or periodic too?
 
@@ -62,7 +62,7 @@ ggplot(spectrum, aes(x=bin, y=amp)) + geom_bar(stat="identity")
 
 
 
-![png]({{ "/assets/2016-09-16-curious-logging-activity/output_6_1.png" | absolute_url }})
+![png](/assets/2016-09-16-curious-logging-activity/output_6_1.png)
 
 
 Wow! The periodicity is so apparent it nearly gauges your eyes! But what are the exact frequencies?

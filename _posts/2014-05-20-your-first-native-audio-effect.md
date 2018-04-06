@@ -58,7 +58,7 @@ it for you.
 -   Run it.
 
 ![Screenshot 2014-05-20
-20.52.49]({{ "/assets/2014-05-20-your-first-native-audio-effect/screenshot-2014-05-20-20-52-49.png" | absolute_url }})
+20.52.49](/assets/2014-05-20-your-first-native-audio-effect/screenshot-2014-05-20-20-52-49.png)
 
 -   Now, select File \> New Project. This will open up a dialog box.
     Name your project the way you like and choose an empty folder for
@@ -66,7 +66,7 @@ it for you.
     type. Click Create. Select [*\<JUCE\'s
     directory\>*]/modules as the modules
     folder.![Screenshot 2014-05-20
-    21.16.28]({{ "/assets/2014-05-20-your-first-native-audio-effect/screenshot-2014-05-20-21-16-28.png" | absolute_url }})
+    21.16.28](/assets/2014-05-20-your-first-native-audio-effect/screenshot-2014-05-20-21-16-28.png)
 -   Now that the project is created, you can configure a couple of its
     settings on the next screen. The most important is to choose the
     plugin format. You can choose multiple, but keep in mind that most
@@ -79,7 +79,7 @@ it for you.
 <!-- -->
 
 -   A snapshot of my settings:![Screenshot 2014-05-20
-    21.37.20]({{ "/assets/2014-05-20-your-first-native-audio-effect/screenshot-2014-05-20-21-37-20.png)" | absolute_url }})
+    21.37.20](/assets/2014-05-20-your-first-native-audio-effect/screenshot-2014-05-20-21-37-20.png))
 -   Don\'t forget to **save** the project :).
 
 Design
@@ -90,12 +90,12 @@ Design
 They measure the incoming signal, and apply gain correction if needed:
 
 ![Compressor
-Schema]({{ "/assets/2014-05-20-your-first-native-audio-effect/capture.png" | absolute_url }})
+Schema](/assets/2014-05-20-your-first-native-audio-effect/capture.png)
 
 The \'when\' is determined by a static
 curve that has a break. Compression is done when the signal\'s 
 amplitude is above the break that is called **threshold**:
-![Capture0]({{ "/assets/2014-05-20-your-first-native-audio-effect/capture0.png" | absolute_url }})]
+![Capture0](/assets/2014-05-20-your-first-native-audio-effect/capture0.png)]
 
 The **compression rate** is the input/output rate. Unity simply means no
 compression, whereas a value above 1 means attenuation. The control
@@ -433,10 +433,10 @@ chose the audio plugin format? We have to include it\'s SDK into the
 project. I\'m using vst 2.4, and that means i had to include
 it\'s headers. This is my Visual Studio setup:
 
-![Screenshot 2014-06-12 19.59.57]({{ "/assets/2014-05-20-your-first-native-audio-effect/screenshot-2014-06-12-19-59-57.png" | absolute_url }})
+![Screenshot 2014-06-12 19.59.57](/assets/2014-05-20-your-first-native-audio-effect/screenshot-2014-06-12-19-59-57.png)
 
 ![Screenshot 2014-06-12
-20.01.06]({{ "/assets/2014-05-20-your-first-native-audio-effect/screenshot-2014-06-12-20-01-06.png" | absolute_url }})
+20.01.06](/assets/2014-05-20-your-first-native-audio-effect/screenshot-2014-06-12-20-01-06.png)
 
 Notice the vst folder added to the
 additional include directories in my project. This folder contains the
@@ -444,7 +444,7 @@ public.sdk and pluginterfaces folders which are used by the project.
 Okay let\'s build an try!!!
 
 ![Screenshot 2014-06-12
-20.08.04]({{ "/assets/2014-05-20-your-first-native-audio-effect/screenshot-2014-06-12-20-08-04.png" | absolute_url }})
+20.08.04](/assets/2014-05-20-your-first-native-audio-effect/screenshot-2014-06-12-20-08-04.png)
  
 
 Summary

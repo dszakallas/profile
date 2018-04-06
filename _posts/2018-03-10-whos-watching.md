@@ -95,4 +95,4 @@ solution might not be as fast as an in-memory cache, but I am glad that
 it works and plays nice with my existing build tools. So guess who\'s
 watching?
 
-![]({{ "/assets/2018-03-10-whos-watching/fswatch-is.jpg" | absolute_url }})   
+![](/assets/2018-03-10-whos-watching/fswatch-is.jpg)   

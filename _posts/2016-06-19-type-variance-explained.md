@@ -19,7 +19,7 @@ the sense. Let\'s start at the beginning. Say you have a `Cat` class
 extending the `Animal` class. Here, `Cat` is the subtype of `Animal`, by
 definition.
 
-![animal\_cat]({{ "/assets/2016-06-19-type-variance-explained/animal_cat.png" | absolute_url }})
+![animal\_cat](/assets/2016-06-19-type-variance-explained/animal_cat.png)
 
 Now, let\'s create four `XInYOut` classes, each of them having a single
 method `apply`, and use these two classes with them. It doesn\'t matter
@@ -32,9 +32,9 @@ straightforward is that `AnimalInCatOut` is a subtype of
 `AnimalInAnimalOut`, because wherever you return an `Animal` you could
 also return a `Cat` as it is its subtype. The same thing applies
 to `CatInCatOut`  and `CatInAnimalOut`.
-![aico]({{ "/assets/2016-06-19-type-variance-explained/aico.png" | absolute_url }})
+![aico](/assets/2016-06-19-type-variance-explained/aico.png)
 
-![subtype\_2]({{ "/assets/2016-06-19-type-variance-explained/cico.png" | absolute_url }})
+![subtype\_2](/assets/2016-06-19-type-variance-explained/cico.png)
 
   Might be a bit trickier to see that `AnimalInAnimalOut` is a subtype
 of `CatInAnimalOut`. The first one can replace the second one on
@@ -42,9 +42,9 @@ call-site without breaking type safety, because the caller expects
 something the needs a `Cat` , and so they must provide an argument that
 is subtype of `Cat`, and this always satisfy `Animal`. Of course the
 same applies to `AnimalInCatOut` and `CatInCatOut`.
-![suebtype\_1]({{ "/assets/2016-06-19-type-variance-explained/ciao-1.png" | absolute_url }})
+![suebtype\_1](/assets/2016-06-19-type-variance-explained/ciao-1.png)
 
-![subtype\_0]({{ "/assets/2016-06-19-type-variance-explained/aico2.png" | absolute_url }})
+![subtype\_0](/assets/2016-06-19-type-variance-explained/aico2.png)
 
 `AnimalInCatOut` and `CatInAnimalOut` combine both treats of the upper
 two cases; both the former\'s input a supertype, the output the subtype
@@ -53,11 +53,11 @@ Lastly, `CatInCatOut` cannot be a subtype of `AnimalInAnimalOut` as it
 breaks the contract of its input parameter, vice versa it breaks the
 output, so there is no relation between them. To sum things up:
 
-![whole]({{ "/assets/2016-06-19-type-variance-explained/whole.png" | absolute_url }})
+![whole](/assets/2016-06-19-type-variance-explained/whole.png)
 
 Now, onto generics. Let\'s make one generic class by depending on two
 types: `In` and `Out`.
-![generic]({{ "/assets/2016-06-19-type-variance-explained/generic.png" | absolute_url }})
+![generic](/assets/2016-06-19-type-variance-explained/generic.png)
 
 The same rules applies here as well:
 
@@ -78,7 +78,7 @@ The same rules applies here as well:
 In some languages, like Scala, variance is declared class level,
 using `+` for covariant, `-` for contravariant parameters.
 
-![anno2]({{ "/assets/2016-06-19-type-variance-explained/anno2.png" | absolute_url }})
+![anno2](/assets/2016-06-19-type-variance-explained/anno2.png)
 
 In Java however, the developer has a cumbersome job: the language does
 not known class level variance. Instead one has to specify the type

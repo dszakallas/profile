@@ -43,7 +43,7 @@ def fib(n: Int): Int = {
 There are multiple problems with this implementation though.
 Let's see the evaluation tree for `n = 5`
 
-![tree]({{ "/assets/2016-10-21-evolving-the-fibonacci/tree.png" | absolute_url }})
+![tree](/assets/2016-10-21-evolving-the-fibonacci/tree.png)
 
 First it is apparent that values get evaluated multiple times. We evaluated
 fib(3) and fib(1) twice, fib(2) thrice. One can see that for every node that has
@@ -69,7 +69,7 @@ Let's see some basic signal network diagrams!
 
 The most simple network just outputs it's input.
 
-![identity]({{ "/assets/2016-10-21-evolving-the-fibonacci/id.png" | absolute_url }})
+![identity](/assets/2016-10-21-evolving-the-fibonacci/id.png)
 
 With the example input sequence `0 1 2 1` the output will be `0 1 2 1`, as shown
 on this table.
@@ -104,7 +104,7 @@ y[k] = x[k]
 
 You can also apply some more meaningful functions, like amplify by 2.
 
-![function]({{ "/assets/2016-10-21-evolving-the-fibonacci/func.png" | absolute_url }})
+![function](/assets/2016-10-21-evolving-the-fibonacci/func.png)
 
 ```
 | x | y |
@@ -130,7 +130,7 @@ y[k] = 2 * x[k]
 
 You can join two wires with a binary operation:
 
-![add]({{ "/assets/2016-10-21-evolving-the-fibonacci/add.png" | absolute_url }})
+![add](/assets/2016-10-21-evolving-the-fibonacci/add.png)
 
 ```
 | x0 | x1  | y  |
@@ -171,7 +171,7 @@ delay to 0.
 
 The most simple network with a delay is this:
 
-![delay]({{ "/assets/2016-10-21-evolving-the-fibonacci/delay.png" | absolute_url }})
+![delay](/assets/2016-10-21-evolving-the-fibonacci/delay.png)
 
 It is very useful to introduce variables for the output of each of our delays.
 We have only one here, let's name it `x0`.
@@ -202,7 +202,7 @@ cycle. Easy!
 Let's create a feedback. Feed the output of the delay (`x0`) back and add it to
 the input of the delay. Let `y` be the result of this addition!
 
-![feedback]({{ "/assets/2016-10-21-evolving-the-fibonacci/fb.png" | absolute_url }})
+![feedback](/assets/2016-10-21-evolving-the-fibonacci/fb.png)
 
 ```
 | x | x0 | y |
@@ -303,7 +303,7 @@ when it is `1`, then add this to our `x0 + x1` to get the output!
 
 The network is:
 
-![partial fibonacci]({{ "/assets/2016-10-21-evolving-the-fibonacci/fib_a.png" | absolute_url }})
+![partial fibonacci](/assets/2016-10-21-evolving-the-fibonacci/fib_a.png)
 
 ```scala
 val x = List(0, 1, 0, 0, 0, 0, 0, 0)
@@ -340,7 +340,7 @@ an external input anymore, we can generate it. How? If you look at the table you
 realize that it's just `x + x0 + x1` from the previous iteration. This means that
 we can generate the Fibonacci sequence from `x` only with the following network:
 
-![fibonacci]({{ "/assets/2016-10-21-evolving-the-fibonacci/fib.png" | absolute_url }})
+![fibonacci](/assets/2016-10-21-evolving-the-fibonacci/fib.png)
 
 Formally:
 
