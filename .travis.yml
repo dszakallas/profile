@@ -4,8 +4,8 @@ rvm:
 install:
   - gem install jekyll
   - gem install jekyll-text-theme
+script:
   - jekyll build
-test:
 deploy:
   provider: s3
   bucket: szakallas.eu
