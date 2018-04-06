@@ -11,13 +11,13 @@ description: > #this means to ignore newlines until "nav_lists:"
 nav_lists:
   - titles:
       en: About
-    url: /readme.html
+    url: /readme/
 
-# paths:
-#   base: /
-#   home: /
-#   all:  /all.html
-#   rss:  /feed.xml
+paths:
+  base: /
+  home: /
+  all:  /all/
+  rss:  /feed.xml
 
 ## GitHub repository (if the site is hosted by GitHub) ##
 repository: dszakallas/profile
@@ -85,7 +85,7 @@ excerpt_type: text # text | html
 ## Build ##
 markdown: kramdown
 highlighter: rouge
-permalink: date
+permalink: /:categories/:year/:month/:day/:title/
 
 exclude:
   - .travis.yml
