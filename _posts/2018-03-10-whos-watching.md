@@ -5,7 +5,7 @@ key: 2018-03-10-whos-watching
 tags:
   - JavaScript
   - Makefile
-  - developer tooling
+  - developer tools
 ---
 
 I have yet to meet a serious frontend programmer who hasn\'t used file
