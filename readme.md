@@ -15,12 +15,14 @@ By night I hack around MIDI gadgets 🎛 🎚, play the guitar, or listen to A P
 
 ## Skills
 
- - Scala, C/C++, JavaScript, Python
- - Linux, Docker, Kubernetes, Makefile
- - Vim, Emacs, IntelliJ
+ - Back end services, distributed data processing applications
+ - Functional programming, programming languages
+ - Scala, Java, Python, JavaScript
+ - Node.js, Apache Spark, Neo4j
+ - Data analytics using R, Python, SQL, Spark
+ - Linux, Docker, Kubernetes
+ - Favorite editors: Vim, Emacs, IntelliJ
  
-
-
 ## Links
 
  - [CV](https://dszakallas.github.io/cv/david_szakallas.pdf)
