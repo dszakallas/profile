@@ -25,6 +25,8 @@ I don't like these:
 - Platforms: EJB, in-house proprietary platforms
 - Infrastructure: proprietary DBs, Azure or Bluemix
 
+I have some knowledge of data analytics toolkits in R (data.table, ggplot, shiny) and Python (numpy, pandas).
+
 ## Public speaking
 Here are the talks I gave so far:
 - Spark Schema for Free
