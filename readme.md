@@ -30,7 +30,7 @@ I have some knowledge of data analytics toolkits in R (data.table, ggplot, shiny
 ## Public speaking
 Here are the talks I gave so far:
 - Spark Schema for Free
-  - Spark + AI Summit Europe 2018 \| Oct 2018, London \| [Event Page](https://databricks.com/session/spark-schema-for-free) \| [Slides](/assets/speaking/spark-schema-for-free-spark-summit.pdf)
+  - Spark + AI Summit Europe 2018 \| Oct 2018, London \| [Video](https://www.youtube.com/watch?v=Km9j2okQFm8) \| [Event Page](https://databricks.com/session/spark-schema-for-free) \| [Slides](/assets/speaking/spark-schema-for-free-spark-summit.pdf)
   - Scala Brinner #2 (in Hungarian) \| Aug 2018, Budapest \| [Event Page](https://www.meetup.com/Scala-Pair-Programming-Breakfast-Budapest/events/253449564/) \| [Slides](/assets/speaking/spark-schema-for-free-meetup.pdf)
 - openCypher Meeting #4 Remarks \| Whitepages (I only held an internal talk at Whitepages office as the Neo4j Budapest meetup group is inactive since February) \| May 2018, Budapest \| [Slides](/assets/speaking/ocim4.pdf)
 - Writing a Cypher query engine in Clojure (feat. Gábor Szárnyas) - 3rd Budapest Clojure Meetup \| Mar 2018, Budapest \| [Event Page](https://www.meetup.com/Budapest-Clojure-User-Group/events/248220424/) \| [Slides](/assets/speaking/sre.pdf)
