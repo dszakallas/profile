@@ -48,7 +48,7 @@ free software and privacy, seldom politics in EU and Hungary. I sometimes like, 
 - My [M.Sc. Thesis](https://dszakallas.github.io/thesis-msc-17/thesis.pdf)
 
 ## Contact
-Use email. I use to sign my mails, my PGP key is [![PGP pub key 0xBC214513](https://peegeepee.com/badge/orange/BC214513.svg)](https://d.peegeepee.com/CF168467F2F9AD251A50006722D1F308BC214513.asc). You can also send me PMs on Twitter.
+I use to sign my mails, my PGP key is [![PGP pub key 0xBC214513](https://peegeepee.com/badge/orange/BC214513.svg)](https://d.peegeepee.com/CF168467F2F9AD251A50006722D1F308BC214513.asc). You can also send me PMs on Twitter.
 
 ## Legal
 Licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) except where noted otherwise. Blogposts are mostly [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/), however if you find this too restrictive for your use case, feel free to contact me.
