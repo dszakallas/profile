@@ -2,7 +2,7 @@ language: ruby
 rvm:
 - 2.5
 install:
-  - gem install jekyll
+  - gem install jekyll -v 3.8.5
   - gem install jekyll-text-theme -v 1.5.0
 script:
   - jekyll build
