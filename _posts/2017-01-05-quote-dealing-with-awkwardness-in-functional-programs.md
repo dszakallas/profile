@@ -1,5 +1,5 @@
 ---
-layout: post
+
 title: 'Quote: Dealing with awkwardness in functional programs'
 key: 2017-01-05-quote-dealing-with-awkwardness-in-functional-programs
 tags:

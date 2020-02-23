@@ -1,5 +1,5 @@
 ---
-layout: post
+
 title: 'Java, the bad parts: Recursive lambdas'
 key: 2016-05-07-java-the-bad-parts-recursive-lambdas
 tags:

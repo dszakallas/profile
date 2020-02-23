@@ -1,5 +1,5 @@
 ---
-layout: post
+
 titles: 'Finding shortest paths in Haskell'
 key: 2016-10-15-finding-shortest-paths-in-graphs-in-haskell
 tags:

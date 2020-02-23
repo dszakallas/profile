@@ -1,5 +1,5 @@
 ---
-layout: post
+
 title: Who's watching? 👀
 key: 2018-03-10-whos-watching
 tags:
