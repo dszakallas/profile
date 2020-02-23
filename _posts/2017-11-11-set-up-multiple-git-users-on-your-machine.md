@@ -1,5 +1,5 @@
 ---
-
+layout: post
 title: Set up multiple Git users on your machine
 key: 2017-11-11-set-up-multiple-git-users-on-your-machine
 tags:

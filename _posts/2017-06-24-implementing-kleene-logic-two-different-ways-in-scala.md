@@ -1,5 +1,5 @@
 ---
-
+layout: post
 title: Implementing Kleene logic two different ways in Scala
 key: 2017-06-24-implementing-kleene-logic-two-different-ways-in-scala
 tags:

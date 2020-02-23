@@ -1,5 +1,5 @@
 ---
-
+layout: post
 title: Deriving Spark Encoders and Schemas Using Implicits
 key: 2019-02-23-deriving-spark-encoders-and-schemas-using-implicits
 tags:

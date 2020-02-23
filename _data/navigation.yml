@@ -1,7 +1,0 @@
-header:
-  - titles:
-      en:       Archive
-    url:      /all/
-  - titles:
-      en:       About
-    url:        /readme/

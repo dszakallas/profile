@@ -1,5 +1,5 @@
 ---
-layout: article
+layout: page
 titles:
   en: 👋 Hey there visitor,
 key: page-about
