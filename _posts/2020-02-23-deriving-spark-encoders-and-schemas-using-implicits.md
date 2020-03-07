@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Deriving Spark Encoders and Schemas Using Implicits
-key: 2019-02-23-deriving-spark-encoders-and-schemas-using-implicits
+key: 2020-02-23-deriving-spark-encoders-and-schemas-using-implicits
 tags:
   - Apache Spark
   - Scala
