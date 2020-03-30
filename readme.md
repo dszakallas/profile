@@ -56,7 +56,7 @@ free software and privacy, seldom politics in EU and Hungary. I sometimes like, 
 ## Other
 - Here's my single page, printer friendly [CV](https://dszakallas.github.io/cv/david_szakallas.pdf)
 - My [M.Sc. Thesis](https://dszakallas.github.io/thesis-msc-17/thesis.pdf)
-- This blog is running on AWS. [dszakallas/profile-terraform](dszakallas/profile-terraform) is the config used to pull up the infrastructure. The site is generated with [Jekyll](https://github.com/jekyll/jekyll) and the wonderful [kitian616/jekyll-TeXt-theme](https://github.com/kitian616/jekyll-TeXt-theme).
+- This blog is running on AWS. [dszakallas/profile-terraform](ttps://github.com/dszakallas/profile-terraform) contains the config used to pull up the infrastructure. The site is generated with [Jekyll](https://github.com/jekyll/jekyll) and the wonderful [kitian616/jekyll-TeXt-theme](https://github.com/kitian616/jekyll-TeXt-theme).
 
 ## Contact
 I use to sign my mails, my PGP key is [![PGP pub key 0xBC214513](https://peegeepee.com/badge/orange/BC214513.svg)](https://d.peegeepee.com/CF168467F2F9AD251A50006722D1F308BC214513.asc). You can also send me PMs on Twitter.
