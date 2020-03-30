@@ -7,26 +7,36 @@ key: page-about
 
 you found yourself on the homepage of Szakállas Dávid,
 a programmer, hacker and nice guy from Budapest, Hungary, Europe. I am
-specializing in backend development and data engineering. I recently received
-an M.Sc. degree from BME, one of the region's prominent technological universities,
-where I learned about fault-tolerant systems, distributed computing and databases.
-Currently I am working as a software engineer on data related things at [Whitepages](https://www.whitepages.com/).
-By night I hack around MIDI gadgets 🎛 🎚 or play the guitar.
+specializing in data engineering. I received an M.Sc. degree in 2018 from Budapest 
+University of Technology and Engineering, where I learned about fault-tolerant systems,
+and distributed computing. I worked at [Ekata](https://ekata.com/) recently.
+
+**Currently I am looking for new opportunities.**
 
 ## Experience
 
-- Deep knowledge of running and optimizing Spark workloads, knowledge of Spark internals
-- General knowledge of the Big Data landscape
-- Working knowledge of AWS S3, EMR, EC2
-- Experience working in a dockerized environment and deploying to Kubernetes
+- Knowledge of developing and and tuning Spark workloads. I spent two years
+at Ekata refactoring and optimizing a complicated 30,000 SLOC Spark application.
+- Working knowledge of AWS cloud technologies such as S3, EMR, EC2.
+- General knowledge of distributed columnar stores and key-value store databases 
+- Experience working in a dockerized environment and Kubernetes
 - Good knowledge of Airflow
+- Some experience in machine learning
+- Functional programming
+- Working in a cross-functional team of data engineers and data scientists
+
+## Things I am interested in
+
+- Privacy and anonymization in the face of Big Data and Machine Learning
+- Data lineage tracking
+- Incremental stream processing
 
 ## Tech
 Technologies I prefer:
-- Languages: Scala, Python, Javascript, Rust, Go, SQL
-- Processing: Spark, Kafka, Node.js, Airflow
-- Databases: Redis, Elastic, Postgres
-- Infrastructure: Linux, Docker, Kubernetes
+- Languages: Scala (Dotty 😊), Python, Rust, Javascript
+- Editor: Spacemacs, IntelliJ, Vim
+- Tools: Bash, Jenkins, Docker, Kubernetes
+- Browser: 🔥🦊
 
 I have some knowledge of data analytics toolkits in R (data.table, ggplot, shiny) and Python (numpy, pandas).
 
@@ -46,9 +56,10 @@ free software and privacy, seldom politics in EU and Hungary. I sometimes like, 
 ## Other
 - Here's my single page, printer friendly [CV](https://dszakallas.github.io/cv/david_szakallas.pdf)
 - My [M.Sc. Thesis](https://dszakallas.github.io/thesis-msc-17/thesis.pdf)
+- This blog is running on AWS. [dszakallas/profile-terraform](dszakallas/profile-terraform) is the config used to pull up the infrastructure. The site is generated with [Jekyll](https://github.com/jekyll/jekyll) and the wonderful [kitian616/jekyll-TeXt-theme](https://github.com/kitian616/jekyll-TeXt-theme).
 
 ## Contact
 I use to sign my mails, my PGP key is [![PGP pub key 0xBC214513](https://peegeepee.com/badge/orange/BC214513.svg)](https://d.peegeepee.com/CF168467F2F9AD251A50006722D1F308BC214513.asc). You can also send me PMs on Twitter.
 
 ## Legal
-Licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/) except where noted otherwise. Blogposts are mostly [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/), however if you find this too restrictive for your use case, feel free to contact me.
+Blogposts are [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/), this page is [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/).
