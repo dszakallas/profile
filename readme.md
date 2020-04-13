@@ -1,15 +1,11 @@
 ---
 layout: page
 titles:
-  en: 👋 Hey there visitor,
+  en: Dávid Szakállas,
 key: page-about
 ---
 
-you found yourself on the homepage of Szakállas Dávid,
-a programmer, hacker and nice guy from Budapest, Hungary, Europe. I am
-specializing in data engineering. I received an M.Sc. degree in 2018 from Budapest 
-University of Technology and Engineering, where I learned about fault-tolerant systems,
-and distributed computing. I worked at [Ekata](https://ekata.com/) recently.
+programmer, software & data engineer located in Budapest. I received an M.Sc. degree in 2018 from Budapest University of Technology and Engineering, specializing in fault tolerant systems. I worked at [Ekata](https://ekata.com/) recently.
 
 **Currently I am looking for new opportunities.**
 
