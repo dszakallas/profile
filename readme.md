@@ -1,24 +1,26 @@
 ---
 layout: page
 titles:
-  en: Dávid Szakállas,
+  en: Dávid Szakállas
 key: page-about
 ---
 
-programmer, software & data engineer located in Budapest. I received an M.Sc. degree in 2018 from Budapest University of Technology and Engineering, specializing in fault tolerant systems. I worked at [Ekata](https://ekata.com/) recently.
+programmer, software & data engineer located in Budapest. I received an M.Sc. degree in 2018 from Budapest University of Technology and Engineering, specializing in fault tolerant systems. Recently, I worked at [Ekata](https://ekata.com/) as a Big Data Engineer.
 
 **Currently I am looking for new opportunities.**
 
 ## Experience
 
-- Knowledge of developing and and tuning Spark workloads. I spent two years
-at Ekata refactoring and optimizing a complicated 30,000 SLOC Spark application.
-- Working knowledge of AWS cloud technologies such as S3, EMR, EC2.
-- General knowledge of distributed columnar stores and key-value store databases 
-- Experience working in a dockerized environment and Kubernetes
-- Good knowledge of Airflow
-- Some experience in machine learning
-- Functional programming
+- Apache Spark & Databricks: I spent two years at Ekata refactoring and optimizing a complicated 30,000 SLOC Spark application.
+- AWS cloud: S3, EMR, Redshift.
+- Containerization and microservices using Kubernetes
+- Apache Airflow
+- JVM languages  (Java, Scala, Kotlin & Groovy)
+- Python 3, Node.js, Bash/Linux
+- git, GitHub, CircleCI, Jenkins CI
+- Knowledge in RDBMS and NoSQL technologies
+- Functional programming in Scala, using cats & shapeless
+- Some experience in developing supervised ML pipelines
 - Working in a cross-functional team of data engineers and data scientists
 
 ## Things I am interested in
@@ -30,8 +32,7 @@ at Ekata refactoring and optimizing a complicated 30,000 SLOC Spark application.
 ## Tech
 Technologies I prefer:
 - Languages: Scala (Dotty 😊), Python, Rust, Javascript
-- Editor: Spacemacs, IntelliJ, Vim
-- Tools: Bash, Jenkins, Docker, Kubernetes
+- Cloud platforms: AWS, Azure or GCP
 - Browser: 🔥🦊
 
 I have some knowledge of data analytics toolkits in R (data.table, ggplot, shiny) and Python (numpy, pandas).
