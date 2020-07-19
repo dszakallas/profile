@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: article
 title: Scripting a MIDI controller with Modern JavaScript
 key: 2017-05-20-modern-javascripting-a-midi-controller
 tags:

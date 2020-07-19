@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: article
 title: 'FP Training @ RS: Recursion'
 key: 2016-10-07-fp-training-4
 tags:

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: article
 title: 'Evolving the Fibonacci'
 key: 2016-10-21-evolving-the-fibonacci
 tags:

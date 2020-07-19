@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: article
 title: Migrating LDBC SNB Datagen to Spark
 key: 2020-06-12-speeding-up-ldbc-snb-datagen
 tags:

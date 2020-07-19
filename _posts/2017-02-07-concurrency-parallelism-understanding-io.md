@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: article
 title: 'Concurrency & Parallelism: Understanding I/O'
 key: 2017-02-07-concurrency-parallelism-understanding-io
 tags:

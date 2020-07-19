@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: article
 title: 'Type variance explained'
 key: 2016-06-19-type-variance-explained
 tags:

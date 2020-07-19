@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: article
 title: 'Curious logging activity'
 key: 2016-09-16-curious-logging-activity
 tags:
