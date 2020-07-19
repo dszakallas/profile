@@ -68,15 +68,15 @@ correct results, you are solving a concurrency problem.
 
 Take a look at this diagram:
 
-![Tasks with dependencies](/assets/2017-02-07-concurrency-parallelism-understanding-io/ex1_dd.png)
+![Tasks with dependencies](/static/2017-02-07-concurrency-parallelism-understanding-io/ex1_dd.png)
 
 It shows a data flow with input and output dependencies. Here tasks 2, 3, 4 can
 run concurrently after 1. There is no specific other between them, so we have
 multiple alternatives for running it sequentially. Showing only two of them:
 
-![12345](/assets/2017-02-07-concurrency-parallelism-understanding-io/ex1_st.png)
+![12345](/static/2017-02-07-concurrency-parallelism-understanding-io/ex1_st.png)
 
-![13245](/assets/2017-02-07-concurrency-parallelism-understanding-io/ex1_st_alt.png)
+![13245](/static/2017-02-07-concurrency-parallelism-understanding-io/ex1_st_alt.png)
 
 Alternatively these tasks can run in parallel, e.g. on another processor
 core, another processor, or a completely separate computer. On these
@@ -86,7 +86,7 @@ you run a multithreaded webserver with dedicated threads for hundreds of
 connections?
 
 
-![13245](/assets/2017-02-07-concurrency-parallelism-understanding-io/ex1_mt.png)
+![13245](/static/2017-02-07-concurrency-parallelism-understanding-io/ex1_mt.png)
 
 It's not rocket science, but what I wanted to show on these diagrams is that
 running concurrent tasks in parallel can reduce the overall computation time.
@@ -117,7 +117,7 @@ These require the operating system kernel to run tasks in an interleaved manner,
 referred to as *time-sharing*. This is a very important property of modern
 operating systems. Let's see the basics of this.
 
-[dataflow]: (/assets/2017-02-07-concurrency-parallelism-understanding-io/ex1_dd.png)
+[dataflow]: (/static/2017-02-07-concurrency-parallelism-understanding-io/ex1_dd.png)
 
 ## Processes and threads
 
@@ -146,7 +146,7 @@ the operating system and scheduled by the kernel, which distinguishes them from
 user-space threads, also called *green threads*, which are scheduled by some
 user space scheduler such as a library or VM.
 
-![Process and threads](/assets/2017-02-07-concurrency-parallelism-understanding-io/kernel_proc_thread.png)
+![Process and threads](/static/2017-02-07-concurrency-parallelism-understanding-io/kernel_proc_thread.png)
 
 Most desktop and server operating system kernels use preemptive schedulers, as
 does the Linux, macOS and Windows kernel. We can assume that threads are
@@ -219,7 +219,7 @@ apartment. This is how it is done with different types of I/O:
 
 --------------------------------------------------------------------------------
 
-![Illustration for synchronous blocking I/O](/assets/2017-02-07-concurrency-parallelism-understanding-io/sync_blocking.png)
+![Illustration for synchronous blocking I/O](/static/2017-02-07-concurrency-parallelism-understanding-io/sync_blocking.png)
 <p>
   <em>
     <b>Synchronous, blocking I/O</b>: Start to move right away, possibly got
@@ -229,7 +229,7 @@ apartment. This is how it is done with different types of I/O:
 </p>
 
 --------------------------------------------------------------------------------
-![Illustration for synchronous non-blocking I/O](/assets/2017-02-07-concurrency-parallelism-understanding-io/sync_nb.png)
+![Illustration for synchronous non-blocking I/O](/static/2017-02-07-concurrency-parallelism-understanding-io/sync_nb.png)
 <p>
   <em>
     <b>Synchronous, non-blocking I/O</b>: Periodically check the road for
@@ -241,7 +241,7 @@ apartment. This is how it is done with different types of I/O:
 </p>
 
 --------------------------------------------------------------------------------
-![Illustration for asynchronous non-blocking I/O](/assets/2017-02-07-concurrency-parallelism-understanding-io/async_nb.png)
+![Illustration for asynchronous non-blocking I/O](/static/2017-02-07-concurrency-parallelism-understanding-io/async_nb.png)
 <p>
   <em>
     <b>Asynchronous, non-blocking I/O</b>: Hire a moving company. They will
@@ -380,7 +380,7 @@ while (!bye) {
 if (close(conn_s) < 0) { /* exit w err */ }
 ```
 
-![animation showing the single threaded server](/assets/2017-02-07-concurrency-parallelism-understanding-io/single.gif)
+![animation showing the single threaded server](/static/2017-02-07-concurrency-parallelism-understanding-io/single.gif)
 
 As you can see on the gif, this server is **not concurrent** at all, it can
 handle only one client at a time. If another client connects, it has to wait
@@ -402,7 +402,7 @@ memcpy(args, &conn_s, sizeof(int));
 pthread_create(&thrd, NULL, &handle_socket, args);
 ```
 
-![animation showing the multi threaded server](/assets/2017-02-07-concurrency-parallelism-understanding-io/multi.gif)
+![animation showing the multi threaded server](/static/2017-02-07-concurrency-parallelism-understanding-io/multi.gif)
 
 This finally enables us to serve multiple clients at the same time. Hurray!
 
@@ -443,7 +443,7 @@ created in one function often has to be available somewhere in it's continuation
 requires manual memory management. I advise you against using libuv directly,
 unless you are well acquainted in C programming.
 
-![animation showing the single threaded server](/assets/2017-02-07-concurrency-parallelism-understanding-io/uv.gif)
+![animation showing the single threaded server](/static/2017-02-07-concurrency-parallelism-understanding-io/uv.gif)
 
 [ex-single]: https://github.com/dszakallas/concurrency-series/tree/master/part_1_basics/echo/single.c
 [ex-multi]: https://github.com/dszakallas/concurrency-series/tree/master/part_1_basics/echo/multi.c

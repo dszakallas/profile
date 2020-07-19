@@ -1,6 +1,7 @@
 theme: jekyll-text-theme
 
 text_skin: default #eg: default | dark | forest | ocean | chocolate | orange
+
 ## Base settings ##
 # url:  #the base hostname & protocol for your site e.g. https://www.someone.com
 baseurl: /
@@ -8,15 +9,10 @@ title: szakallas.eu
 description: > #this means to ignore newlines until "nav_lists:"
   Dávid Szakállas's homepage
 
-nav_lists:
-  - titles:
-      en: About
-    url: /readme/
-
 paths:
   base: /
   home: /
-  archive:  /all/
+  archive: /all/
   rss:  /feed.xml
 
 defaults:
@@ -29,7 +25,7 @@ defaults:
       aside:
         toc: true
       show_edit_on_github: false
-      pageview: true
+      pageview: false
 
 ## GitHub repository (if the site is hosted by GitHub) ##
 repository: dszakallas/profile
