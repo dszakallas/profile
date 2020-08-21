@@ -40,5 +40,4 @@ Here are the talks I gave so far:
 
 ## Other
 - Single page [CV](https://dszakallas.github.io/cv/david_szakallas.pdf)
-- [M.Sc. Thesis](https://dszakallas.github.io/thesis-msc-17/thesis.pdf)
 
