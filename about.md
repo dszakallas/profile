@@ -6,13 +6,13 @@ license: CC-BY-ND-4.0
 key: page-about
 ---
 
-programmer, software & data engineer located in Budapest. I received an M.Sc. degree in 2018 from Budapest University of Technology and Engineering, specializing in fault tolerant systems. Recently, I worked at [Ekata](https://ekata.com/) as a Big Data Engineer.
+programmer, software & data engineer located in Budapest. I received an M.Sc. degree in 2018 from Budapest University of Technology and Engineering, specializing in fault tolerant systems. Currently, I am working at [Hiya](https://hiya.com/) as a Data Engineer.
 
 ## Experience
 
 - Apache Spark, Databricks
-- AWS: Redshift, Athena, Glue, S3
 - Kubernetes
+- AWS: Redshift, Athena, Glue, S3
 - Apache Airflow
 - JVM languages (Scala, Kotlin, Clojure & Groovy)
 - Python 3, Node.js, Bash/Linux
@@ -25,7 +25,7 @@ programmer, software & data engineer located in Budapest. I received an M.Sc. de
 
 ## Things I am interested in
 
-- Privacy of Big Data and Machine Learning
+- Privacy in the age of Big Data and Machine Learning
 - Data security & integrity
 - Incremental stream processing
 
@@ -40,4 +40,3 @@ Here are the talks I gave so far:
 
 ## Other
 - Single page [CV](https://dszakallas.github.io/cv/david_szakallas.pdf)
-
