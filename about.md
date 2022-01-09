@@ -6,31 +6,31 @@ license: CC-BY-ND-4.0
 key: page-about
 ---
 
-programmer, software & data engineer located in Budapest. I received an M.Sc. degree in 2018 from Budapest University of Technology and Engineering, specializing in fault tolerant systems. Currently, I am working at [Hiya](https://hiya.com/) as a Data Engineer.
+programmer, software & data engineer located in Budapest.
 
 ## Experience
 
 - Apache Spark, Databricks
 - Kubernetes
 - AWS: Redshift, Athena, Glue, S3
+- Azure
 - Apache Airflow
 - JVM languages (Scala, Kotlin, Clojure & Groovy)
-- Python 3, Node.js, Bash/Linux
-- git, GitHub, CircleCI, Jenkins CI
-- pandas, numpy, scikit-learn
+- Python 3 
+- Go, Rust, C++ (hobbyist level)
 - Knowledge in RDBMS and NoSQL technologies
 - Functional programming in Scala, using cats & shapeless
 - Some experience in developing supervised ML pipelines
 - Working in a cross-functional team of data engineers and data scientists
 
-## Things I am interested in
+## Interests
 
-- Privacy in the age of Big Data and Machine Learning
-- Data security & integrity
+- Fault tolerant systems
+- Programming languages
+- Security & Privacy
 - Incremental stream processing
 
 ## Public speaking
-Here are the talks I gave so far:
 - Spark Schema for Free
   - Spark + AI Summit Europe 2018 \| Oct 2018, London \| [Video](https://www.youtube.com/watch?v=Km9j2okQFm8) \| [Event Page](https://databricks.com/session/spark-schema-for-free) \| [Slides](/assets/speaking/spark-schema-for-free-spark-summit.pdf)
   - Scala Brinner #2 (in Hungarian) \| Aug 2018, Budapest \| [Event Page](https://www.meetup.com/Scala-Pair-Programming-Breakfast-Budapest/events/253449564/) \| [Slides](/assets/speaking/spark-schema-for-free-meetup.pdf)
@@ -38,5 +38,7 @@ Here are the talks I gave so far:
 - Writing a Cypher query engine in Clojure (feat. Gábor Szárnyas) - 3rd Budapest Clojure Meetup \| Mar 2018, Budapest \| [Event Page](https://www.meetup.com/Budapest-Clojure-User-Group/events/248220424/) \| [Slides](/assets/speaking/sre.pdf)
 - Scripting a MIDI controller with Javascript - Nodebp 2017 August \| Aug 2017, Budapest \| [Event Page](https://www.meetup.com/nodebp/events/242250790/)
 
-## Other
-- Single page [CV](https://dszakallas.github.io/cv/david_szakallas.pdf)
+## Links
+
+- [CV PDF](https://dszakallas.github.io/cv/david_szakallas.pdf)
+- [PGP](/id.asc)

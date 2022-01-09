@@ -1,8 +1,8 @@
 header:
   - titles:
-      en: About
+      en: Profile
     url: /about/
   - titles:
-      en: Archive
+      en: Posts
     url: /all/ 
 
