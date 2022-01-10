@@ -7,6 +7,7 @@ const open = require('fs/promises').open
 const readFile = require('fs/promises').readFile
 const path = require('path')
 const eachLimit = require('async/eachLimit')
+const mime = require('mime/lite')
 
 async function main() { 
   if (process.argv.length != 5) {
@@ -23,7 +24,7 @@ async function main() {
   await eachLimit(object_list, 4, async function(object) {
     const fd = await open(path.join(src, object));
     const stream = fd.createReadStream()
-    await upload({ Bucket: bucket, Key: object, Body: stream })
+    await upload({ Bucket: bucket, Key: object, Body: stream, ContentType: mime.getType(object) })
     console.error(`synced ${object}`)
   })
 }
