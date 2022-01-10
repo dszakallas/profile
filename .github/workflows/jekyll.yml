@@ -7,15 +7,16 @@ on:
     branches: [ master ]
 
 jobs:
-  env:
-    DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
-    BUCKET_NAME: "szakallas.eu"
-    AWS_REGION: "us-east-1"
-    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    EARTHLY_CI: 1
   build:
-    runs-on: earthly/earthly:v0.6.2
+    runs-on: ubuntu-latest
+    container: earthly/earthly:v0.6.2
+    env:
+      DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
+      BUCKET_NAME: "szakallas.eu"
+      AWS_REGION: "us-east-1"
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      EARTHLY_CI: 1
     steps:
     - uses: actions/checkout@v2
     - name: Build the site
