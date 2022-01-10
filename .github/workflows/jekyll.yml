@@ -22,6 +22,6 @@ jobs:
     - name: Build the site
       run: earthly +site
     - name: Upload site to S3
-      run: earthly --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +upload-to-s3 --BUCKET_NAME="szakallas.eu" --AWS_REGION=${AWS_REGION}
+      run: earthly --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +upload-to-s3 --BUCKET_NAME="szakallas.eu"
     - name: Invalidate CloudFront cache
-      run: earthly --secret DISTRIBUTION --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +invalidate-cf --AWS_REGION=${AWS_REGION}
+      run: earthly --secret DISTRIBUTION --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +invalidate-cf --BUCKET_NAME="szakallas.eu"
