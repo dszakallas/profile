@@ -42,9 +42,3 @@ invalidate-cf:
         --secret AWS_SECRET_ACCESS_KEY \
         --secret DISTRIBUTION \
         npm run --silent invalidate-cf -- updates.json
-
-    
-  
-    
-
-    
