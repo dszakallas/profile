@@ -7,28 +7,20 @@ on:
     branches: [ master ]
 
 jobs:
+  env:
+    DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
+    BUCKET_NAME: "szakallas.eu"
+    AWS_REGION: "us-east-1"
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    EARTHLY_CI: 1
   build:
-
-    runs-on: ubuntu-latest
-
+    runs-on: earthly/earthly:v0.6.2
     steps:
     - uses: actions/checkout@v2
-    - name: Build the site in the jekyll/builder container
-      run: |
-        docker run \
-        -v ${{ github.workspace }}:/srv/jekyll -v ${{ github.workspace }}/_site:/srv/jekyll/_site \
-        jekyll/builder:4.0 /bin/bash -c "chmod 777 /srv/jekyll && jekyll build --future"
-    - uses: jakejarvis/s3-sync-action@master
-      env:
-        AWS_S3_BUCKET: 'szakallas.eu'
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        SOURCE_DIR: '${{ github.workspace }}/_site'
-    - name: Invalidate CloudFront
-      uses: chetan/invalidate-cloudfront-action@v2
-      env:
-        DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
-        PATHS: "/*"
-        AWS_REGION: "us-east-1"
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - name: Build the site
+      run: earthly +site
+    - name: Upload site to S3
+      run: earthly --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +upload-to-s3 --BUCKET_NAME="szakallas.eu" --AWS_REGION=${AWS_REGION}
+    - name: Invalidate CloudFront cache
+      run: earthly --secret DISTRIBUTION --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +invalidate-cf --AWS_REGION=${AWS_REGION}
