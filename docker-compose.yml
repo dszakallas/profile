@@ -3,8 +3,8 @@ services:
   profile:
     build: .
     volumes:
-      - src:/srv/jekyll
+      - ./src:/srv/jekyll
     ports:
       - 4000:4000
       - 35729:35729
-    command: "jekyll serve --incremental"
+    command: "jekyll serve --incremental -l --livereload-port 35729"
