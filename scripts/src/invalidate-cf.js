@@ -12,6 +12,7 @@ async function main() {
   }
   if (process.argv.length != 3) {
     console.error("usage: invalidate-cf file_list")
+    process.exit(1)
   }
   const distribution = process.env.DISTRIBUTION
   const cf = new AWS.CloudFront()
