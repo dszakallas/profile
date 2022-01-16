@@ -7,4 +7,4 @@ services:
     ports:
       - 4000:4000
       - 35729:35729
-    command: "jekyll serve --incremental -l --livereload-port 35729"
+    command: "jekyll serve --future --incremental -l --livereload-port 35729"
