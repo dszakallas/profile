@@ -6,7 +6,7 @@ deps:
 site:
     FROM +deps
     COPY src /srv/jekyll
-    RUN jekyll build --future
+    RUN jekyll build
     SAVE ARTIFACT ./_site AS LOCAL src/_site
 
 scripts:
