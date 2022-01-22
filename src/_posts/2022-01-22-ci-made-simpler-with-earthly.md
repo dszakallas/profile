@@ -16,7 +16,7 @@ Building applications in containers has well-known benefits. Encapsulating the w
 that consist of several long-running steps, incremental builds become unavoidable. Extending containerization to all CI jobs can simplify CI configuration and can lead to more portable builds, while enjoying the caching opportunities BuildKit provides.
 
 Currently however, containerized builds are mainly used for the purpose of packaging the application for deployment, which is only a part of an ordinary CI workflow; tests, static checks, and other 
-development related tasks are often left uncontainerized; build processes are often complicated by the use of different tools when executed on the developer's machine or CI; and rely on CI platform features for efficient caching. This post shows how a platform-independent unified build system called Earthly can improve this situation.
+development related tasks are often left uncontainerized; build processes are often complicated by the use of different tools when executed on the developer's machine or CI; and rely on CI platform features for efficient caching. This post shows how a platform-independent unified build system called Earthly can improve upon this situation.
 
 ## Build on every platform
 
@@ -277,6 +277,8 @@ build-step2:
     RUN echo $(expr $(cat step1) - 1) > step2
     SAVE ARTIFACT step2 AS LOCAL build/step2
 ```
+
+The exploration of using volume based caching in conjunction with this example is left to the interested reader.
 
 ## Wrapping up
 
