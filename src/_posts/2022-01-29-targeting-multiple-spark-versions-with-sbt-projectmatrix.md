@@ -8,29 +8,30 @@ tags:
   - sbt
 ---
 
-# Introduction
+## Introduction
 
-I was recently involved in projects that had to target multiple Spark versions. One of them is LDBC SNB Datagen which targeted Spark 2 and Spark 3 for a while; the other one an internal ETL library that had to run on Spark 3.0 as well as Spark 2.4. As a major release, Spark 3 introduced breaking changes, especially for internal use interfaces, on which we depended in a few cases. Additionally, Scala 2.12 support has finally arrived, so cross-compilation became important. In this blogpost, I am going to show how [`sbt-projectmatrix`](https://github.com/sbt/sbt-projectmatrix) can be utilized for this purpose.
+I was recently involved in projects that had to work on multiple Spark versions. One of them is an open-source project that targeted Spark 2 and Spark 3 for a while; the other one an internal ETL library that the team migrated to Spark 3 but also had to support Spark 2 for a longer period of time due to external constraints. Spark 3.0.0 finally ditched the archaic Scala 2.11, making it necessary to cross-compile the library for multiple Scala versions. While almost perfectly source-compatible, the introduction of Spark 3 also broke the code a few places where we depended on internals. Moreover, some libraries don't have an overlapping version range with both Scala 2.11 and Scala 2.12 support, requiring us to use separate versions of these libraries. In this blogpost, I am going to show how [`sbt-projectmatrix`](https://github.com/sbt/sbt-projectmatrix) can be utilized for cross-compilation with possibly different set of dependencies and platform dependent shims.
 
-# Project skeleton
-The goal is to have a separate assembly jar for the following Spark/Scala combinations:
+Disclaimer: `sbt-projectmatrix` is experimental at the time of writing this article.
+
+## Project skeleton
+I am going to create a separate assembly jar for the following combos:
 
 - Spark 2.4 / Scala 2.11
 - Spark 3.1 / Scala 2.12
 - Spark 3.2 / Scala 2.12
 - Spark 3.2 / Scala 2.13
 
-Scala 2.13 is the first Scala version to add support for Java 11 target, which is also supperted by Spark 3.2, so we compile the last target to JVM 11. All others are compiled to Java 8.
+Scala 2.13 is the first version to support compiling to Java 11, which is also supported by Spark 3.2. This makes it possible to experiment with Java 11 in the last combo. All others are compiled to Java 8.
 
-I start by creating a project and adding `sbt-projectmatrix` as a plugin.  
+I start by creating a project and adding `sbt-projectmatrix` as a plugin.
 
 `project/plugins.sbt`:
 ```scala
 addSbtPlugin("com.eed3si9n" % "sbt-projectmatrix" % "0.9.0")
 ```
 
-`sbt-projectmatrix` works by creating subprojects for each combination. Each subproject can have a different set of settings, source, dependencies, etc. I start by adding a subproject to contain
-the main, platform independent code. Using the root at `file(".")` will not work, so I create subproject with the same name is the project itself. 
+`sbt-projectmatrix` works by creating subprojects for each combination. Each subproject may have different settings, sources, dependencies, etc. Let's create the subproject matrix with the same name as the project itself. 
 
 `build.sbt`:
 ```scala
@@ -49,9 +50,9 @@ lazy val `spark-matrix-example` = (projectMatrix in file("spark-matrix-example")
   .settings(commonSettings: _*)
 ```
 
-Notice the use of `projectMatrix` instead of `project` on the penultimate line. This way we configure a [ProjectMatrix](https://github.com/sbt/sbt-projectmatrix/blob/v0.9.0/src/main/scala/sbt/internal/ProjectMatrix.scala#L26) instead of a `Project`.
+Notice the use of `projectMatrix` instead of `project` on the penultimate line. This way we configure a [ProjectMatrix](https://github.com/sbt/sbt-projectmatrix/blob/v0.9.0/src/main/scala/sbt/internal/ProjectMatrix.scala#L26) instead of a `Project`. Also, using `file(".")` wouldn't work because the matrix contained multiple subprojects after matrix rows had been added.
 
-To target different Spark versions, we have to create a `VirtualAxis`. The targeted Spark versions become the axis values (rows). Let's put the source in `project/Build.scala`:
+To target different Spark versions, we have to create a `VirtualAxis` for it. The targeted Spark versions will be the axis values (rows). Let's put the source in `project/Build.scala`:
 
 ```scala
 case class SparkVersionAxis(sparkVersion: String) extends sbt.VirtualAxis.WeakAxis {
@@ -61,33 +62,32 @@ case class SparkVersionAxis(sparkVersion: String) extends sbt.VirtualAxis.WeakAx
 }
 ```
 
-The plugin offers two flavors of `VirtualAxis`: `StrongAxis` and `WeakAxis`, the latter is basically nullable, i.e. allows us to depend on a subproject which does not specify a Spark version. This is handy if we want to depend on a common utility module with no Spark dependencies.
-`directorySuffix` and `idSuffix` govern the name of the row-specific source directory name and module name respectively. We include only the first two components of the Spark version.
+The plugin offers two flavors of `VirtualAxis`: `StrongAxis` and `WeakAxis`. the latter is basically nullable, i.e. allows us to depend on a subproject which does not specify a Spark version. This is handy if we have modules with no Spark dependencies (e.g common utils, business logic). `directorySuffix` and `idSuffix` govern the name of the row-specific source directory name and the module name respectively. We include only the first two components of the Spark version, that should be enough to determine compatibility.
 
-We can add the axis rows to the matrix with `ProjectMatrix.customRow`. Let's add a basic configuration only for Spark 2.4 to `build.sbt`.
+We can add the axis rows to the matrix with `ProjectMatrix.customRow`. Here's a basic configuration for Spark 2.4 added to `build.sbt`:
 
 ```scala
-lazy val `spark2.4` = SparkVersionAxis("2.4.7")
+lazy val spark24 = SparkVersionAxis("2.4.7")
 
 lazy val `spark-matrix-example` = (projectMatrix in file("spark-matrix-example"))
   .settings(commonSettings: _*)
   .customRow(
     scalaVersions = Seq("2.11.12"),
-    axisValues = Seq(`spark2.4`, VirtualAxis.jvm),
+    axisValues = Seq(spark24, VirtualAxis.jvm),
     _.settings(
-      moduleName := name.value + `spark2.4`.directorySuffix,
+      moduleName := name.value + spark24.directorySuffix,
       libraryDependencies ++= Seq(
-        "org.apache.spark" %% s"spark-core" % `spark2.4`.sparkVersion % Provided,
-        "org.apache.spark" %% s"spark-sql" % `spark2.4`.sparkVersion % Provided,
-        "org.apache.spark" %% s"spark-hive" % `spark2.4`.sparkVersion % Provided
+        "org.apache.spark" %% s"spark-core" % spark24.sparkVersion % Provided,
+        "org.apache.spark" %% s"spark-sql" % spark24.sparkVersion % Provided,
+        "org.apache.spark" %% s"spark-hive" % spark24.sparkVersion % Provided
       )
     )
   )
 ```
 
-Sources under `src/main` and  `src/test` are shared, so they should compile for all Spark / Scala versions. Let's add a test to assert that it works.
+Sources under `src/main` and  `src/test` are shared across rows, i.e. they should compile for all Spark / Scala versions. This is where the majority of the code should live. Let's add a test to assert that the configuration works so far.
 
-`spark-matrix-example/src/test/scala/eu/szakallas/SparkExampleSpec.scala`
+`spark-matrix-example/src/test/scala/eu/szakallas/SparkExampleSpec.scala`:
 ```scala
 package eu.szakallas
 
@@ -97,7 +97,6 @@ import matchers._
 import org.apache.spark.sql.SparkSession
 
 class SparkExampleSpec extends AnyFlatSpec with should.Matchers {
-
   lazy val spark = SparkSession.builder
     .appName("SparkMatrixExample")
     .master("local[*]")
@@ -117,9 +116,9 @@ Running `sbt test` should print:
 [info] - should work on Spark 2.4.7 / Scala 2.11.12
 ```
 
-# Multiple rows
+## Multiple rows
 
-Time to add the other Spark versions. We can do that by chaining all of them with `customRow`. However let's refactoring by extracting some common configuration into an extension method.
+Time to add the other Spark versions. We can do that by chaining all of them with `customRow`. However let's remove some of the duplication by extracting the common configuration to an extension method.
 
 `project/Build.scala`
 ```scala
@@ -140,9 +139,15 @@ object SparkVersionAxis {
     "org.apache.spark" %% s"spark-${module}" % version % Provided
   }
 
-  private def isJvm11Compat(axes: Seq[VirtualAxis]) = {
+  def isScala2_13(axes: Seq[VirtualAxis]) = {
     axes.collectFirst{ case ScalaVersionAxis(_, scalaVersionCompat) => scalaVersionCompat }.map(_ == "2.13").getOrElse(true)
   }
+
+  def isSpark2_4(axes: Seq[VirtualAxis]) = {
+    axes.collectFirst{ case v@SparkVersionAxis(_) => v.sparkVersionCompat }.map(_ == "2.4").getOrElse(false)
+  }
+
+  private val classVersion = System.getProperty("java.class.version").toFloat
 
   implicit class ProjectExtension(val p: ProjectMatrix) extends AnyVal {
     def sparkRow(sparkAxis: SparkVersionAxis, scalaVersions: Seq[String], settings: Def.SettingsDefinition*): ProjectMatrix =
@@ -153,8 +158,18 @@ object SparkVersionAxis {
           .settings(
             moduleName := name.value + sparkAxis.directorySuffix,
             libraryDependencies ++= sparkDeps(sparkAxis.sparkVersion, Seq("core", "sql", "hive")),
+
             scalacOptions += {
-              if (isJvm11Compat(virtualAxes.value)) "-target:jvm-11" else "-target:jvm-1.8"
+              if (isScala2_13(virtualAxes.value)) {
+                "-target:jvm-11"
+              } else {
+                "-target:jvm-1.8"
+              }
+            },
+            Test / test := {
+              if (!(isScala2_13(virtualAxes.value) && classVersion < 55) &&
+                    !(isSpark2_4(virtualAxes.value) && classVersion > 52))
+                (Test / test).value
             }
           )
           .settings(settings: _*)
@@ -181,9 +196,10 @@ lazy val `spark-matrix-example` = (projectMatrix in file("spark-matrix-example")
 [info] 	  spark-matrix-example_spark3_22_12
 ```
 
-and `sbt test` should run the test in all subprojects.
+However, when running the tests we face problems. To be able to run all tests, we should be running on at least Java 11 (as the last combo targets that version (bytecode version 55)).
+However, the bytecode parser used by Spark 2.4 when serializing the lambdas for the executors is not compatible with that. That is, when running on Java 8 `Test / spark-matrix-example_spark3_2 / test`, while when running on Java 11 `Test / spark-matrix-example_spark2_42_11` is going to fail. As a workaround, I ignored the tests on incompatible platforms by overriding the `Test / test` task of the subprojects. Automating the tests to run on different JVMs are left to the interested reader.
 
-# Adding a shim
+## Adding a shim
 While Spark is quite conservative regarding public API changes, we can run into source compatibility issues if we depend on internal stuff. For example, `SerializableConfiguration` helper, used for passing a `HadoopConfiguration` to the executors, is private in Spark 2.4, causing this example to emit a compile-time error:
 
 ```scala
@@ -197,7 +213,6 @@ import org.apache.spark.util.SerializableConfiguration
 import Inspectors._
 
 class SparkExampleSpec extends AnyFlatSpec with should.Matchers {
-
   lazy val spark = SparkSession.builder
     .appName("SparkMatrixExample")
     .master("local[*]")
@@ -207,25 +222,22 @@ class SparkExampleSpec extends AnyFlatSpec with should.Matchers {
     val hadoopConf = spark.sparkContext.hadoopConfiguration
     hadoopConf.set("mykey", "myvalue")
     val serializableConf = new SerializableConfiguration(hadoopConf)
-
     val results: Array[Boolean] = spark.sparkContext
       .parallelize(1 until 10)
       .map { _ => serializableConf.value.get("mykey") == "myvalue" }
       .collect()
-
     forAll (results) { _ shouldBe true }
   }
 }
 ```
 
-The implementation is only a few lines. We can add a shim which is only included for the Spark 2.4 target.
+The implementation is only a few lines. We can add a shim only to be included in the Spark 2.4 target.
 
 `spark-matrix-example/src/main/scala-spark2.4-jvm/org/apache/spark/util/SerializableConfiguration`:
 ```scala
 package org.apache.spark.util
 
 import java.io.{ObjectInputStream, ObjectOutputStream}
-
 import org.apache.hadoop.conf.Configuration
 
 class SerializableConfiguration(@transient var value: Configuration) extends Serializable {
@@ -233,29 +245,88 @@ class SerializableConfiguration(@transient var value: Configuration) extends Ser
     out.defaultWriteObject()
     value.write(out)
   }
-
   private def readObject(in: ObjectInputStream): Unit = Utils.tryOrIOException {
     value = new Configuration(false)
     value.readFields(in)
   }
 }
 ```
-Notice that the file is placed in to `scala-spark2.4-jvm`, not `scala`. This way the file is only included for the Spark 2.4 target. While including for all versions wouldn't cause any issues in this case it is better to only have it where needed. 
+Notice that the file is placed in to `scala-spark2.4-jvm`, not `scala`. This way the file is only included for the Spark 2.4 target. Including in all versions wouldn't cause any issues in this particular case, there are instances where this is unavoidable. 
 
+## Different dependencies
 
+We can add different dependencies to the subprojects, as demonstrated here with `com.audienceproject:spark-dynamodb`. Note that the library does not support Scala 2.13 at the time of writing this article, so I excluded it from one of the subprojects, to show it is done in this hypothetical scenario. IRL, of course we either have to wait for the authors to publish it, or contribute ourselves.
 
+```scala
 
-# Packaging
+val Spark2DynamoDB = "com.audienceproject" %% "spark-dynamodb" % "1.0.4"
 
-I also add `sbt-assembly` as packaging an uberjar is the easiest way to submit an app to Spark.
+val Spark3DynamoDB = "com.audienceproject" %% "spark-dynamodb" % "1.1.2" excludeAll (
+  ExclusionRule("com.fasterxml.jackson.core")
+)
 
+val `spark-matrix-example` = (projectMatrix in file("spark-matrix-example"))
+  .settings(commonSettings: _*)
+  .sparkRow(SparkVersionAxis("2.4.7"),
+            scalaVersions = Seq("2.11.12"),
+            settings = Seq(
+              libraryDependencies ++= Seq(Spark2DynamoDB)
+            )
+  )
+  .sparkRow(SparkVersionAxis("3.1.2"),
+            scalaVersions = Seq("2.12.12"),
+            settings = Seq(
+              libraryDependencies ++= Seq(Spark3DynamoDB)
+            )
+  )
+  .sparkRow(SparkVersionAxis("3.2.0"),
+            scalaVersions = Seq("2.12.12", "2.13.6"),
+            settings = Seq(
+              libraryDependencies ++= { if (!isScala2_13(virtualAxes.value)) Seq(Spark3DynamoDB) else Seq() }
+            )
+  )
+```
 
+## Packaging
+
+Using an uberjar is the easiest way to submit an app to Spark. The `sbt-assembly` plugin adds this functionality and works more or less out of the box. Add to `project/plugins.sbt`:
+```
 addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.15.0")
+```
 
+By running `sbt assembly`, all subprojects' artifacts are created. One thing I didn't quite like is their names, i.e 
 
-  assembly / assemblyMergeStrategy := {
-    case PathList("META-INF", "MANIFEST.MF") => MergeStrategy.discard
-    case x =>
-      val oldStrategy = (assembly / assemblyMergeStrategy).value
-      oldStrategy(x)
+```
+spark-matrix-example/target/spark2.4-jvm-2.11/spark-matrix-example-assembly-0.0.1-SNAPSHOT.jar
+spark-matrix-example/target/spark3.1-jvm-2.12/spark-matrix-example-assembly-0.0.1-SNAPSHOT.jar
+spark-matrix-example/target/spark3.2-jvm-2.12/spark-matrix-example-assembly-0.0.1-SNAPSHOT.jar
+spark-matrix-example/target/spark3.2-jvm-2.13/spark-matrix-example-assembly-0.0.1-SNAPSHOT.jar
+```
+
+It would be better if the names contained the axis coordinates. We can add those by customizing `assemblyJarName` in `build.sbt`:
+
+```scala
+val commonSettings = Seq(
+  version := "0.0.1-SNAPSHOT",
+  libraryDependencies ++= Seq(
+    "org.scalatest" %% "scalatest" % "3.1.0" % Test,
+  ),
+  assembly / assemblyJarName := {
+    { moduleName.value + "_" + scalaBinaryVersion.value + "-" + version.value + ".assembly.jar" }
   }
+)
+```
+This produces the following results:
+
+```
+spark-matrix-example/target/spark2.4-jvm-2.11/spark-matrix-example-spark2.4_2.11-0.0.1-SNAPSHOT.assembly.jar
+spark-matrix-example/target/spark3.1-jvm-2.12/spark-matrix-example-spark3.1_2.12-0.0.1-SNAPSHOT.assembly.jar
+spark-matrix-example/target/spark3.2-jvm-2.12/spark-matrix-example-spark3.2_2.12-0.0.1-SNAPSHOT.assembly.jar
+spark-matrix-example/target/spark3.2-jvm-2.13/spark-matrix-example-spark3.2_2.13-0.0.1-SNAPSHOT.assembly.jar
+```
+
+Now we can upload the assembly JARs to a blob storage, etc. without name clashes. 
+
+## Final words
+
+`sbt-projectmatrix` is an experimental sbt plugin, but can prove very useful when targeting multiple Spark versions, as it comes with challenges more lightweight approaches cannot handle. The project files accompanying this blogpost can be found at [https://github.com/dszakallas/spark-matrix-example](https://github.com/dszakallas/spark-matrix-example) to make it easier to try out.
