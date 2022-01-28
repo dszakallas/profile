@@ -51,7 +51,7 @@ lazy val `spark-matrix-example` = (projectMatrix in file("spark-matrix-example")
   .settings(commonSettings: _*)
 ```
 
-Notice the use of `projectMatrix` instead of `project` in the last statement. This way we configure a [ProjectMatrix](https://github.com/sbt/sbt-projectmatrix/blob/v0.9.0/src/main/scala/sbt/internal/ProjectMatrix.scala#L26) instead of a `Project`. Also, using `file(".")` wouldn't work because the matrix contained multiple subprojects after adding rows to it.
+Notice the use of `projectMatrix` instead of `project` in the last statement. Also, using `file(".")` wouldn't work because the matrix contained multiple subprojects after adding rows to it.
 
 To target different Spark versions, we have to create a `VirtualAxis` for it. The targeted Spark versions will be the axis values (rows). Let's put the source in `project/Build.scala`:
 
@@ -63,7 +63,7 @@ case class SparkVersionAxis(sparkVersion: String) extends sbt.VirtualAxis.WeakAx
 }
 ```
 
-The plugin offers two flavors of `VirtualAxis`: `StrongAxis` and `WeakAxis`. the latter is basically nullable, i.e. allows us to depend on a subproject which does not specify a Spark version. This is handy if we have subprojects without Spark dependencies (e.g common utils, business logic). `directorySuffix` and `idSuffix` govern the name of the row-specific source directory name and the module name respectively. We include only the first two components of the Spark version, that should be enough to determine compatibility.
+The plugin offers two flavors of `VirtualAxis`: `StrongAxis` and `WeakAxis`. the latter essentially marks it nullable, i.e. allows us to depend on a subproject which does not specify a Spark version. This is handy if we have subprojects without Spark dependencies (e.g common utils, business logic). `directorySuffix` and `idSuffix` govern the name of the row-specific source directory name and the module name respectively. We include only the first two components of the Spark version, that should be enough to determine compatibility.
 
 We can add the axis rows to the matrix with `ProjectMatrix.customRow`. Here's a basic configuration for Spark 2.4 added to `build.sbt`:
 
@@ -199,7 +199,7 @@ lazy val `spark-matrix-example` = (projectMatrix in file("spark-matrix-example")
 To be able to execute all tests, we should be on Java 11 or later, as the last combo targets that version (bytecode version 55) and will fail on Java 8 as it is unable to recognize the bytecode. However, the bytecode toolkit that Spark 2.4 uses when serializing executor procedures is not compatible with Java 11. As a workaround, I ignored the tests on incompatible platforms by overriding the `Test / test` task of the subprojects. Automating the tests to run on different JVMs are left to the interested reader.
 
 ## Adding a shim
-While Spark is quite conservative regarding public API changes, we can run into source compatibility issues if we depend on internals. For example, `SerializableConfiguration` helper, used for passing a `HadoopConfiguration` to the executors, is private in Spark 2.4, causing this example to emit a compile-time error:
+While Spark is quite conservative regarding public API changes, we can run into source compatibility issues if we depend on internals. For example, the `SerializableConfiguration` helper, used for passing a `HadoopConfiguration` to the executors, is private in Spark 2.4, causing this example to emit a compile-time error:
 
 ```scala
 package eu.szakallas
@@ -250,11 +250,11 @@ class SerializableConfiguration(@transient var value: Configuration) extends Ser
   }
 }
 ```
-Notice that the file is placed in to `scala-spark2.4-jvm`, not `scala`. This way the file is only included for the Spark 2.4 target. Including in all versions wouldn't cause any issues in this particular case, there are instances where this is unavoidable. Using this method, we can segregate any platform-dependent source code we encounter. 
+Notice that the file is placed in to `scala-spark2.4-jvm`, not `scala`. This way the file is only included for the Spark 2.4 target. Including in all versions wouldn't cause any issues in this particular case, however there are instances where this is unavoidable. Using this method, we can segregate any platform-dependent source code we encounter. 
 
 ## Different dependencies
 
-We can add different dependencies to the subprojects, as demonstrated here with `com.audienceproject:spark-dynamodb`. Note that the library does not support Scala 2.13 at the time of writing this article, so I excluded it from one of the subprojects, to show it is done in this hypothetical scenario. Of course, in a realy project we either have to wait for the authors to publish it, or contribute ourselves.
+We can add different dependencies to the subprojects, as demonstrated here with `com.audienceproject:spark-dynamodb`. Note that the library does not support Scala 2.13 at the time of writing this article, so I excluded it from one of the subprojects in this hypothetical scenario. Of course, in a real project we either have to wait for the authors to publish it, or contribute ourselves.
 
 ```scala
 
