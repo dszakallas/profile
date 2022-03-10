@@ -25,4 +25,4 @@ jobs:
         key: earthly-build
     - name: Build the site
       run: earthly +site
-    - run: ls -la /var/lib/docker
+    - run: docker volume inspect earthly-cache  
