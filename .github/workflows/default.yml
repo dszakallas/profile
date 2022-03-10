@@ -16,5 +16,12 @@ jobs:
       EARTHLY_CI: 1
     steps:
     - uses: actions/checkout@v2
+    - run: docker volume create earthly-cache
+    - name: Cache 
+      id: cache-primes
+      uses: actions/cache@v2
+      with:
+        path: /var/lib/docker/volumes/earthly-cache
+        key: earthly-build
     - name: Build the site
       run: earthly +site
