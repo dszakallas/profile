@@ -15,6 +15,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       EARTHLY_CI: 1
     steps:
+    - run: docker --version
     - uses: actions/checkout@v2
     - run: docker volume create earthly-cache
     - name: Cache 
