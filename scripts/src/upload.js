@@ -9,7 +9,7 @@ const path = require('path')
 const eachLimit = require('async/eachLimit')
 const mime = require('mime/lite')
 
-async function main() { 
+async function main() {
   if (process.argv.length != 5) {
     console.error("usage: upload file_list src bucket")
     process.exit(1)

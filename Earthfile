@@ -29,12 +29,12 @@ upload-to-s3:
     ARG --required BUCKET_NAME
     FROM +scripts
     COPY +site/_site _site
-    COPY (+updates/updates.json --BUCKET_NAME=$BUCKET_NAME) updates.json 
+    COPY (+updates/updates.json --BUCKET_NAME=$BUCKET_NAME) updates.json
     RUN --secret AWS_ACCESS_KEY_ID \
         --secret AWS_SECRET_ACCESS_KEY \
         npm run --silent upload -- updates.json _site ${BUCKET_NAME}
- 
-invalidate-cf: 
+
+invalidate-cf:
     ARG --required BUCKET_NAME
     FROM +scripts
     COPY (+updates/updates.json --BUCKET_NAME=$BUCKET_NAME) updates.json

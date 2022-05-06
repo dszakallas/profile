@@ -11,12 +11,12 @@ programmer, software & data engineer located in Budapest.
 ## Experience
 
 - Apache Spark, Databricks
-- Kubernetes
+- Kubernetes Administration & Application Development
 - AWS: Redshift, Athena, Glue, S3
 - Azure
 - Apache Airflow
 - JVM languages (Scala, Kotlin, Clojure & Groovy)
-- Python 3 
+- Python 3
 - Go, Rust, C++ (hobbyist level)
 - Knowledge in RDBMS and NoSQL technologies
 - Functional programming in Scala, using cats & shapeless
