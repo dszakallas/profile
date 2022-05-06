@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 'use strict'
 
-
 let s3diff = require('s3-diff')
 
 if (process.argv.length != 4) {
