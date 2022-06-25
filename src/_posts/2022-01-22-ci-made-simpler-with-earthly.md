@@ -9,8 +9,6 @@ tags:
   - DevOps
 ---
 
-## Motivation
-
 Building applications in containers has well-known benefits. Encapsulating the whole build environment in a container removes the possibly lenghty and hardly reproducible process of setting up the build environment; while the smart use of build stages and layers opens up
  opportunities for [caching and parallelism](https://www.gasparevitta.com/posts/advanced-docker-multistage-parallel-build-buildkit/). For builds
 that consist of several long-running steps, incremental builds become unavoidable. Extending containerization to all CI jobs can simplify CI configuration and can lead to more portable builds, while enjoying the caching opportunities BuildKit provides.

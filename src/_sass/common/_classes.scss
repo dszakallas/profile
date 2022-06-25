@@ -22,3 +22,9 @@
   "common/classes/grid"
 ;
 /* stylelint-enable */
+
+.center {
+    display: flex;
+    @include align-items(center);
+    @include justify-content(center);
+}
