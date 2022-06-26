@@ -1,0 +1,85 @@
+==================================================================
+https://keybase.io/david_szakallas
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://szakallas.eu
+  * I am david_szakallas (https://keybase.io/david_szakallas) on keybase.
+  * I have a public key with fingerprint 38F9 8FCE 7CED FA3C 04D9  B6FE 9E63 257F 2A73 97BB
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0101eadcf5bb0b99f2d8de6649532618052731c764515eb62e1f52489f54b4afc87e0a",
+      "fingerprint": "38f98fce7cedfa3c04d9b6fe9e63257f2a7397bb",
+      "host": "keybase.io",
+      "key_id": "9e63257f2a7397bb",
+      "kid": "0101eadcf5bb0b99f2d8de6649532618052731c764515eb62e1f52489f54b4afc87e0a",
+      "uid": "f4de1b8fa320759382a776b28794b519",
+      "username": "david_szakallas"
+    },
+    "merkle_root": {
+      "ctime": 1656235477,
+      "hash_meta": "b88e868144131d54dd7f01586b1cd73b261693c4b63c8bf44dc7f8868856f9eb",
+      "seqno": 22742122
+    },
+    "revoke": {
+      "sig_ids": [
+        "2b21b29fa8e01eb70f852b5da4b38c3e12162d4929049c877933cdc3572ece100f"
+      ]
+    },
+    "service": {
+      "hostname": "szakallas.eu",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1656235483,
+  "expire_in": 157680000,
+  "prev": "64a1de91e894e72d4741495e56d18a744686fa4f6e62a9ab2bb51586d46f187f",
+  "seqno": 4,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+
+owGtk3tsFEUcx4+C8gjFxvC0PZW1BNoU3Jmd3Z09LEEeJVB5CDQQC5wzu7O99a63
+x+3d8SgVUKqCBSEQrbwKloeiEWiroEWooFBEEVCebSGBUFOkYmJMK1RwtgFNjH+6
+/2x29vv7/r6/z8ysTu7s6dYpd8nx7o/XDnuy04lm6qH7B7UXCdQ2Fgi+IiHIOl4s
+ZDAn5g9ahuATRCACRgzdlCkVqaaZ0MAGUxSkyRJUABZlqEpAVxUkA5lRBTJgyhBh
+zZQRRcTUscpEImQJphUuYNFI1ArHuK2ETQ2bOlN1ZphE0kVkaFQxmcYUCcqqCYkq
+aSqlvDBgO24FD0eJw4ZZNl/jH/6OeP+h/59zxzvsTGQwQDGPCkVV1iTMG6oKhVjV
+EJWB5godFg2TQsbVBklYht9ZSIIkFCKOUJwlFLJoMMT8UduOuYz1mOUqgSIrUJKR
+qvI5iRPwF7IY4QYUY4YVDBACEjBkZBiqKQIZKxTohipRPoGiSTqiiqRjaiJk6KqJ
+eQWWFVNjLgaHzQ3bgg9CFUEAIY8QZQk7yNzujlXA8Tm1Lwu+fAFSCCjUTIIZR0ZV
+0cQypLJBEJWwLjEAgQINpEFNRBrHomqSpBu6JKuQ6QyIoinMLnb7RROW3mHv7th9
+En8zGMbiPFQkasds3Q7xP4FYLOL4XDSxBRFXOo9R/30TP7XCBj8vvCLBoo5lhzkq
+rvwXNSxlCWx+xIoyv+UqZFXBIn/cPizBLRVEgME0wLCGmMqHUBHgB4DJigEwURFS
+sGISZCpMgUQjFFK+l5yygRQTYNX8ByPiMUmBO5BVECaxeJQJxT2WJ0ldPJ26ebx9
+B3ZJFj/dWTpKc04qu6oeXLGHktz75enRPeXByjOrUzxb5lyrlANFqavaM1dcrtlQ
+NT9l3u5ZZ8vHkLG/lVyvKC5t29/ia6v+bsfg3kOabvV9yjd5i3/JtXMH4+OP7fL8
++LwWohdTc65stbucjm044Mutr1grNKxJXjjtwqiJj93Jvfhoa+4rTT/IhE32Tnki
+du/A8T1w8J09PfPwzbo3k6qrjeufNRQx79SCjLxDP/WfVJZb1uP7qQ+fXnA1ODD5
+2U9uZGycsIzOuPv0q3dLR+5e/r42d+vKnmJm36R70z+etXemr+d7/VY0zzgTao0f
+qb80uixtQI33y36LzzVn9bo068/Shrm/V4DArbfefqMKj9guOC+1LT1anvZLbZ+V
+3rVX2sojAw6tJ7dHNK+buTRn/OFxlbOLWvfFb2NvQ81r59fcEAqHBPMWH9iWGWgZ
+senSybUVVVb9lsp9JXfP7+18rlFstevaPcPtkV9NmbQoDx5trUkfuj6jSPu217TN
+265b860lVz+k1W0TJk7vF1869bm0ilUDho9Z9NH59Rfa55wu7upsPjN2eFeUcjyR
++GNcamhgw7u1TWezS9oOrzko5gde3FG6rn5bNfq11KlrhAuXfZBeXsX61369I5xR
+dmRkXiLn1Dr/iSstdb3yR39T2cebld8tmF6fiAx95J0XcjbeHNT0efWii9PlM6/f
+BoMrB6VnYuHYzey0lnlk+8FI9piZW8f3Lv658YvsU5c3Xc5uKNk56i8=
+=MC0r
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/david_szakallas
+
+==================================================================
