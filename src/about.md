@@ -49,5 +49,5 @@ programmer, software & data engineer located in Budapest.
 
 ## Links
 
-- [CV PDF](https://dszakallas.github.io/cv/david_szakallas.pdf)
+- [CV](/david_szakallas.pdf)
 - [PGP public key](/david_szakallas.asc)
