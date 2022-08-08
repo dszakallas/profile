@@ -13,10 +13,9 @@ tags:
 Since February we have been working on adopting Kubernetes and cloud-native technologies at [Turbine.ai](https://turbine.ai) for our simulation platform. 
 Part of the job entailed figuring out how to onboard developers who didn't practice DevOps before.
 
-I've worked for couple of companies in the last 7 years. All of them have been using Kubernetes to some degree, and I am proud to add that Turbine.ai adopted it with my lead. It's been quite a journey for me 
-since I first encountered the technology in 2015, not long after securing my first full time role as a software engineer at RisingStack, 
-a company developing a SaaS app monitoring product at the time. Back then, the only major cloud vendor that had a managed public K8s offering was GCP (GKE). 
-It was fresh and pretty much all backend engineers at our company were pretty hyped about migrating to GKE from Heroku.
+I've worked for couple of companies in the last 7 years. All of them have been using Kubernetes to some degree, and the last one, Turbine.ai adopted it with my lead. It's been quite a journey for me 
+since I first encountered the technology in 2015, not long after securing my first full time role as a software engineer at SaaS start-up. 
+Back then, the only major cloud vendor that had a managed public K8s offering was GCP (GKE). It was fresh and pretty much all backend engineers at our company were pretty hyped about migrating to GKE from Heroku.
 
 I later moved on to a role more aligned with my aspiration of working on distributed data processing pipelines with Apache Spark and had little exposure to K8s for
 over a year and a half. My path eventually lead back to the container orchestrator when I started working with the ML team, and deployed workflows. I recall manually installing and upgrading Apache Airflow (which was the only service I operated) with Helm, all from my development laptop. If the templates rendered the release was good to go.
@@ -26,12 +25,12 @@ as teams were using Argo CD to deploy our applications checked into source contr
 a nice GUI, alerts on failures and a unified approach for all applications instead of pile of deployment scripts; what's not to love?
 
 At Turbine.ai, backend developers weren't generally practicing DevOps when I joined, so even a simple configuration change in a web app often involved a sysadmin in the loop. K8s can
-be daunting for such newcomers, as they have to learn how to rebuild their existing applications according to principles aligned with cloud native application development practices
+be daunting for such newcomers, as they have to learn how to rebuild their existing applications according to cloud native application development principles
 such as [12 factor app](https://12factor.net); learn the fundamentals of a complex cluster operating system itself, pick up new tools and infrastructure components, 
 familiarize themselves with the limitations and idiosynchronicities of k8s, etc. Moreover, the [cloud native landscape]([https://landscape.cncf.io])
 is vast and rapidly changing, so the best way to do X might be completely different than it was two years ago.
 
-So, I was confident that we should do GitOps to avoid ending up with a mess, and I convinced the team that we should deliver it as part of the milestone marking k8s general availability for production.
+I was confident that we should do GitOps to avoid ending up with a mess, and I convinced the team that we should deliver it as part of the milestone marking k8s general availability for production. But what is GitOps and how can it help?
 
 # What is GitOps?
 
@@ -50,7 +49,7 @@ Making git the single source of truth for cluster state has many benefits. Witho
 4. simplifies the share and reuse of common configuration patterns (eg. with ordinary file editing / templating tools)
 5. enables the adoption of already existing DevOps/CI practices to infrastructure, such as static validation, tests, manual approvals, automated vulnerability scans, etc
 
-Check out gitops.tech if you would like to learn more.
+This was a minimal introduction, and I will dive into my main topic now, which is comparing Argo CD and Flux, two popular GitOps tools. If you new to GitOps, you'll certainly want to learn more. In this case, I advise you to start out at gitops.tech. You can also find plenty of videos on YouTube on the topic of course.
 
 # GitOps frameworks
 
@@ -71,13 +70,12 @@ The two mainstream open-source GitOps tools for k8s currently are Flux and Argo 
 |maturity|CNCF Incubating Project<br>LF Project<br>[CNCF End User Tech Radar Continuous Delivery, June 2020: Adopt](https://radar.cncf.io/2020-06-continuous-delivery)<br>![GitHub Repo stars](https://img.shields.io/github/stars/fluxcd/flux2?style=for-the-badge) |CNCF Incubating Project<br>LF Project<br>[CNCF End User Tech Radar DevSecOps, September 2021: Adopt](https://radar.cncf.io/2021-09-devsecops)<br>![GitHub Repo stars](https://img.shields.io/github/stars/argoproj/argo-cd?style=for-the-badge)|
 |enterprise offering| [Weave GitOps Enterprise](https://www.weave.works/product/gitops-enterprise/) | [Akuity](https://akuity.io) |
 
-
-Both Flux and Argo CD are immensely popular and have an active community. Flux defines itself as "a set of continuous and progressive delivery solutions for Kubernetes that are open and extensible", 
-whereas Argo CD is "a declarative, GitOps continuous delivery tool for Kubernetes". There's no clear distinction in their mission statement, however they take a different approach and offer a slightly different feature set.
+Both Flux and Argo CD are very popular with an active community. Flux defines itself as "a set of continuous and progressive delivery solutions for Kubernetes that are open and extensible", 
+whereas Argo CD is "a declarative, GitOps continuous delivery tool for Kubernetes". Based exclusively on this, one might claim that there's no clear distinction in their mission statement, however as we dive deeper, we see that they take a different approach and offer a slightly different feature set.
 
 Argo CD is part of [Argo](https://argoproj.github.io), an umbrella project comprising of multiple productivity focused tools, and is currently incubating under the CNCF. Jesse Suen, creator of the Argo project, [told in Kubernetes Podcast #172](https://kubernetespodcast.com/episode/172-argo/) about the origins of Argo CD: "we needed to build a delivery tool for developer teams and we heavily focused on things like the user experience and the UI, and GitOps happened to be the mechanism we chose to do the delivery aspect of it". He claims that Argo CD is more developer-experience-centric, whereas Flux is more operator centric. There has been an attempt to merge the two projects, but in the end the Flux team went with a different approach which became the GitOps Toolkit (Flux2).
 
-Flux predates Argo CD and has been around since 2017. I explore the second major version of Flux, which offers better observability, ease of integrating, composability and extensibility over the first, which is in maintanence mode. Flux 2 is comprised of GitOps Toolkit components, which are k8s operators that reconcile GitOps resources of different kinds. For example, the [source controller](https://fluxcd.io/docs/components/source/) is responsible for synchronizing source repositories, where as the helm controller is responsible for Helm releases. Argo CD is not as modular as Flux, e.g Helm support can't be removed from it.
+Flux predates Argo CD and has been around since 2017. I explore the second major version of Flux, which resolves many shortcomings, offers better observability, ease of integrating, composability and extensibility over the first, which is in maintanence mode. Flux 2 is comprised of GitOps Toolkit components, k8s operators that reconcile GitOps resources of different kinds. For example, the [source controller](https://fluxcd.io/docs/components/source/) is responsible for source repositories, the helm controller - Helm releases, etc. Argo CD is not as modular as Flux, e.g Helm support can't be removed from it.
 
 ## Reconciliation
 
@@ -104,7 +102,7 @@ kustomization/podinfo reconcile.fluxcd.io/requestedAt="$(date +%s)"
 
 It's worth noting that running `flux reconcile` against a suspended resource will __not__ trigger the reconciliation. Requiring a manual edit to the cluster state for this override was [an intentional design choice](https://github.com/fluxcd/flux2/issues/959). Essentially, on-demand, manual synchronization is an imperative action, whereas Flux wants to follow a purely declarative approach, so it doesn't wish to support this through its user interface.
 
-Another way to trigger reconciliation is of course to temporarily `flux unsuspend` the resource. One can argue that this is an imperative action too. However, this argument is flawed as `suspend` has a declaritive setting, so the command effectively edits an in-cluster resource, similarly to e.g `kubectl scale deployment`. Which means it doesn't really violate the 'everything is declarative' principle, however it does damage auditability, since the GitOps state is overriden (until the next reconcilation).
+Another way to trigger reconciliation is to temporarily `flux unsuspend` the resource. One can argue that this is an imperative action too. This argument is flawed since `suspend` has a declaritive setting, so the command effectively edits an in-cluster resource, similarly to e.g `kubectl scale deployment`. Admittedly, this still hurts auditability, since the GitOps state is overriden (at least until the next reconcilation).
 {: .info}
 
 ### Cluster drift reconciliation (Self heal)
@@ -150,7 +148,6 @@ Argo CD sync behavior can be customized with [hooks](https://argo-cd.readthedocs
 #### Flux
 
 Flux doesn't provide hooks in general, but an individual tool might provide their own, e.g Helm hooks. 
-
 
 ### Reconcilation comparison
 
