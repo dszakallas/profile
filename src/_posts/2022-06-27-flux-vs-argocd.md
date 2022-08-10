@@ -1,6 +1,6 @@
 ---
 layout: article
-title: "Comparison: Flux vs ArgoCD" 
+title: "Comparing the two flagship GitOps frameworks: Flux vs ArgoCD" 
 key: 2022-06-27-flux-vs-argocd
 tags:
   - Flux
@@ -161,10 +161,6 @@ Flux doesn't provide hooks in general, but an individual tool might provide thei
 |Selective reconciliation|⛔|✅|
 |Sync hooks|⚠️ Helm support|✅|
 
-
-## User interfaces
-The default Argo CD installation contains a web UI. There's no web UI for Flux.
-
 ## Kustomize
 
 [Kustomize](https://kustomize.io) is a utility for customizing application configuration in a template-free way, and is a core K8s tool shipping with `kubectl`. Both tools support Kustomize.
@@ -294,9 +290,6 @@ This limitation of Flux is bad for apps themselves, as their cluster-state can d
 |Apply Kustomizations to Helm releases|✅|⚠️ Via a custom rendering plugin. See [this example](https://github.com/argoproj/argocd-example-apps/tree/master/plugins/kustomized-helm).|
 
 
-Values file in configmap?
-
-
 ## Notifications
 
 ||Flux|Argo CD|
@@ -306,6 +299,10 @@ Values file in configmap?
 |Templated messages|⛔|✅|
 |Configure alert by lifecycle event type|⛔|✅|
 |Configure alert by resource|✅|✅|
+
+
+## User interfaces
+The default Argo CD installation contains a web UI. There's no web UI for Flux.
 
 
 ## Operations
