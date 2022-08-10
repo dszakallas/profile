@@ -1,6 +1,6 @@
 ---
 layout: article
-title: "Comparing the two flagship GitOps frameworks: Flux vs ArgoCD" 
+title: "Comparing the core features of the flagship GitOps frameworks: Flux vs ArgoCD" 
 key: 2022-06-27-flux-vs-argocd
 tags:
   - Flux
@@ -269,7 +269,7 @@ Similarly to Kustomize, [`dependsOn`](https://fluxcd.io/docs/components/helm/hel
 
 Argo CD provides self healing for Helm releases. Flux [does __not__](https://github.com/fluxcd/flux2/discussions/2812).
 
-This limitation of Flux is bad for apps themselves, as their cluster-state can drift from the definition. However, I think it is even worse when you try to use Helm for managing GitOps resources (in a multi-level hierarchy), because e.g. if someone suspends the reconciliation of an app by adding `suspend: true` to its owning GitOps resource, and this GitOps resource is owned by a `HelmRelease`, the drift will never be corrected in the child, and will linger there indefinitely. This can be problematic as entire hierarchies can drift away. Therefore, __my advice is to use Helm only for leaf GitOps resources__ (i.e those that manage apps), until drift correction is implemented for Helm. 
+This limitation of Flux is problematic enough for apps. However, I think it is even worse when you try to use Helm for managing GitOps resources (in a multi-level hierarchy), because e.g. if someone suspends the reconciliation of an app by adding `suspend: true` to its owning GitOps resource, and this GitOps resource is owned by a `HelmRelease`, the drift will never be corrected in the child, and will linger there indefinitely. This can be problematic as entire hierarchies can drift away. Therefore, __my advice is to use Helm only for leaf GitOps resources__ (i.e those that manage apps), until drift correction is implemented for Helm. 
 {: .warning}
 
 ### Summary
@@ -288,6 +288,10 @@ This limitation of Flux is bad for apps themselves, as their cluster-state can d
 |Helm hooks support|✅|✅|
 |Rollback on failed Helm upgrade|✅|⚠️ Rollback cannot be performed against an application with automated sync enabled.|
 |Apply Kustomizations to Helm releases|✅|⚠️ Via a custom rendering plugin. See [this example](https://github.com/argoproj/argocd-example-apps/tree/master/plugins/kustomized-helm).|
+
+
+### Scaling out
+
 
 
 ## Notifications
