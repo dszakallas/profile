@@ -290,10 +290,6 @@ This limitation of Flux is problematic enough for apps. However, I think it is e
 |Apply Kustomizations to Helm releases|✅|⚠️ Via a custom rendering plugin. See [this example](https://github.com/argoproj/argocd-example-apps/tree/master/plugins/kustomized-helm).|
 
 
-### Scaling out
-
-
-
 ## Notifications
 
 ||Flux|Argo CD|
@@ -303,6 +299,16 @@ This limitation of Flux is problematic enough for apps. However, I think it is e
 |Templated messages|⛔|✅|
 |Configure alert by lifecycle event type|⛔|✅|
 |Configure alert by resource|✅|✅|
+
+
+## Scaling out
+
+As more and more teams begin to use GitOps, appropriate abstractions should be in place to handle a growing installation.
+
+### Hierarchies
+
+
+
 
 
 ## User interfaces
