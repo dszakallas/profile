@@ -209,7 +209,7 @@ Note that currently a Kustomization can't depend on a HelmRelease and vice versa
 
 ||Flux|Argo CD|
 |-|-|-|
-|Configured with CRDs|✅ [Kustomization](https://fluxcd.io/docs/components/kustomize/kustomization/)| ✅ Application, AppProject|
+|Configured with CRDs|✅|✅|
 |Inline configuration in the GitOps resource|✅|⛔|
 |Variable substitution|[✅](https://fluxcd.io/docs/components/kustomize/kustomization/#variable-substitution)|⛔|
 |Automated sync|✅|✅|
@@ -269,14 +269,14 @@ Similarly to Kustomize, [`dependsOn`](https://fluxcd.io/docs/components/helm/hel
 
 Argo CD provides self healing for Helm releases. Flux [does __not__](https://github.com/fluxcd/flux2/discussions/2812).
 
-This limitation of Flux is problematic enough for apps. However, I think it is even worse when you try to use Helm for managing GitOps resources (in a multi-level hierarchy), because e.g. if someone suspends the reconciliation of an app by adding `suspend: true` to its owning GitOps resource, and this GitOps resource is owned by a `HelmRelease`, the drift will never be corrected in the child, and will linger there indefinitely. This can be problematic as entire hierarchies can drift away. Therefore, __my advice is to use Helm only for leaf GitOps resources__ (i.e those that manage apps), until drift correction is implemented for Helm. 
+This limitation of Flux is problematic enough for apps. However, I think it is even worse when you try to use Helm for managing GitOps resources (in a multi-level hierarchy), because e.g. if someone suspends the reconciliation of an app by adding `suspend: true` to its owning GitOps resource, and this GitOps resource is owned by a `HelmRelease`, the drift will never be corrected in the child, and will linger there indefinitely. This can be problematic as entire hierarchies can drift away. Therefore, __my advice is to use Helm only for leaf GitOps resources__ (i.e those that manage apps), until drift correction is implemented for Helm.
 {: .warning}
 
 ### Summary
 
 ||Flux|Argo CD|
 |-|-|-|
-|Configured with CRDs|✅ HelmRelease, HelmChart, HelmRepository| ✅ Application, AppProject|
+|Configured with CRDs|✅|✅|
 |Cluster drift reconciliation (Self heal)|⛔|✅|
 |OTS chart support|✅|⚠️ The OTS chart has to be wrapped in a local chart if you wish to override with values outside the chart|
 |Replace default values.yaml with custom values.yaml(s) shipped __with__ the chart|✅|⚠️ Only for charts hosted in git.|
@@ -303,10 +303,59 @@ This limitation of Flux is problematic enough for apps. However, I think it is e
 
 ## Scaling out
 
-As more and more teams begin to use GitOps, appropriate abstractions should be in place to handle a growing installation.
+As more and more teams begin to use GitOps, appropriate abstractions should be in place to handle the configuration growth.
 
-### Hierarchies
 
+### Recursion
+
+In this context, recursion means applying GitOps techniques to manage GitOps resources. For example, a team that manages multiple applications would like to keep their GitOps resources DRY and extract common configuration with the use of templating or kustomize patches. The most straightforward way to do this
+is to create a parent GitOps resource that uses e.g Kustomize the generate the inferior GitOps configurations.
+
+In Argo CD, this can be achieved using the ['App of Apps pattern'](https://medium.com/dzerolabs/turbocharge-argocd-with-app-of-apps-pattern-and-kustomized-helm-ea4993190e7c), which lets us define an `Application` resource that contains child `Application`s (and `AppProject`s). Argo CD watches the root application as well as synchronizes any application it generates. (By the way, the referenced article also points out how to do Kustomized Helm.) The child apps need not reside in the same cluster as their parent. By using the Apps of Apps pattern we can use the same techniques for generating GitOps resources as app resources, which makes it feasible to template or kustomize `Application`s, so you should definitely you use it to keep your configuration DRY.
+
+In Flux, recursion is a primitive, and doesn't require any special labels. Each GitOps resource defines their own source, target cluster, reconciliation configuration, etc., which makes them loosely coupled and flexible, allowing for wide range of source-control environments.
+
+
+Applications depend on each other, which we should be able to express to some degree. At first iteration, there are infrastructure applications providing core functionalities such as ingress, secret management,
+RBAC, cert management, service mesh, etc. and product applications. Clearly, there's an ordering between them, as product applications depend on infra. This partitioning can be later refined by splitting them into more tiers and relations.
+
+### Permissions and access control
+The need for logically grouping apps arises as they grow in number. It makes sense to organize them based on ownership to simplify permission setup. VCS based permission management can be put into place, e.g.
+[CODEOWNERS](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) can be used to control write permissions based on globs within a monorepo.
+A higher degree of confidentiality can be achieved if each team gets their own repo, as even read can be forbidden for outsiders. The GitOps platform could offer additional primitives for permission management.
+
+Logical grouping can be established with `AppProject`s in Argo CD.
+Using `AppProject` you can specify that an application belongs to a project, which has access-control and permission functionalities:
+- deny access to sources.
+- restrict types of resources to be deployed
+- deny access for users
+- restrict target clusters.
+
+<!-- we need to separate between talking about permissions and generating GitOps templates for DRYness -->
+
+
+### Everything is a CRD
+
+> Get in the ship sweety! GET IN THE GODD*MN SHIP!!! Everything is on cob! The whole planet is on a cob! Go! GO!! GO!!! -- Rick Sanchez, Rick and Morty - S02E10 The Wedding Squanchers
+
+||Flux|Argo CD|
+|-|-|-|
+|Recursion|✅|✅|
+|Own user management system|⛔|✅|
+|Own permission system|⛔|✅|
+|Runtime dependencies|⚠️|⛔|
+|Everything is a CRD|✅|⛔|
+
+
+|OTS chart support|✅|⚠️ The OTS chart has to be wrapped in a local chart if you wish to override with values outside the chart|
+|Replace default values.yaml with custom values.yaml(s) shipped __with__ the chart|✅|⚠️ Only for charts hosted in git.|
+|Inline values in the GitOps resource|✅|⛔ See [issue on GitHub](https://github.com/argoproj/argo-cd/issues/2789) for workarounds.|
+
+
+
+
+### Polyrepo support
+Using polyrepos can help isolating software delivery workflows between teams.
 
 
 
