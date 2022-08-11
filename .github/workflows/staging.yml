@@ -17,6 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the site
-      run: earthly +site --JEKYLL_ARGS "--future"
+      run: earthly +site --JEKYLL_BUILD_ARGS="--future"
     - name: Upload site to S3
-      run: earthly --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +upload-to-s3 --JEKYLL-ARGS="--future" --BUCKET_NAME="szakallas.stg.eu"
+      run: earthly --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +upload-to-s3 --JEKYLL_BUILD_ARGS="--future" --BUCKET_NAME="szakallas.stg.eu"
