@@ -1,7 +1,7 @@
 ---
 layout: article
-title: "Comparing the core features of the flagship GitOps frameworks: Flux vs ArgoCD" 
-key: 2022-06-27-flux-vs-argocd
+title: "Comparing the core features of the flagship GitOps frameworks: Flux vs ArgoCD"
+key: 2022-08-19-flux-vs-argocd
 tags:
   - Flux
   - ArgoCD
