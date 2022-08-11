@@ -7,6 +7,8 @@ site:
     FROM +deps
     COPY src /srv/jekyll
     ARG JEKYLL_BUILD_ARGS
+    ARG JEKYLL_ENV
+    ENV JEKYLL_ENV=$JEKYLL_ENV
     RUN jekyll build ${JEKYLL_BUILD_ARGS}
     SAVE ARTIFACT ./_site AS LOCAL src/_site
 
@@ -21,7 +23,8 @@ updates:
     ARG --required BUCKET_NAME
     FROM +scripts
     ARG JEKYLL_BUILD_ARGS
-    COPY (+site/_site --JEKYLL_BUILD_ARGS=${JEKYLL_BUILD_ARGS}) _site
+    ARG JEKYLL_ENV
+    COPY (+site/_site --JEKYLL_BUILD_ARGS=$JEKYLL_BUILD_ARGS --JEKYLL_ENV=$JEKYLL_ENV) _site
     RUN --secret AWS_ACCESS_KEY_ID \
         --secret AWS_SECRET_ACCESS_KEY \
         npm run --silent updates -- _site ${BUCKET_NAME} > updates.json
@@ -31,7 +34,8 @@ upload-to-s3:
     ARG --required BUCKET_NAME
     FROM +scripts
     ARG JEKYLL_BUILD_ARGS
-    COPY (+site/_site --JEKYLL_BUILD_ARGS=${JEKYLL_BUILD_ARGS}) _site
+    ARG JEKYLL_ENV
+    COPY (+site/_site --JEKYLL_BUILD_ARGS=$JEKYLL_BUILD_ARGS --JEKYLL_ENV=$JEKYLL_ENV) _site
     COPY (+updates/updates.json --BUCKET_NAME=$BUCKET_NAME) updates.json
     RUN --secret AWS_ACCESS_KEY_ID \
         --secret AWS_SECRET_ACCESS_KEY \
@@ -41,7 +45,8 @@ invalidate-cf:
     ARG --required BUCKET_NAME
     FROM +scripts
     ARG JEKYLL_BUILD_ARGS
-    COPY (+updates/updates.json --JEKYLL_BUILD_ARGS=${JEKYLL_BUILD_ARGS} --BUCKET_NAME=$BUCKET_NAME) updates.json
+    ARG JEKYLL_ENV
+    COPY (+updates/updates.json --JEKYLL_BUILD_ARGS=$JEKYLL_BUILD_ARGS --JEKYLL_ENV=$JEKYLL_ENV --BUCKET_NAME=$BUCKET_NAME) updates.json
     RUN --secret AWS_ACCESS_KEY_ID \
         --secret AWS_SECRET_ACCESS_KEY \
         --secret DISTRIBUTION \

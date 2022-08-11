@@ -18,8 +18,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the site
-      run: earthly +site
+      run: earthly +site --JEKYLL_ENV=production
     - name: Upload site to S3
-      run: earthly --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +upload-to-s3 --BUCKET_NAME="szakallas.eu"
+      run: earthly --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +upload-to-s3 --JEKYLL_ENV=production --BUCKET_NAME=$BUCKET_NAME
     - name: Invalidate CloudFront cache
-      run: earthly --secret DISTRIBUTION --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +invalidate-cf --BUCKET_NAME="szakallas.eu"
+      run: earthly --secret DISTRIBUTION --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +invalidate-cf --BUCKET_NAME=$BUCKET_NAME
