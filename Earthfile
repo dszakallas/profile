@@ -9,6 +9,12 @@ site:
     RUN jekyll build
     SAVE ARTIFACT ./_site AS LOCAL src/_site
 
+future-site:
+    FROM +deps
+    COPY src /srv/jekyll
+    RUN jekyll build --future
+    SAVE ARTIFACT ./_site AS LOCAL src/_site
+
 scripts:
     FROM node:16-alpine
     WORKDIR workspace

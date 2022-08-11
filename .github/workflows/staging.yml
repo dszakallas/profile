@@ -17,6 +17,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the site
-      run: earthly +site
+      run: earthly +future-site
     - name: Upload site to S3
       run: earthly --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +upload-to-s3 --BUCKET_NAME="szakallas.stg.eu"
