@@ -2,6 +2,7 @@ version: '3'
 services:
   profile:
     build: .
+    user: "501:20"
     volumes:
       - ./src:/srv/jekyll
     ports:

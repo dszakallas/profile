@@ -1,6 +1,6 @@
 ---
 layout: article
-title: "Comparing the core features of the flagship GitOps frameworks: Flux vs ArgoCD"
+title: "Flux vs. ArgoCD" 
 key: 2022-08-19-flux-vs-argocd
 tags:
   - Flux
@@ -10,10 +10,10 @@ tags:
   - Kubernetes
 ---
 
-Since February we have been working on adopting Kubernetes and cloud-native technologies at [Turbine.ai](https://turbine.ai) in our simulation platform.
+Since February we have been working on adopting Kubernetes and cloud-native technologies in our cell simulation platformat [Turbine.ai](https://turbine.ai) .
 Part of the job entailed figuring out how to onboard developers who didn't practice DevOps before.
 
-Companies I've worked at the past 7 years have all used Kubernetes to some degree; and the last one, Turbine.ai, adopted it with my lead. It's been quite a journey for me
+Companies I've worked at during the past 7 years have all used Kubernetes in some way; and the last one, Turbine.ai, adopted it with my lead. It's been quite a journey for me
 since I first encountered the technology in 2015, not long after securing my first full time role as a software engineer at a SaaS startup.
 Back in those days, the only major cloud vendor that had a managed public K8s offering was Google Cloud Platform (GKE). The tech was fresh and all backend engineers at our company were pretty hyped about migrating to GKE from Heroku.
 
@@ -360,5 +360,3 @@ I am sure you are curious which one we chose in the end at Turbine.ai.
 We chose Flux, mainly because we deemed it more lightweight and easier to operate.
 
 My bottom line is: Argo CD and Flux features are in a relatively close feature parity.
-
-
