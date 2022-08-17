@@ -20,7 +20,7 @@ Back in those days, the only cloud vendor that had a managed public K8s offering
 Later that year, I moved to a role more aligned with my aspirations of working on distributed data processing pipelines with Apache Spark and had little exposure to K8s for
 over a year and a half. My path eventually lead back to the container orchestrator when I started working with the machine learning team, running ML workflows in our cloud environment. I recall manually installing and upgrading Apache Airflow (which was the only service I operated) with Helm, all from my development laptop. If the templates rendered the release was good to go.
 
-Fast-forward to my next role where I operated an internal data platform with a more mature development lifecycle. I encountered GitOps for the first time here,
+Fast-forward to my next role where we operated an internal data platform with a more mature development lifecycle. I encountered GitOps for the first time here,
 as backend teams were using Argo CD to deploy their applications. It was a radical quality of life improvement over what I'd been practicing previously. Automatic change detection,
 a nice GUI, alerts on failures and a unified delivery approach for all applications instead of pile of deployment scripts; what's not to love?
 
@@ -32,7 +32,7 @@ So, long story short, I was afraid that if we didn't offer a smooth developer ex
 
 # What is GitOps?
 
-The term has been coined by Weaveworks with the following definition that can be found on [gitops.tech](https://gitops.tech):
+The term was coined by Weaveworks with the following definition found on [gitops.tech](https://gitops.tech):
 
 > GitOps is a way of implementing Continuous Deployment for cloud native applications. It focuses on a developer-centric experience when operating infrastructure,
 by using tools developers are already familiar with, including Git and Continuous Deployment tools. The core idea of GitOps is having a Git repository that always
@@ -41,17 +41,15 @@ match the described state in the repository. If you want to deploy a new applica
 process handles everything else. It’s like having cruise control for managing your applications in production.
 
 Making git the single source of truth for cluster state has many benefits. Without completeness:
+1. offers observability and time-travel with the full change history recorded. This simplifies rollbacks and helps developers move with confidence.
+1. enables modifying the application's configuration and source code with a unified approach (even in a single changeset)
+1. simplifies the sharing and reuse of common configuration patterns (eg. with ordinary file editing / templating tools)
+1. enables the adoption of already existing DevOps/CI practices to infrastructure, such as static validation, tests, manual approvals, automated vulnerability scans, etc.
 1. git is the industry standard for source control, everyone should use it already
-2. offers observability and time-travel with the full change history recorded. This simplifies rollbacks and helps developers move with confidence.
-3. enables modifying the application's configuration and source code with a unified approach (even in a single changeset)
-4. simplifies the sharing and reuse of common configuration patterns (eg. with ordinary file editing / templating tools)
-5. enables the adoption of already existing DevOps/CI practices to infrastructure, such as static validation, tests, manual approvals, automated vulnerability scans, etc.
 
-After this short introduction, now it's time to get on to the main topic of this article: comparing Argo CD and Flux, two popular GitOps tools. If you are completely new to GitOps, you'll certainly want to learn more before going ahead. If this is the case, [gitops.tech](https://gitops.tech) is a good place to continue. You can also find plenty of videos on YouTube.
+After this short introduction, now it's time to get on with our topic: comparing Argo CD and Flux, two popular GitOps tools. If you are completely new to GitOps, you'll certainly want to learn more before going ahead. If this is the case, [gitops.tech](https://gitops.tech) is a good place to continue. You can also find plenty of videos on YouTube.
 
 # Introducing the two contenders
-
-The two mainstream open-source GitOps tools for k8s are Flux and Argo CD.
 
 <!--
 <div class="grid">
@@ -69,13 +67,13 @@ The two mainstream open-source GitOps tools for k8s are Flux and Argo CD.
 |enterprise offering| [Weave GitOps Enterprise](https://www.weave.works/product/gitops-enterprise/) | [Akuity](https://akuity.io) |
 
 Both Flux and Argo CD are very popular with an active community. Flux defines itself as "a set of continuous and progressive delivery solutions for Kubernetes that are open and extensible",
-whereas Argo CD is "a declarative, GitOps continuous delivery tool for Kubernetes". Based exclusively on this, one might claim that there's no clear distinction in their mission statement, however as we dive deeper, we will see that they take a different approach and offer a slightly different feature set.
+whereas Argo CD is "a declarative, GitOps continuous delivery tool for Kubernetes". Based exclusively on this, one might conclude that there's no clear distinction in their mission statement, however as we dive deeper, we will see that they take a different approach and offer a slightly different feature set.
 
 Argo CD is part of [Argo](https://argoproj.github.io), an umbrella project comprising of multiple productivity focused tools, and is currently incubating under the CNCF. Jesse Suen, creator of the Argo project, [told in Kubernetes Podcast #172](https://kubernetespodcast.com/episode/172-argo/) about the origins of Argo CD: "we needed to build a delivery tool for developer teams (at Intuit - ed.) and we heavily focused on things like the user experience and the UI, and GitOps happened to be the mechanism we chose to do the delivery aspect of it". He claims that Argo CD is more developer-experience-centric, whereas Flux is more operator centric. There has been an attempt to merge the two projects, but in the end the Flux team went with a different approach which became the GitOps Toolkit (Flux2).
 
 Flux predates Argo CD and has been around since 2017. I explore the second major version of Flux, which resolves many shortcomings, offers better observability, ease of integrating, composability and extensibility over the first, which is now in maintanence mode. Flux 2 is comprised of GitOps Toolkit components, k8s operators that reconcile GitOps resources of different kinds. For example, the [source controller](https://fluxcd.io/docs/components/source/) is responsible for source repositories, the helm controller - Helm releases, etc.
 
-This article follows with the comparison of the two tools organized by aspects, such as how they carry out reconciliaton, what tools they support, etc.
+This article follows with the comparison of the two frameworks organized by core aspects, such as how they carry out reconciliaton, what tools they support, etc. Bear in mind that I do not attempt a full comparison, for the sake of conciseness and because of my limited research, covering the core functionalities and our use cases. I still believe that it could prove useful for many.
 
 # Reconciliation
 _Reconciliation_ or _synchronization_ (_sync_) is the act of modifying the cluster state to match the description stored in git.
@@ -123,7 +121,7 @@ _Garbage collection_ controls what happens to resources getting untracked in sou
 
 ## Sync windows
 
-There are use cases when you don't want to allow resource updates, only during a specific maintenance window.
+There are cases when you don't want to allow resource updates, only during a specific maintenance window.
 
 Using Argo CD, this can be achieved with
 [sync windows](https://argo-cd.readthedocs.io/en/stable/user-guide/sync_windows/). Using sync windows, automatic or all syncs can be denied except for a certain timeframe.
@@ -274,6 +272,8 @@ GitOps frameworks should provide appropriate abstractions to support adoption in
 
 ## Recursion
 
+> "What is the tortoise standing on?" "You're very clever, young man, very clever," said the old lady. "But it's turtles all the way down!" -- conversation between scientist and old lady in Stephen Hawking's Brief History of Time
+
 In this context, recursion means applying GitOps techniques to manage GitOps resources. For example, think of a team managing an application having multiple deployments (e.g in different environments). To avoid excessive duplication and to keep their GitOps resources free of duplication they decide to extract common configuration with the use of kustomize patches. A straightforward way to do this is to create a parent GitOps resource that uses e.g Kustomize to generate the inferior GitOps configurations.
 
 In Argo CD, this can be achieved with the [App of Apps pattern](https://medium.com/dzerolabs/turbocharge-argocd-with-app-of-apps-pattern-and-kustomized-helm-ea4993190e7c), which lets us define an `Application` resource that contains child `Application`s (and `AppProject`s). Argo CD watches the root application as well as synchronizes any application it generates. (By the way, the referenced article also points out how to do Kustomized Helm.) The child apps need not reside in the same cluster as their parent. By using the Apps of Apps pattern we can use the same techniques for generating GitOps resources as app resources, which makes it feasible to template or kustomize `Application`s, consequently, avoid duplication.
@@ -282,7 +282,7 @@ Similarly in Flux, we can define GitOps resources recursively. Having dedicated 
 
 ## Dependency ordering
 
-Applications depend on each other, and we should be able to express that some degree. At first sight, one can distinguish between infrastructure applications providing core functionalities such as ingress, secret management,
+Applications depend on each other, and we should be able to express that to some degree. As initial approach, one can distinguish between infrastructure applications providing core functionalities such as ingress, secret management,
 RBAC, cert management, service mesh, etc.; and product applications. For example if you use the popular service mesh [linkerd](https://linkerd.io/), it must be in place before any applications come up, because it injects sidecars into application pods starting up. Having a way to stall the installation of product applications until the infra is ready spares us the chore of dealing with such race-conditions and other problems.
 
 With Flux's [`dependsOn`](https://fluxcd.io/docs/components/kustomize/kustomization/#kustomization-dependencies), we can prevent an application to be synced unless its dependencies are in the Ready state, in other words, to guarantee installation ordering. Unfortunately, this feature is missing from Argo CD [but it is proposed](https://github.com/argoproj/argo-cd/issues/7437).
@@ -339,4 +339,4 @@ can use conventional tooling (such as kustomize overlays) to [generate GitOps ma
 
 For those of you currently evaluating GitOps frameworks, I hope this article proved helpful. It's far from a complete evaluation though, as I concentrated on the core GitOps capabilities, there wasn't much word on additional features such as multi-tenancy, notifications, image automation, event-driven automation or the nice graphical UI Argo CD offers.
 
-As we saw Argo CD and Flux are pretty much on-par regarding core functionality. Each of them has caveats, so you should ideally weigh the importance of each check box. For us at Turbine.ai, it was a very close call, but we settled with Flux in the end, mostly because of its better support for OTS Helm charts and operational simplicity compared to Argo CD, which we found important at our (small) size.
+As we saw Argo CD and Flux are pretty much on-par regarding core functionality. Each of them has caveats, so you should ideally weigh the importance of each check box in your organization. For us at Turbine.ai, it was a very close call, but we settled with Flux in the end, mostly because of its better support for OTS Helm charts and operational simplicity compared to Argo CD, which we found important at our (small) size.
