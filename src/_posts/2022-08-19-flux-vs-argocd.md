@@ -1,10 +1,10 @@
 ---
 layout: article
-title: "Comparison: Flux vs ArgoCD"
+title: "Comparison: Flux vs Argo CD"
 key: 2022-08-19-flux-vs-argocd
 tags:
   - Flux
-  - ArgoCD
+  - Argo CD
   - DevOps
   - GitOps
   - Kubernetes
@@ -196,7 +196,6 @@ Flux supports defining strategic merge and JSON patches, overriding images and t
 |Inline configuration in the GitOps resource|✅|⛔|
 |Variable substitution|[✅](https://fluxcd.io/docs/components/kustomize/kustomization/#variable-substitution)|⛔|
 |Automated sync|✅|✅|
-|Dependency ordering|✅|⛔|
 |Manual sync|✅|✅|
 |Cluster drift reconciliation (Self heal)|✅|✅|
 |Garbage collection|✅|✅|
@@ -264,7 +263,6 @@ This limitation of Flux is problematic enough for apps. However, I think it is e
 |Upgrade chart stored in git on template change without changing chart version|✅ Using the [`Revision` reconcile strategy](https://fluxcd.io/docs/components/source/helmcharts/#artifact-example).|✅|
 |Receive auto-updates from versioned charts using semver version ranges|✅|✅|
 |Helm chart dependencies|✅|✅|
-|Dependency ordering|✅|⛔|
 |Helm hooks support|✅|✅|
 |Rollback on failed Helm upgrade|✅|⚠️ Rollback cannot be performed against an application with automated sync enabled.|
 |Apply Kustomizations to Helm releases|✅|⚠️ Via a custom rendering plugin. See [this example](https://github.com/argoproj/argocd-example-apps/tree/master/plugins/kustomized-helm).|
@@ -331,7 +329,7 @@ can use conventional tooling (such as kustomize overlays) to [generate GitOps ma
 |Recursion|✅|✅|
 |Own user management system|⛔|✅|
 |Own permission system|⛔|✅|
-|Runtime dependencies|⚠️|⛔|
+|Installation ordering|⚠️|⛔|
 |Everything is a CRD|✅|⛔|
 |Polyrepo support|✅|✅|
 |Multi-cluster support|✅|✅|
@@ -341,4 +339,4 @@ can use conventional tooling (such as kustomize overlays) to [generate GitOps ma
 
 For those of you currently evaluating GitOps frameworks, I hope this article proved helpful. It's far from a complete evaluation though, as I concentrated on the core GitOps capabilities, there wasn't much word on additional features such as multi-tenancy, notifications, image automation, event-driven automation or the nice graphical UI Argo CD offers.
 
-As we saw Argo CD and Flux are relatively close feature parity-wise regarding core functionality. I am sure you want to hear the bottom line, which one we chose at Turbine.ai eventually. Let me say that it was a very close call, but we settled with Flux in the end, as albeit it has its caveats, it is simpler and we found that it implements the core GitOps functionalities (especiall Helm support) more cleanly.
+As we saw Argo CD and Flux are pretty much on-par regarding core functionality. Each of them has caveats, so you should ideally weigh the importance of each check box. For us at Turbine.ai, it was a very close call, but we settled with Flux in the end, mostly because of its better support for OTS Helm charts and operational simplicity compared to Argo CD, which we found important at our (small) size.
