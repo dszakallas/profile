@@ -82,7 +82,7 @@ _Reconciliation_ or _synchronization_ (_sync_) is the act of modifying the clust
 
 Both platforms support automated sync, i.e they can reconcile the cluster state automatically after a change in GitOps; and manual sync where the action is triggered directly by a human or some external service agent.
 
-Note that although I am using Kustomization in the Flux examples, the concepts should work similarly for all syncable GitOps resources.
+As it was previously mentioned, Flux is componentized. Reconciliation specifics may vary between components. I am using Kustomization in the examples here, but the concepts should work similarly for all syncable GitOps resources. Caveats will be discussed in detail in the tool-specific sections later.
 {:.info}
 
 ## Manual sync
@@ -93,27 +93,29 @@ With Argo CD, you declaratively specify manual sync by setting `syncPolicy: {}` 
 ### Flux
 Using Flux, automatic reconciliation is the norm, but you can opt-out of it by 'suspending' the GitOps resource. This can be done declaratively by setting [`suspend: true`](https://fluxcd.io/docs/components/kustomize/kustomization/#reconciliation).
 
-To do manual sync on-demand on a suspended GitOps resource, set the `reconcile.fluxcd.io/requestedAt` annotation:
+To do manual sync on-demand on a suspended GitOps resource, set the `reconcile.fluxcd.io/requestedAt` annotation to the current time:
 
 ```shell
 kubectl annotate --field-manager=flux-client-side-apply --overwrite \
 kustomization/podinfo reconcile.fluxcd.io/requestedAt="$(date +%s)"
 ```
 
-It's worth noting that running `flux reconcile` against a suspended resource will __not__ trigger the reconciliation. Requiring a manual edit to the cluster state for this override was [an intentional design choice](https://github.com/fluxcd/flux2/issues/959). Essentially, on-demand, manual synchronization is an imperative action, whereas Flux wants to follow a purely declarative approach, so it doesn't wish to support this through its user interface.
+It's worth noting that running `flux reconcile` against a suspended resource will __not__ trigger the reconciliation. Requiring a manual edit to the cluster state for this override was [an intentional design choice](https://github.com/fluxcd/flux2/issues/959). Essentially, on-demand, manual synchronization doesn't have a declarative setting, so Flux doesn't wish to support it via its CLI either.
 
-Another way to trigger reconciliation is to temporarily `flux unsuspend` the resource. One can argue that this is an imperative action too. This argument is flawed since `suspend` has a declaritive setting, so the command effectively edits an in-cluster resource, similarly to e.g `kubectl scale deployment`. Admittedly, this still hurts auditability, since the GitOps state is overriden (at least until the next reconciliation).
+Another way to trigger reconciliation is to temporarily `flux unsuspend` the resource. One can argue that this is an imperative action too. The difference is that `suspend` has a declaritive setting, so the command effectively edits an in-cluster resource, similarly to e.g `kubectl scale deployment`. Admittedly, this still hurts auditability, since the GitOps state is overriden (at least until the next reconciliation).
 {: .info}
+
+## Source tracking
+I talked about the __how_, but not the _what_. Source tracking controls how changes are detected in the GitOps resource. Both [Argo CD](https://argo-cd.readthedocs.io/en/stable/user-guide/tracking_strategies/#git) and [Flux](https://fluxcd.io/docs/components/source/gitrepositories/#reference) can be configured to track a branch, a tag pattern, or a fixed commit hash in git.
 
 ## Cluster drift reconciliation (Self heal)
 
-Cluster drift reconciliation (self heal in Argo lingo) entails resyncing the cluster state after a change outside GitOps control, e.g a manual edit with `kubectl`. This is to ensure that the cluster adheres to the declared state (eventually). Both Argo CD and Flux support this feature with caveats.
+With source tracking the cluster will follow the desired state in git, but what if someone carries out a manual edit to the cluster? Cluster drift reconciliation (self heal in Argo lingo) entails resyncing the cluster state after a change outside GitOps control, e.g a manual edit with `kubectl`. It can ensure that the cluster adheres to the declared state (eventually). Both Argo CD and Flux support this feature with caveats.
 
-### Argo CD
-In Argo CD, this can be turned on, but it also requires automatic sync to be [enabled](https://github.com/argoproj/argo-cd/issues/4414), and it disables rollbacks.
+Argo CD provides this an optional feature, which requires automatic sync to be [enabled](https://github.com/argoproj/argo-cd/issues/4414), and it disables rollbacks.
 
-### Flux
-Support varies by GitOps resource kind. For Kustomizations, cluster drift is reconciled by default, and the only way to opt-out is to annotate individual resources. On the other hand, Flux does not support this feature for Helm releases at all. (We'll see more on these in the Helm section.) Flux does not distinguish by trigger cause, consequently 'self-heal' won't be carried out if the resource is ignored or the owning GitOps resource is suspended.
+
+In Flux, support varies by GitOps resource kind. For Kustomizations, cluster drift is reconciled by default, and the only way to opt-out is to annotate individual resources. On the other hand, Flux does not support this feature for Helm releases at all. (We'll see more on these in the Helm section.) Flux does not distinguish by trigger cause, consequently 'self-heal' won't be carried out if the resource is ignored or the owning GitOps resource is suspended.
 
 ## Garbage collection (Pruning)
 
@@ -121,31 +123,22 @@ _Garbage collection_ controls what happens to resources getting untracked in sou
 
 ## Sync windows
 
-There are use cases when you don't want to allow an app to be updated, only during a certain maintenance window.
-
-### Argo CD
+There are use cases when you don't want to allow resource updates, only during a specific maintenance window.
 
 Using Argo CD, this can be achieved with
 [sync windows](https://argo-cd.readthedocs.io/en/stable/user-guide/sync_windows/). Using sync windows, automatic or all syncs can be denied except for a certain timeframe.
 
-### Flux
 Flux doesn't offer this feature, although a design has already been [proposed](https://github.com/fluxcd/flux2/discussions/870). Currently, it can be achieved with a CronJob that unsuspends the resource for the duration of the maintenance window.
 
 ## Selective sync
 
-### Argo CD
-
 Argo CD supports selective (or partial) syncs, i.e only selected resources get synced. Similarly to an ordinary manual sync, this can be done from the web UI or the CLI. However, selected syncs are not recorded in history and hooks are not run.
 
-### Flux
 In Flux there's no mechanism for this, however if your only use case is to ignore certain resources during reconciliation you can label them ([Flux](https://fluxcd.io/docs/components/kustomize/kustomization/#reconciliation)).
 
 ## Hooks
 
-### Argo CD
 Argo CD sync behavior can be customized with [hooks](https://argo-cd.readthedocs.io/en/stable/user-guide/resource_hooks/). If you are familiar with [Helm hooks](https://helm.sh/docs/topics/charts_hooks/), this is the same thing in essence, e.g. allows you to deploy resources in a specific order, run a job (such as a database migration) or trigger a notification after the deployment. Argo CD also understands Helm hooks.
-
-### Flux
 
 Flux doesn't provide hooks in general, but an individual tool might provide their own, e.g Helm hooks.
 
@@ -163,7 +156,7 @@ Flux doesn't provide hooks in general, but an individual tool might provide thei
 
 # Kustomize
 
-[Kustomize](https://kustomize.io) is a utility for customizing application configuration in a template-free way, and is a core K8s tool shipping with `kubectl`. Both tools support Kustomize.
+[Kustomize](https://kustomize.io) is a utility for customizing application configuration in a template-free way, and is a core K8s tool shipping with `kubectl`. Both Argo CD and Flux supports Kustomize.
 
 Argo CD relies on a [tool detection](https://argo-cd.readthedocs.io/en/stable/user-guide/tool_detection/) mechanism,
 which checks the directory contents and uses kustomize if it finds a `kustomization.yaml`, `kustomization.yml`, or `Kustomization`.
@@ -192,12 +185,7 @@ Don't mistake `kustomize.toolkit.fluxcd.io/Kustomization` for `kustomize.config.
 {:.warning}
 
 ## Configuration
-Flux supports defining strategic merge and JSON patches, overriding images and the namespaces in the `kustomize.toolkit.fluxcd.io/Kustomization` [resource](https://fluxcd.io/docs/components/kustomize/kustomization/#override-kustomize-config). Argo CD is less flexible, you have to place your edits into the overlays of your kustomization (with [a few exceptions](https://argo-cd.readthedocs.io/en/stable/user-guide/kustomize/#kustomize)). This might be a problem for certain repo layouts, e.g where kustomizations of an app live in a separate repo which is owned by a different team, and adding a new kustomization there is not preferable / feasible. It's not hard to see how this will cause a bigger problem with Helm, but about that later. As an additional customization, Flux supports [variable templating and substitution](https://fluxcd.io/docs/components/kustomize/kustomization/#variable-substitution).
-
-## Source tracking
-Both [Argo CD](https://argo-cd.readthedocs.io/en/stable/user-guide/tracking_strategies/#git) and [Flux](https://fluxcd.io/docs/components/source/gitrepositories/#reference) can be configured to track a branch, a tag pattern, or a commit hash in git.
-
-## Runtime dependencies
+Flux supports defining strategic merge and JSON patches, overriding images and the namespaces in the `kustomize.toolkit.fluxcd.io/Kustomization` [resource](https://fluxcd.io/docs/components/kustomize/kustomization/#override-kustomize-config). Argo CD is less flexible, you have to place your edits in the overlays of your kustomization (with [a few exceptions](https://argo-cd.readthedocs.io/en/stable/user-guide/kustomize/#kustomize)). This might be a problem for certain repo layouts, e.g where kustomizations of an app live in a separate repo which is owned by a different team, and adding a new kustomization there is not preferable / feasible. If you are familiar with Helm, it's not hard to see how this will cause a bigger problem there, but about that later. As an additional customization, Flux supports [variable templating and substitution](https://fluxcd.io/docs/components/kustomize/kustomization/#variable-substitution).
 
 
 ## Summary
@@ -242,9 +230,9 @@ For charts in Helm registries, both [Flux](https://fluxcd.io/docs/components/hel
 ### Helm charts in Git
 Source tracking of Helm charts work in similarly to Kustomizations in both platforms, i.e. they can be configured so that reconciliation tracks commits on a branch, a tag pattern, or gets fixed to a commit hash. 
 
-However, there is a very important property in Flux that you should be aware of. Under the hood, Flux packages the Helm chart contained in the git repository and caches it for internal consumption by HelmReleases. By default (i.e with the `ChartVersion` reconcile strategy), it assumes that __the chart didn't change unless the version is different in `Chart.yaml`, no matter the git revision__. In other words, __it assumes immutable packages__, meaning that the Chart version has to be bumped on every commit that changes a template.
+However, there is a very important property in Flux that you should be aware of. Under the hood, Flux packages the Helm chart contained in the git repository and caches it for internal consumption by HelmReleases. By default (i.e with the `ChartVersion` reconcile strategy), it assumes that __the chart is unchanged unless the version is different in `Chart.yaml`, no matter the git revision__. In other words, __it assumes immutable packages__, and that the Chart version has to be bumped on every commit that changes a template.
 
-To create a new package on every git revision, the [`reconcile strategy`](https://fluxcd.io/docs/components/helm/api/#helm.toolkit.fluxcd.io/v2beta1.HelmChartTemplateSpec) should be set to `Revision`. This will configure Flux to append build metadata containing the git commit SHA to the SemVer, thus reflecting every commit in a new package version.
+This behavior can be changed however to create a new package on every git revision by setting the [reconcile strategy](https://fluxcd.io/docs/components/helm/api/#helm.toolkit.fluxcd.io/v2beta1.HelmChartTemplateSpec) to `Revision`. This will configure Flux to append build metadata containing the git commit SHA to the SemVer, thus reflecting every commit in a new package version.
 
 Note that the reconcile strategy only affects the packaging of charts stored in git, changes to GitOps configuration (e.g the `values` block) will be reconciled as usual.
 {: .info}
@@ -256,7 +244,6 @@ from different repositories altogether, so care must be taken to allow only trus
 
 You [shouldn't use](https://www.weave.works/blog/profile-layering-for-helm-encourages-self-service-for-kubernetes) chart dependencies to define runtime ordering between applications. As detailed in the referenced article, when Helm installs the charts it renders all the chart objects, sorts all the Kubernetes objects by `Kind`, and then installs each `Kind`. This can prevent collections of charts from installing cleanly, as some charts might depend on previously installed charts with all their `Kind`s running. Ideally, chart dependencies should be used for [libraries](https://helm.sh/docs/topics/library_charts/), as a way to extract common patterns to keep your application charts [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself).
 {: .warning}
-
 
 ## Reconciliation caveat in Flux
 
@@ -285,26 +272,24 @@ This limitation of Flux is problematic enough for apps. However, I think it is e
 
 # Scaling out
 
-GitOps frameworks should provide appropriate abstractions to support scaling out to the entire organization.
+GitOps frameworks should provide appropriate abstractions to support adoption in large organizations.
 
 ## Recursion
 
-In this context, recursion means applying GitOps techniques to manage GitOps resources. For example, let's take a team managing an application that has multiple deployments (e.g different in environments). To avoid excessive duplication and to keep their GitOps resources DRY they decide to extract common configuration with the use of kustomize patches. A straightforward way to do this is to create a parent GitOps resource that uses e.g Kustomize to generate the inferior GitOps configurations.
+In this context, recursion means applying GitOps techniques to manage GitOps resources. For example, think of a team managing an application having multiple deployments (e.g in different environments). To avoid excessive duplication and to keep their GitOps resources free of duplication they decide to extract common configuration with the use of kustomize patches. A straightforward way to do this is to create a parent GitOps resource that uses e.g Kustomize to generate the inferior GitOps configurations.
 
-In Argo CD, this can be achieved using the [App of Apps pattern](https://medium.com/dzerolabs/turbocharge-argocd-with-app-of-apps-pattern-and-kustomized-helm-ea4993190e7c), which lets us define an `Application` resource that contains child `Application`s (and `AppProject`s). Argo CD watches the root application as well as synchronizes any application it generates. (By the way, the referenced article also points out how to do Kustomized Helm.) The child apps need not reside in the same cluster as their parent. By using the Apps of Apps pattern we can use the same techniques for generating GitOps resources as app resources, which makes it feasible to template or kustomize `Application`s, so you should definitely you use it to keep your configuration DRY.
+In Argo CD, this can be achieved with the [App of Apps pattern](https://medium.com/dzerolabs/turbocharge-argocd-with-app-of-apps-pattern-and-kustomized-helm-ea4993190e7c), which lets us define an `Application` resource that contains child `Application`s (and `AppProject`s). Argo CD watches the root application as well as synchronizes any application it generates. (By the way, the referenced article also points out how to do Kustomized Helm.) The child apps need not reside in the same cluster as their parent. By using the Apps of Apps pattern we can use the same techniques for generating GitOps resources as app resources, which makes it feasible to template or kustomize `Application`s, consequently, avoid duplication.
 
 Similarly in Flux, we can define GitOps resources recursively. Having dedicated CRDs for sources, syncable resources, notifications, makes it even more flexible than Argo CD.
 
 ## Dependency ordering
 
-Applications depend on each other, and we should be able to express that some degree. At first iteration, there are infrastructure applications providing core functionalities such as ingress, secret management,
-RBAC, cert management, service mesh, etc.; and product applications. E.g. if you use linkerd, it must be in place before any applications come up, because it injects sidecars into application pods starting up.
+Applications depend on each other, and we should be able to express that some degree. At first sight, one can distinguish between infrastructure applications providing core functionalities such as ingress, secret management,
+RBAC, cert management, service mesh, etc.; and product applications. For example if you use the popular service mesh [linkerd](https://linkerd.io/), it must be in place before any applications come up, because it injects sidecars into application pods starting up. Having a way to stall the installation of product applications until the infra is ready spares us the chore of dealing with such race-conditions and other problems.
 
-Having a way to stall the installation of product applications until the infra is ready spares us the chore of dealing with such race-conditions and other problems.
+With Flux's [`dependsOn`](https://fluxcd.io/docs/components/kustomize/kustomization/#kustomization-dependencies), we can prevent an application to be synced unless its dependencies are in the Ready state, in other words, to guarantee installation ordering. Unfortunately, this feature is missing from Argo CD [but it is proposed](https://github.com/argoproj/argo-cd/issues/7437).
 
-With Flux's [`dependsOn`](https://fluxcd.io/docs/components/kustomize/kustomization/#kustomization-dependencies) you can prevent an application to be synced unless its dependencies are in the Ready state. Similarly to Kustomize, [`dependsOn`](https://fluxcd.io/docs/components/helm/helmreleases/#helmrelease-dependencies) can be used to establish installation ordering when using Flux. Unfortunately, this feature is missing from Argo CD [but it is proposed](https://github.com/argoproj/argo-cd/issues/7437).
-
-Note that currently a Kustomization can't depend on a HelmRelease and vice versa.
+Note that currently Flux doesn't allow a Kustomization to depend on a HelmRelease and vice versa.
 {: .warning}
 
 ## Permissions and access control
@@ -317,13 +302,13 @@ With Argo CD, the `AppProject` is used to specify that an application belongs to
 - access to sources.
 - deploying resource kinds.
 - access for users
-- target clusters.
+- deploying to target clusters.
 
 Flux doesn't offer its own user management like Argo CD does. Instead, platform administrators should use Kubernetes RBAC and policy driven validation to establish security. Flux has a multi-component design, and integrates with many other systems. Having different components and CRDs such as git repositories, charts, notifications, etc. helps separate concerns, thus simplifies setting up policies. Platform admins can [enforce service account impersonation](https://fluxcd.io/docs/components/helm/helmreleases/#role-based-access-control) to minimize privileges.
 
 ## Everything is a CRD
 
-> Get in the ship sweety! GET IN THE GODD*MN SHIP!! Everything is on cob! The whole planet is on a cob! Go! GO!! GO!!! -- Rick Sanchez, Rick and Morty - S02E10 The Wedding Squanchers
+> Everything is on cob! The whole planet is on a cob! -- Rick Sanchez, Rick and Morty - S02E10 The Wedding Squanchers
 
 While Argo CD offers only two major CRDs, Application and AppProject, Flux has separate CRDs for each concept such as Kustomization (kustomize-controller), HelmRelease, HelmChart (helm-controller), HelmRepository, GitRepository (source-controller), Alert, Event (notification-controller), etc. This allows for a cleaner design, which precipitates in details such as:
 - using Flux, notification configuration is [placed in CRDs](https://fluxcd.io/docs/components/notification/), whereas for Argo CD, it is [placed in ConfigMaps]((https://argocd-notifications.readthedocs.io/en/stable/triggers/)) in the Argo CD deployment's namespace. Access to that namespace is often restricted to the platform administrators.
@@ -354,9 +339,6 @@ can use conventional tooling (such as kustomize overlays) to [generate GitOps ma
 
 # Conclusion
 
-For those of you currently evaluating GitOps frameworks, I hope this article proved helpful. It's far from a complete evalation though, as I concentrated on the core GitOps capabilities, there wasn't much word on additional features such as multi-tenancy, notifications, image automation, event-driven automation or graphical UIs.
+For those of you currently evaluating GitOps frameworks, I hope this article proved helpful. It's far from a complete evaluation though, as I concentrated on the core GitOps capabilities, there wasn't much word on additional features such as multi-tenancy, notifications, image automation, event-driven automation or the nice graphical UI Argo CD offers.
 
-I am sure you are curious which one we chose in the end at Turbine.ai.
-We chose Flux, mainly because we deemed it more lightweight and easier to operate.
-
-My bottom line is: Argo CD and Flux features are in a relatively close feature parity.
+As we saw Argo CD and Flux are relatively close feature parity-wise regarding core functionality. I am sure you want to hear the bottom line, which one we chose at Turbine.ai eventually. Let me say that it was a very close call, but we settled with Flux in the end, as albeit it has its caveats, it is simpler and we found that it implements the core GitOps functionalities (especiall Helm support) more cleanly.
