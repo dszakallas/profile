@@ -104,13 +104,13 @@ Another way to trigger reconciliation is to temporarily `flux unsuspend` the res
 {: .info}
 
 ## Source tracking
-I talked about the __how_, but not the _what_. Source tracking controls how changes are detected in the GitOps resource. Both [Argo CD](https://argo-cd.readthedocs.io/en/stable/user-guide/tracking_strategies/#git) and [Flux](https://fluxcd.io/docs/components/source/gitrepositories/#reference) can be configured to track a branch, a tag pattern, or a fixed commit hash in git.
+Source tracking controls how changes are detected in the GitOps resource. Both [Argo CD](https://argo-cd.readthedocs.io/en/stable/user-guide/tracking_strategies/#git) and [Flux](https://fluxcd.io/docs/components/source/gitrepositories/#reference) can be configured to track a branch, a tag pattern, or a fixed commit hash in git.
 
 ## Cluster drift reconciliation (Self heal)
 
 With source tracking the cluster will follow the desired state in git, but what if someone carries out a manual edit to the cluster? Cluster drift reconciliation (self heal in Argo lingo) entails resyncing the cluster state after a change outside GitOps control, e.g a manual edit with `kubectl`. It can ensure that the cluster adheres to the declared state (eventually). Both Argo CD and Flux support this feature with caveats.
 
-Argo CD provides this an optional feature, which requires automatic sync to be [enabled](https://github.com/argoproj/argo-cd/issues/4414), and it disables rollbacks.
+Argo CD provides this as an optional feature, which requires automatic sync to be [enabled](https://github.com/argoproj/argo-cd/issues/4414), and it disables rollbacks.
 
 
 In Flux, support varies by GitOps resource kind. For Kustomizations, cluster drift is reconciled by default, and the only way to opt-out is to annotate individual resources. On the other hand, Flux does not support this feature for Helm releases at all. (We'll see more on these in the Helm section.) Flux does not distinguish by trigger cause, consequently 'self-heal' won't be carried out if the resource is ignored or the owning GitOps resource is suspended.
@@ -138,7 +138,7 @@ In Flux there's no mechanism for this, however if your only use case is to ignor
 
 Argo CD sync behavior can be customized with [hooks](https://argo-cd.readthedocs.io/en/stable/user-guide/resource_hooks/). If you are familiar with [Helm hooks](https://helm.sh/docs/topics/charts_hooks/), this is the same thing in essence, e.g. allows you to deploy resources in a specific order, run a job (such as a database migration) or trigger a notification after the deployment. Argo CD also understands Helm hooks.
 
-Flux doesn't provide hooks in general, but an individual tool might provide their own, e.g Helm hooks.
+Flux doesn't provide hooks in general, but an individual tool (such as Helm) might provide their own.
 
 ## Summary
 
@@ -220,16 +220,16 @@ There are cases when you would like to run Kustomize on Helm's rendered output. 
 Tracking changes in Helm releases with GitOps is more complicated than Kustomize. This is because there's an additional notion of charts, handled differently by Argo CD and Flux.
 
 ### Helm charts in Helm registries
-Helm uses [SemVer](https://semver.org/) for package versioning. Helm chart versions are expected to be immutable, similarly to software packages. This means, __whenever the template is changed, the chart version must be bumped__, period.
+Helm uses [SemVer](https://semver.org/) for versioning. Helm charts are expected to be immutable, similarly to other software packages. This means, __whenever the template is changed, the chart version must be bumped__.
 
-For charts in Helm registries, both [Flux](https://fluxcd.io/docs/components/helm/helmreleases/#helm-chart-template) and [Argo CD](https://argo-cd.readthedocs.io/en/stable/user-guide/tracking_strategies/#helm) support specifying SemVer ranges, so you may receive updates on new package versions. For example using a range of `>=4.0.0 <5.0.0`, your cluster will get automatically updated to the latest available version as long as the major version is 4.
+For charts in Helm registries, both [Flux](https://fluxcd.io/docs/components/helm/helmreleases/#helm-chart-template) and [Argo CD](https://argo-cd.readthedocs.io/en/stable/user-guide/tracking_strategies/#helm) support specifying SemVer ranges, so you may receive updates on new package versions. For example using a range of `>=4.0.0 <5.0.0`, your cluster will get automatically receive updates for major version 4.
 
 ### Helm charts in Git
-Source tracking of Helm charts work in similarly to Kustomizations in both platforms, i.e. they can be configured so that reconciliation tracks commits on a branch, a tag pattern, or gets fixed to a commit hash. 
+Source tracking of Helm charts works similarly to Kustomizations using both platforms, i.e. they can be configured so that reconciliation tracks commits on a branch, a tag pattern, or is fixed to a commit hash.
 
-However, there is a very important property in Flux that you should be aware of. Under the hood, Flux packages the Helm chart contained in the git repository and caches it for internal consumption by HelmReleases. By default (i.e with the `ChartVersion` reconcile strategy), it assumes that __the chart is unchanged unless the version is different in `Chart.yaml`, no matter the git revision__. In other words, __it assumes immutable packages__, and that the Chart version has to be bumped on every commit that changes a template.
+However, there is a very important property in Flux that you should be aware of. Under the hood, Flux packages the Helm chart contained in the git repository and caches it for internal consumption by HelmReleases. By default (i.e with the `ChartVersion` reconcile strategy), it assumes that __the chart is unchanged unless the version is different in `Chart.yaml`, no matter the git revision__. In other words, __it assumes immutable packages__, even for git sources. This means that if you don't want surprises, you should bump the Chart version on each revision that changes a template.
 
-This behavior can be changed however to create a new package on every git revision by setting the [reconcile strategy](https://fluxcd.io/docs/components/helm/api/#helm.toolkit.fluxcd.io/v2beta1.HelmChartTemplateSpec) to `Revision`. This will configure Flux to append build metadata containing the git commit SHA to the SemVer, thus reflecting every commit in a new package version.
+This behavior can be changed however by setting the [reconcile strategy](https://fluxcd.io/docs/components/helm/api/#helm.toolkit.fluxcd.io/v2beta1.HelmChartTemplateSpec) to `Revision`. This will configure Flux to append build metadata containing the git commit SHA to the version, thus reflecting every commit in a new package version.
 
 Note that the reconcile strategy only affects the packaging of charts stored in git, changes to GitOps configuration (e.g the `values` block) will be reconciled as usual.
 {: .info}
@@ -246,7 +246,7 @@ You [shouldn't use](https://www.weave.works/blog/profile-layering-for-helm-encou
 
 Argo CD provides self healing for Helm releases. Flux [does __not__](https://github.com/fluxcd/flux2/discussions/2812).
 
-This limitation of Flux is problematic enough for apps. However, I think it is even worse when you try to use Helm for managing GitOps resources (in a multi-level hierarchy), because e.g. if someone suspends the reconciliation of an app by adding `suspend: true` to its owning GitOps resource, and this GitOps resource is owned by a `HelmRelease`, the drift will never be corrected in the child, and will linger there indefinitely. This can be problematic as entire hierarchies can drift away. Therefore, __my advice is to use Helm only for leaf GitOps resources__ (i.e those that manage apps), until drift correction is implemented for Helm.
+This limitation of Flux is problematic enough for apps. However, it is even worse when you try to use Helm for managing GitOps resources (in a multi-level hierarchy), because e.g. if someone suspends the reconciliation of an app by adding `suspend: true` to its owning GitOps resource, which is in turn owned by a `HelmRelease`, the drift will never be corrected in the child, and will linger there indefinitely. This can be problematic as entire hierarchies can drift away. Therefore, __my advice is to use Helm only for leaf GitOps resources__ (i.e those that directly manage application resources), until drift correction is implemented for Helm.
 {: .warning}
 
 ## Summary
@@ -310,7 +310,7 @@ Flux doesn't offer its own user management like Argo CD does. Instead, platform 
 
 While Argo CD offers only two major CRDs, Application and AppProject, Flux has separate CRDs for each concept such as Kustomization (kustomize-controller), HelmRelease, HelmChart (helm-controller), HelmRepository, GitRepository (source-controller), Alert, Event (notification-controller), etc. This allows for a cleaner design, which precipitates in details such as:
 - using Flux, notification configuration is [placed in CRDs](https://fluxcd.io/docs/components/notification/), whereas for Argo CD, it is [placed in ConfigMaps]((https://argocd-notifications.readthedocs.io/en/stable/triggers/)) in the Argo CD deployment's namespace. Access to that namespace is often restricted to the platform administrators.
-- using Flux, private repository credentials stored in a Secret should be referenced in [Flux's GitRepository](https://fluxcd.io/docs/components/source/gitrepositories/#secret-reference), whereas for Argo CD, they should should be [placed in Secrets](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repository-credentials) in the Argo CD deployment's namespace. Reusing the same credential for multiple repos requires a rather [strange technique](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/#credential-templates). Not only Flux's method is much more conventional and flexible, access to Argo CD's namespace is often restricted to the platform administrator.
+- using Flux, private repository credentials stored in a Secret should be referenced in [Flux's GitRepository](https://fluxcd.io/docs/components/source/gitrepositories/#secret-reference), whereas for Argo CD, they should be [placed in Secrets](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repository-credentials) in the Argo CD deployment's namespace. Reusing the same credential for multiple repos requires a rather [strange technique](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/#credential-templates). Not only Flux's method is much more conventional and flexible, access to Argo CD's namespace is often restricted to the platform administrator.
 - analogously to repository credentials, cluster credentials (in a multi-cluster scenario) are set up [directly in the CRDs](https://fluxcd.io/docs/components/kustomize/kustomization/#remote-clusters--cluster-api) in Flux, whereas for Argo CD, its a [Secret in its own namespace](https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#clusters)
 
 ## Polyrepo support
@@ -337,6 +337,6 @@ can use conventional tooling (such as kustomize overlays) to [generate GitOps ma
 
 # Conclusion
 
-For those of you currently evaluating GitOps frameworks, I hope this article proved helpful. It's far from a complete evaluation though, as I concentrated on the core GitOps capabilities, there wasn't much word on additional features such as multi-tenancy, notifications, image automation, event-driven automation or the nice graphical UI Argo CD offers.
+For those of you currently evaluating GitOps frameworks, I hope this article proved helpful. It's far from a complete evaluation though, as I concentrated on the core GitOps capabilities, there wasn't much word on additional features such as multi-tenancy, RBAC, notifications, image automation, event-driven automation or the nice graphical UI Argo CD offers.
 
 As we saw Argo CD and Flux are pretty much on-par regarding core functionality. Each of them has caveats, so you should ideally weigh the importance of each check box in your organization. For us at Turbine.ai, it was a very close call, but we settled with Flux in the end, mostly because of its better support for OTS Helm charts and operational simplicity compared to Argo CD, which we found important at our (small) size.
