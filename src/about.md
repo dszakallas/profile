@@ -10,18 +10,27 @@ programmer, software & data engineer located in Budapest.
 
 ## Experience
 
-- Apache Spark, Databricks
 - Kubernetes Administration & Application Development
-- AWS: Redshift, Athena, Glue, S3
-- Azure
-- Apache Airflow
-- JVM languages (Scala, Kotlin, Clojure & Groovy)
-- Python 3
-- Go, Rust, C++ (hobbyist level)
-- Knowledge in RDBMS and NoSQL technologies
-- Functional programming in Scala, using cats & shapeless
+- Developing data lakes 
+  - on AWS: EMR, Redshift, RDS, Athena, Glue, S3
+  - on Azure: Databricks, ADLSv2
+- Operating greenfield Azure Kubernetes Service clusters
+- Operating data infrastructure applications on K8s: Apache Airflow, Apache Spark
+- Developing data heavy applications 
+  - on the JVM (in Scala, Kotlin, Clojure & Groovy)
+  - in Python 3 with Poetry
+- Developing in Go, Rust and C++ (hobbyist level)
+- Using IaC tools: Terraform, CloudFormation, Azure RM, Pulumi
+- Using CI tools: GitLab CI, GitHub Actions, Jenkins
+- Using GitOps tools: Flux2, ArgoCD
+- Using containerized build tools: Earthly, BuildKit, kaniko
+- Semantic Versioning, ConventionalCommits
+- Using PostgreSQL, MySQL/MariaDB, Dolt
+- Using Redis, MongoDB
+- Functional programming principles, algebraic types (monads, semigroups, etc) 
 - Some experience in developing supervised ML pipelines
-- Working in a cross-functional team of data engineers and data scientists
+- Working in a team of SysAdmins and DevOps engineers
+- Working in a team of data engineers and data scientists
 
 ## Interests
 
@@ -40,5 +49,5 @@ programmer, software & data engineer located in Budapest.
 
 ## Links
 
-- [CV PDF](https://dszakallas.github.io/cv/david_szakallas.pdf)
-- [PGP](/id.asc)
+- [CV](/david_szakallas.pdf)
+- [PGP public key](/david_szakallas.asc)
