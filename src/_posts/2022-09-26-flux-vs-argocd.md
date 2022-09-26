@@ -1,7 +1,7 @@
 ---
 layout: article
 title: "Comparison: Flux vs Argo CD"
-key: 2022-08-19-flux-vs-argocd
+key: 2022-09-26-flux-vs-argocd
 tags:
   - Flux
   - Argo CD
@@ -9,7 +9,20 @@ tags:
   - GitOps
   - Kubernetes
 ---
+GitOps is a way of implementing Continuous Deployment for cloud native applications.
 
+Making git the single source of truth for cluster state has many benefits. Without completeness:
+1. offers observability and time-travel with the full change history recorded,
+1. enables modifying the application's configuration and source code with a unified approach,
+1. simplifies the sharing and reuse of common configuration patterns,
+1. enables the adoption of already existing DevOps/CI practices to infrastructure,
+1. git is the industry standard for source control.
+
+In this article I compare the two prominent GitOps frameworks, Flux and Argo CD.
+
+[Read article on earthly.dev >>](https://earthly.dev/blog/flux-vs-argo-cd)
+
+{% comment %}
 Since February we have been working on adopting Kubernetes and cloud-native technologies for our cell simulation platform at [Turbine.ai](https://turbine.ai).
 Part of my job entailed figuring out how to onboard developers who didn't practice DevOps before.
 
@@ -51,15 +64,7 @@ After this short introduction, now it's time to get on with our topic: comparing
 
 # Introducing the two contenders
 
-<!--
-<div class="grid">
-  <div class="cell cell--5 center"><a href=""><img class="image image--md" src="/assets/2022-06-27-flux-vs-argocd/flux-stacked-white.png"/></a></div>
-  <div class="cell cell--2 center">vs</div>
-  <div class="cell cell--5 center"><a href=""><img class="image image--md" src="/assets/2022-06-27-flux-vs-argocd/argo-stacked-white.png"/></a></div>
-</div>
--->
-
-||<a href="https://fluxcd.io" ><img alt="Flux logo" class="image image--md" src="/assets/2022-08-19-flux-vs-argocd/flux-stacked-white.png"/> </a>|<a href="https://argoproj.github.io/cd"><img alt="Argo CD logo" class="image image--md" src="/assets/2022-08-19-flux-vs-argocd/argo-stacked-white.png"/></a>|
+||<a href="https://fluxcd.io" ><img alt="Flux logo" class="image image--md" src="/assets/2022-09-26-flux-vs-argocd/flux-stacked-white.png"/> </a>|<a href="https://argoproj.github.io/cd"><img alt="Argo CD logo" class="image image--md" src="/assets/2022-09-16-flux-vs-argocd/argo-stacked-white.png"/></a>|
 |-|-|-|
 |initial release|Flux2: Jun 25, 2020<br>Flux (succeded): Jun 27, 2017|Mar 18, 2018|
 |license|![License on GitHub](https://img.shields.io/github/license/fluxcd/flux?style=for-the-badge)|![License on GitHub](https://img.shields.io/github/license/argoproj/argo-cd?style=for-the-badge)|
@@ -340,3 +345,4 @@ can use conventional tooling (such as kustomize overlays) to [generate GitOps ma
 For those of you currently evaluating GitOps frameworks, I hope this article proved helpful. It's far from a complete evaluation though, as I concentrated on the core GitOps capabilities, there wasn't much word on additional features such as multi-tenancy, RBAC, notifications, image automation, event-driven automation or the nice graphical UI Argo CD offers.
 
 As we saw Argo CD and Flux are pretty much on-par regarding core functionality. Each of them has caveats, so you should ideally weigh the importance of each check box in your organization. For us at Turbine.ai, it was a very close call, but we settled with Flux in the end, mostly because of its better support for OTS Helm charts and operational simplicity compared to Argo CD, which we found important at our (small) size.
+{% comment %}
