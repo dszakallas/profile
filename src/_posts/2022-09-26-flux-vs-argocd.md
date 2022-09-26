@@ -345,4 +345,4 @@ can use conventional tooling (such as kustomize overlays) to [generate GitOps ma
 For those of you currently evaluating GitOps frameworks, I hope this article proved helpful. It's far from a complete evaluation though, as I concentrated on the core GitOps capabilities, there wasn't much word on additional features such as multi-tenancy, RBAC, notifications, image automation, event-driven automation or the nice graphical UI Argo CD offers.
 
 As we saw Argo CD and Flux are pretty much on-par regarding core functionality. Each of them has caveats, so you should ideally weigh the importance of each check box in your organization. For us at Turbine.ai, it was a very close call, but we settled with Flux in the end, mostly because of its better support for OTS Helm charts and operational simplicity compared to Argo CD, which we found important at our (small) size.
-{% comment %}
+{% endcomment %}
