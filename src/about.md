@@ -6,7 +6,7 @@ license: CC-BY-ND-4.0
 key: page-about
 ---
 
-programmer, software & data engineer located in Budapest.
+programmer, software & data engineer located in Prague.
 
 ## Experience
 
