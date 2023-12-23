@@ -1,51 +1,50 @@
 ---
 layout: article
 titles:
-  en: Dávid Szakállas
+  en: About
 license: CC-BY-ND-4.0
 key: page-about
 ---
 
-<div class="grid-container">
-  <div class="grid grid--p-3">
-    <div class="cell cell--8">
-      <div>
-      I am a software engineer experienced in developing/operating data driven applications running on public clouds. I currently work at Pure Storage. In the past I led migrating a science platform to AKS and led establishing containerization and DevOps practices in a data team at Turbine.ai. Before that, I worked on data pipelines running in k8s at Hiya. Previously, I developed the main social database ingestion pipeline, and the credit fraud detection ML training pipeline at Ekata. I hold an M.Sc. in Computer Science Engineering.
-      </div>
-      <div>
-      <a href="/david_szakallas.pdf">Printable CV</a>
-      </div>
+<div class="item">
+  <div class="item__image">
+    <img class="image" alt="AI generated image of an octopus programming at a desk" src="/assets/about/octopus.jpg" />
+  </div>
+  <div class="item__content">
+    <div class="item__header">
+      <h5>Dávid Szakállas</h5>
     </div>
-    <div class="cell cell--4">
-    <img class="image image--lg" src="/assets/about/octopus.jpg"/>
+    <div class="item__description">
+      <p>I am a software engineer experienced in developing/operating data driven applications running on public clouds. I currently work at Pure Storage. In the past I led migrating a science platform to AKS and led establishing containerization and DevOps practices in a data team at Turbine.ai. Before that, I worked on data pipelines running in k8s at Hiya. Previously, I developed the main social database ingestion pipeline, and the credit fraud detection ML training pipeline at Ekata. I hold an M.Sc. in Computer Science Engineering.
+      </p>
+      <p><a href="/david_szakallas.pdf">Printable CV</a></p>
     </div>
   </div>
 </div>
 
-
 ## Experience
 
-- Kubernetes Administration & Application Development
-- Developing data lakes
-  - on AWS: EMR, Redshift, RDS, Athena, Glue, S3
+- Data lakes
+  - on AWS: EMR, Athena, Glue, S3
   - on Azure: Databricks, ADLSv2
-- Operating greenfield Azure Kubernetes Service clusters
-- Operating data infrastructure applications on K8s: Apache Airflow, Apache Spark
-- Developing data heavy applications
-  - on the JVM (in Scala, Kotlin, Clojure & Groovy)
-  - in Python 3 with Poetry
-- Developing in Go, Rust and C++ (hobbyist level)
-- Using IaC tools: Terraform, CloudFormation, Azure RM, Pulumi
-- Using CI tools: GitLab CI, GitHub Actions, Jenkins
-- Using GitOps tools: Flux2, ArgoCD
-- Using containerized build tools: Earthly, BuildKit, kaniko
-- Semantic Versioning, ConventionalCommits
-- Using PostgreSQL, MySQL/MariaDB, Dolt
-- Using Redis, MongoDB
-- Functional programming principles, algebraic types (monads, semigroups, etc) 
-- Some experience in developing supervised ML pipelines
-- Working in a team of SysAdmins and DevOps engineers
-- Working in a team of data engineers and data scientists
+  - on K8s: Apache Airflow, Apache Spark
+- Developing backends
+  - in Go
+  - in Python
+  - on the JVM (Scala, Kotlin, Clojure)
+- Developing control planes with Go and K8s controller runtime
+- Developing in Rust and C++ (hobbyist level)
+- Functional programming, algebraic types, static typing
+- Data science, supervised ML training pipelines
+- Databases:
+  - Postgre, MariaDB, Dolt
+  - Redis, MongoDB
+  - Elasticsearch
+- IaC/CI/GitOps:
+  - Terraform (OpenTofu), AWS CloudFormation, Azure RM
+  - GitLab CI, GitHub Actions, Jenkins
+  - Flux, ArgoCD
+  - Dagger, Earthly, BuildKit
 
 ## Interests
 
