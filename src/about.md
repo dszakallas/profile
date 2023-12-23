@@ -6,17 +6,32 @@ license: CC-BY-ND-4.0
 key: page-about
 ---
 
-programmer, software & data engineer located in Prague.
+<div class="grid-container">
+  <div class="grid grid--p-3">
+    <div class="cell cell--8">
+      <div>
+      I am a software engineer experienced in developing/operating data driven applications running on public clouds. I currently work at Pure Storage. In the past I led migrating a science platform to AKS and led establishing containerization and DevOps practices in a data team at Turbine.ai. Before that, I worked on data pipelines running in k8s at Hiya. Previously, I developed the main social database ingestion pipeline, and the credit fraud detection ML training pipeline at Ekata. I hold an M.Sc. in Computer Science Engineering.
+      </div>
+      <div>
+      <a href="/david_szakallas.pdf">Printable CV</a>
+      </div>
+    </div>
+    <div class="cell cell--4">
+    <img class="image image--lg" src="/assets/about/octopus.jpg"/>
+    </div>
+  </div>
+</div>
+
 
 ## Experience
 
 - Kubernetes Administration & Application Development
-- Developing data lakes 
+- Developing data lakes
   - on AWS: EMR, Redshift, RDS, Athena, Glue, S3
   - on Azure: Databricks, ADLSv2
 - Operating greenfield Azure Kubernetes Service clusters
 - Operating data infrastructure applications on K8s: Apache Airflow, Apache Spark
-- Developing data heavy applications 
+- Developing data heavy applications
   - on the JVM (in Scala, Kotlin, Clojure & Groovy)
   - in Python 3 with Poetry
 - Developing in Go, Rust and C++ (hobbyist level)
@@ -46,8 +61,3 @@ programmer, software & data engineer located in Prague.
 - openCypher Meeting #4 Remarks \| Whitepages (I only held an internal talk at Whitepages office as the Neo4j Budapest meetup group is inactive since February) \| May 2018, Budapest \| [Slides](/assets/speaking/ocim4.pdf)
 - Writing a Cypher query engine in Clojure (feat. Gábor Szárnyas) - 3rd Budapest Clojure Meetup \| Mar 2018, Budapest \| [Event Page](https://www.meetup.com/Budapest-Clojure-User-Group/events/248220424/) \| [Slides](/assets/speaking/sre.pdf)
 - Scripting a MIDI controller with Javascript - Nodebp 2017 August \| Aug 2017, Budapest \| [Event Page](https://www.meetup.com/nodebp/events/242250790/)
-
-## Links
-
-- [CV](/david_szakallas.pdf)
-- [PGP public key](/david_szakallas.asc)
