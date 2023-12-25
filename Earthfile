@@ -5,7 +5,7 @@ deps:
 
 site:
     FROM +deps
-    COPY src /srv/jekyll
+    COPY src /site
     ARG JEKYLL_BUILD_ARGS
     ARG JEKYLL_ENV
     ENV JEKYLL_ENV=$JEKYLL_ENV
