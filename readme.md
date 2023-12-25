@@ -1,8 +1,10 @@
 # profile
 
+Spin up development environment with live regen:
+
+```shell
+docker-compose up
 ```
-docker run --rm -p 4000:4000 \
-  --volume="$PWD/src:/srv/jekyll" \
-  -it jekyll/jekyll:4.0 \
-  jekyll serve
-```
+
+Site is available at `http://localhost:4000`.
+
