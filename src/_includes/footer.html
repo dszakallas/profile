@@ -39,7 +39,9 @@
    // Snow script included on the page, already.
    window.onload = function () {
        const snow = new Snow.default({
-           id: 'snow'
+           id: 'snow',
+           max_size: 5,
+           num_flakes: 25
        });
        const today = new Date();
 
