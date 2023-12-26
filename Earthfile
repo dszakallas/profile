@@ -1,4 +1,4 @@
-VERSION 0.6
+VERSION 0.7
 
 deps:
     FROM DOCKERFILE .
@@ -13,7 +13,7 @@ site:
     SAVE ARTIFACT ./_site AS LOCAL src/_site
 
 scripts:
-    FROM node:16-alpine
+    FROM node:18-alpine
     WORKDIR workspace
     COPY scripts/package.json scripts/package-lock.json .
     RUN npm install
@@ -28,7 +28,7 @@ updates:
     RUN --secret AWS_ACCESS_KEY_ID \
         --secret AWS_SECRET_ACCESS_KEY \
         npm run --silent updates -- _site ${BUCKET_NAME} > updates.json
-    SAVE ARTIFACT ./updates.json
+    SAVE ARTIFACT ./updates.json AS LOCAL build/updates.json
 
 upload-to-s3:
     ARG --required BUCKET_NAME

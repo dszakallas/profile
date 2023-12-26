@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 'use strict'
 
-const AWS = require('aws-sdk')
-const p = require('util').promisify
-const open = require('fs/promises').open
-const readFile = require('fs/promises').readFile
-const path = require('path')
-const eachLimit = require('async/eachLimit')
-const mime = require('mime/lite')
+import AWS from 'aws-sdk'
+import { open, readFile } from 'fs/promises'
+import path from 'path'
+import { eachLimit } from 'async'
+import mime from 'mime'
+import {promisify as p } from 'util'
 
 async function main() {
   if (process.argv.length != 5) {

@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: earthly/earthly:v0.6.2
+    container: earthly/earthly:v0.7.23
     env:
       DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
       BUCKET_NAME: "szakallas.eu"
@@ -16,7 +16,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       EARTHLY_CI: 1
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Build the site
       run: earthly +site --JEKYLL_ENV=production
     - name: Upload site to S3

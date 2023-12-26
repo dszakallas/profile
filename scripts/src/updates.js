@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict'
 
-let s3diff = require('s3-diff')
+import s3diff from 's3-diff'
 
 if (process.argv.length != 4) {
     console.error("usage: diff local bucket")

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 'use strict'
 
-const AWS = require('aws-sdk')
-const p = require('util').promisify
-const readFile = require('fs/promises').readFile
+import AWS from 'aws-sdk'
+import { readFile } from 'fs/promises'
+import { promisify as p } from 'util'
 
 async function main() {
   if (process.env.DISTRIBUTION == null) {
@@ -20,6 +20,13 @@ async function main() {
   const object_list = JSON.parse(await readFile(process.argv[2]))
   const createInvalidation = p(cf.createInvalidation).bind(cf)
   const invalidationBatch = new Date().toISOString()
+
+  const paths = {
+    Quantity: object_list.length,
+    Items: object_list.map(p => `/${p}`)
+  }
+
+  console.log(`Invalidating paths:\n${JSON.stringify(paths, null, 2)}`)
 
   const params = {
     DistributionId: distribution,

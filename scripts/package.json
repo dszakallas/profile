@@ -5,6 +5,11 @@
     "mime": "^3.0.0",
     "s3-diff": "^1.2.1"
   },
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "updates": "src/updates.js",
     "upload": "src/upload.js",
