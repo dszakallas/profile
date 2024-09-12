@@ -60,3 +60,7 @@ key: page-about
 - openCypher Meeting #4 Remarks \| Whitepages (I only held an internal talk at Whitepages office as the Neo4j Budapest meetup group is inactive since February) \| May 2018, Budapest \| [Slides](/assets/speaking/ocim4.pdf)
 - Writing a Cypher query engine in Clojure (feat. Gábor Szárnyas) - 3rd Budapest Clojure Meetup \| Mar 2018, Budapest \| [Event Page](https://www.meetup.com/Budapest-Clojure-User-Group/events/248220424/) \| [Slides](/assets/speaking/sre.pdf)
 - Scripting a MIDI controller with Javascript - Nodebp 2017 August \| Aug 2017, Budapest \| [Event Page](https://www.meetup.com/nodebp/events/242250790/)
+
+## This blog
+
+Built with Jekyll, hosted on AWS. IaC with Terraform. CI with GitHub Actions and Earthly.
