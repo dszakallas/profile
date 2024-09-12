@@ -47,7 +47,8 @@ upload-to-s3-and-cf:
     FROM +scripts
     ARG JEKYLL_BUILD_ARGS
     ARG JEKYLL_ENV
-    COPY (+updates/updates.json --JEKYLL_BUILD_ARGS=$JEKYLL_BUILD_ARGS --JEKYLL_ENV=$JEKYLL_ENV --BUCKET_NAME=$BUCKET_NAME) updates.json
+    COPY (+site/_site --JEKYLL_BUILD_ARGS=$JEKYLL_BUILD_ARGS --JEKYLL_ENV=$JEKYLL_ENV) _site
+    COPY (+updates/updates.json --BUCKET_NAME=$BUCKET_NAME) updates.json
     RUN --push \
         --secret AWS_ACCESS_KEY_ID \
         --secret AWS_SECRET_ACCESS_KEY \

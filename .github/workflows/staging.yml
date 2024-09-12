@@ -16,7 +16,5 @@ jobs:
       EARTHLY_CI: 1
     steps:
     - uses: actions/checkout@v3
-    - name: Build the site
-      run: earthly +site --JEKYLL_BUILD_ARGS="--future"
     - name: Upload site to S3
       run: earthly --push --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +upload-to-s3 --JEKYLL_BUILD_ARGS="--future" --BUCKET_NAME=$BUCKET_NAME
