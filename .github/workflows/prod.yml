@@ -20,4 +20,4 @@ jobs:
     - name: Build the site
       run: earthly +site --JEKYLL_ENV=production
     - name: Upload site to S3
-      run: earthly --push --secret DISTRIBUTION --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +upload-to-s3 +invalidate-cf --JEKYLL_ENV=production --BUCKET_NAME=$BUCKET_NAME
+      run: earthly --push --secret DISTRIBUTION --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +upload-to-s3-and-cf --JEKYLL_ENV=production --BUCKET_NAME=$BUCKET_NAME

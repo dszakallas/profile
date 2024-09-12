@@ -42,7 +42,7 @@ upload-to-s3:
         --secret AWS_SECRET_ACCESS_KEY \
         npm run --silent upload -- updates.json _site ${BUCKET_NAME}
 
-invalidate-cf:
+upload-to-s3-and-cf:
     ARG --required BUCKET_NAME
     FROM +scripts
     ARG JEKYLL_BUILD_ARGS
@@ -52,4 +52,5 @@ invalidate-cf:
         --secret AWS_ACCESS_KEY_ID \
         --secret AWS_SECRET_ACCESS_KEY \
         --secret DISTRIBUTION \
-        npm run --silent invalidate-cf -- updates.json
+        npm run --silent upload -- updates.json _site ${BUCKET_NAME} \
+        && npm run --silent invalidate-cf -- updates.json
