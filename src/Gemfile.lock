@@ -111,7 +111,7 @@ GEM
     tzinfo-data (1.2023.4)
       tzinfo (>= 1.0.0)
     unicode-display_width (2.5.0)
-    webrick (1.8.1)
+    webrick (1.8.2)
 
 PLATFORMS
   aarch64-linux
@@ -122,7 +122,7 @@ DEPENDENCIES
   jekyll (= 4.3.2)
   jekyll-text-theme (~> 2.2.6)
   tzinfo-data
-  webrick (~> 1.7)
+  webrick (~> 1.8)
 
 BUNDLED WITH
    2.4.22
