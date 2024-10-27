@@ -63,4 +63,4 @@ key: page-about
 
 ## This blog
 
-Built with Jekyll, hosted on AWS. IaC with Terraform. CI with GitHub Actions and Earthly.
+Built with Jekyll, hosted on AWS. IaC with Terraform.
