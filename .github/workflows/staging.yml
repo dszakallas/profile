@@ -1,20 +1,22 @@
 name: Jekyll site CI - Staging
 
-on:
+on:  # yamllint disable-line rule:truthy
   push:
-    branches: [ staging ]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: earthly/earthly:v0.8.12
     env:
-      BUCKET_NAME: "szakallas.stg.eu"
-      AWS_REGION: "us-east-2"
+      AWS_REGION: "us-east-1"
       AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      EARTHLY_CI: 1
     steps:
-    - uses: actions/checkout@v3
-    - name: Upload site to S3
-      run: earthly --push --secret AWS_ACCESS_KEY_ID --secret AWS_SECRET_ACCESS_KEY +upload-to-s3 --JEKYLL_BUILD_ARGS="--future" --BUCKET_NAME=$BUCKET_NAME
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v30
+      - uses: cachix/cachix-action@v15
+        with:
+          name: devenv
+      - run: nix profile install nixpkgs#devenv
+      - run: devenv build > out
+      - run: upload --distribution "${{ secrets.DISTRIBUTION }}" "$(cat out)" "szakallas.stg.eu"
