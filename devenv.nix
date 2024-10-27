@@ -1,9 +1,8 @@
 { self, pkgs, lib, config, inputs, ... }:
 with lib;
 let
-  ruby = pkgs.ruby;
   gems = pkgs.bundlerEnv {
-    inherit ruby;
+    inherit (pkgs) ruby;
     name = "szakallas.eu-env";
     gemfile = ./Gemfile;
     lockfile = ./Gemfile.lock;
@@ -18,11 +17,6 @@ in {
       install.enable = true;
     };
     directory = "./hack";
-   };
-
-  env = {
-    JEKYLL_CACHE_DIR = "${self}/.jekyll-cache";
-    JEKYLL_METADATA = "${self}/.jekyll-metadata";
   };
 
   packages = [ gems gems.wrappedRuby ] ++ (with pkgs; [ git bundix ]);
