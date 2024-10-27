@@ -6,7 +6,9 @@ import s3diff from 's3-diff'
 import { eachLimit } from 'async'
 import mime from 'mime'
 import { promisify as p } from 'util'
+import { open, readFile } from 'fs/promises'
 import pino from 'pino'
+import path from 'path'
 import { parseArgs } from 'node:util'
 
 const log = pino({level: process.env.LOG_LEVEL || 'info'})
@@ -59,7 +61,7 @@ const invalidateCloudfront = async (distribution, filenames, {dryrun} = {dryrun:
       Paths: paths
     }
   })
-  log.info(`invalidated ${distribution} ${invalidation.Invalidation.Id}`)
+  log.info(`invalidated ${distribution} ${invalidationBatch} ${JSON.stringify(paths)}`)
 }
 
 const options = {

@@ -1,0 +1,56 @@
+name: Jekyll site CI - Production
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches: [ "**" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v30
+      - uses: cachix/cachix-action@v15
+        with:
+          name: devenv
+      - run: nix profile install nixpkgs#devenv
+      - run: devenv test
+
+  publish-prod:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: "us-east-1"
+      AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v30
+      - uses: cachix/cachix-action@v15
+        with:
+          name: devenv
+      - run: nix profile install nixpkgs#devenv
+      - run: devenv build outputs.prod > out
+      - run: upload --distribution "${{ secrets.DISTRIBUTION }}" "$(cat out)" "szakallas.eu"
+        shell: devenv shell bash -- -e {0}
+
+
+  publish-staging:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
+    needs: test
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: "us-east-1"
+      AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v30
+      - uses: cachix/cachix-action@v15
+        with:
+          name: devenv
+      - run: nix profile install nixpkgs#devenv
+      - run: devenv build outputs.staging > out
+      - run: upload "$(cat out)" "szakallas.stg.eu"
+        shell: devenv shell bash -- -e {0}
