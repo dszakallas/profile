@@ -31,8 +31,10 @@ jobs:
         with:
           name: devenv
       - run: nix profile install nixpkgs#devenv
-      - run: devenv build outputs.prod > out
-      - run: upload --distribution "${{ secrets.DISTRIBUTION }}" "$(cat out)" "szakallas.eu"
+      - run: devenv build outputs.production > out
+      - run: |
+          upload --distribution "${{ secrets.DISTRIBUTION }}" \
+            "$(cat out)" "szakallas.eu"
         shell: devenv shell bash -- -e {0}
 
 
@@ -41,7 +43,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     env:
-      AWS_REGION: "us-east-1"
+      AWS_REGION: "eu-central-1"
       AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
@@ -52,5 +54,6 @@ jobs:
           name: devenv
       - run: nix profile install nixpkgs#devenv
       - run: devenv build outputs.staging > out
-      - run: upload "$(cat out)" "szakallas.stg.eu"
+      - run: |
+          upload "$(cat out)" "profile-stg.baumn6tvtdsghghqlpsu5i1t1g.302r1uhs"
         shell: devenv shell bash -- -e {0}

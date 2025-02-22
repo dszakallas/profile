@@ -1,16 +1,19 @@
-{ lib
-, gems
-, stdenv
-, jekyllBuildFlags ? []
-, ...
+{
+  lib,
+  gems,
+  stdenv,
+  jekyllBuildFlags ? [ ],
+  jekyllEnv ? "development",
+  ...
 }:
 with lib;
 stdenv.mkDerivation {
-  name = "szakallas.eu";
+  name = "profile";
   version = "unstable";
   src = ./src;
   buildInputs = [ gems ];
   buildPhase = ''
+    export JEKYLL_ENV=${jekyllEnv}
     ${gems}/bin/bundle exec jekyll ${concatStringsSep " " ([ "build" ] ++ jekyllBuildFlags)}
   '';
   installPhase = ''
