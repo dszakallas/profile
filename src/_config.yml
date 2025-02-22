@@ -12,7 +12,7 @@ paths:
   base: /
   home: /
   archive: /all/
-  rss:  /feed.xml
+  rss: /feed.xml
 
 defaults:
   - scope:
@@ -31,26 +31,25 @@ repository: dszakallas/profile
 repository_tree: master
 
 ## Language & timezone ##
-lang: en #the language of your site, eg: en(English), zh(简体中文), zh-Hans(简体中文), zh-Hant(繁體中文)
-timezone: Europe/Budapest #see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for the available values
+lang: en
+timezone: Europe/Budapest
 
 ## Author & social ##
 author:
   name: Szakállas Dávid
-  email:  #your Email address e.g. someone@site.com
+  email:  # your Email address e.g. someone@site.com
   # facebook:  #your Facebook username
   twitter: szdavid92
   github: dszakallas
   # googleplus:  #your Google+ username
   # weibo:  #your Weibo username
   # douban:  #your Douban username
-  linkedin:  dszakallas
+  linkedin: dszakallas
 
 license: CC-BY-4.0
 
 ## TOC
-toc:
-  # selectors: 'h1,h2,h3'
+toc:  # selectors: 'h1,h2,h3'
 
 # mathjax: true
 # mathjax_autoNumber: true

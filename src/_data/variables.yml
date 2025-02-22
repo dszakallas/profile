@@ -5,8 +5,8 @@ default:
   paths:
     root: /
     home: /
-    archive:  /archive.html
-    rss:  /feed.xml
+    archive: /archive.html
+    rss: /feed.xml
   mathjax: false
   mathjax_autoNumber: false
   mermaid: false
@@ -48,7 +48,7 @@ sources:
     gitalk:
       js: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.js'
       css: 'https://cdn.bootcss.com/gitalk/1.2.2/gitalk.min.css'
-    valine: 'https://unpkg.com/valine/dist/Valine.min.js' # bootcdn not available
+    valine: 'https://unpkg.com/valine/dist/Valine.min.js'
     mathjax: 'https://cdn.bootcss.com/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML'
     mermaid: 'https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js'
   unpkg:

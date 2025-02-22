@@ -1,4 +1,5 @@
 # @start locale config
+# yamllint disable rule:colons
 ## => English
 ########################
 en: &EN
