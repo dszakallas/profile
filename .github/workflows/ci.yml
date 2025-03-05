@@ -1,4 +1,4 @@
-name: Jekyll site CI - Production
+name: Jekyll site CI
 
 on:  # yamllint disable-line rule:truthy
   push:
