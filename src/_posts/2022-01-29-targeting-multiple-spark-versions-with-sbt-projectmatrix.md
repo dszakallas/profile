@@ -6,6 +6,7 @@ tags:
   - Scala
   - Apache Spark
   - sbt
+  - developer tools
 ---
 
 ## Introduction

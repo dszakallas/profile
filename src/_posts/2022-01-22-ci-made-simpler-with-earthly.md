@@ -7,6 +7,7 @@ tags:
   - BuildKit
   - Docker
   - DevOps
+  - developer tools
 ---
 
 Building applications in containers has well-known benefits. Encapsulating the whole build environment in a container removes the possibly lenghty and hardly reproducible process of setting up the build environment; while the smart use of build stages and layers opens up
