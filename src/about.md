@@ -28,23 +28,19 @@ key: page-about
   - on AWS: EMR, Athena, Glue, S3
   - on Azure: Databricks, ADLSv2
   - on K8s: Apache Airflow, Apache Spark
-- Developing backends
-  - in Go
-  - in Python
-  - on the JVM (Scala, Kotlin, Clojure)
+- Developing backends (Go, Python, Scala)
 - Developing control planes with Go and K8s controller runtime
-- Developing in Rust and C++ (hobbyist level)
 - Functional programming, algebraic types, static typing
-- Data science, supervised ML training pipelines
+- Data science, ML pipelines, neural networks
 - Databases:
-  - Postgre, MariaDB, Dolt
+  - PostgreSQL, MariaDB, Dolt
   - Redis, MongoDB
   - Elasticsearch
 - IaC/CI/GitOps:
   - Terraform (OpenTofu), AWS CloudFormation, Azure RM
   - GitLab CI, GitHub Actions, Jenkins
-  - Flux, ArgoCD
-  - Dagger, Earthly, BuildKit
+  - Flux
+  - Dagger, BuildKit
 
 ## Interests
 
@@ -60,7 +56,3 @@ key: page-about
 - openCypher Meeting #4 Remarks \| Whitepages (I only held an internal talk at Whitepages office as the Neo4j Budapest meetup group is inactive since February) \| May 2018, Budapest \| [Slides](/assets/speaking/ocim4.pdf)
 - Writing a Cypher query engine in Clojure (feat. Gábor Szárnyas) - 3rd Budapest Clojure Meetup \| Mar 2018, Budapest \| [Event Page](https://www.meetup.com/Budapest-Clojure-User-Group/events/248220424/) \| [Slides](/assets/speaking/sre.pdf)
 - Scripting a MIDI controller with Javascript - Nodebp 2017 August \| Aug 2017, Budapest \| [Event Page](https://www.meetup.com/nodebp/events/242250790/)
-
-## This blog
-
-Built with Jekyll, hosted on AWS. IaC with Terraform.
