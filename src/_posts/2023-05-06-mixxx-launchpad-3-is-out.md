@@ -13,6 +13,8 @@ tags:
 I finally found some time to work on [mixxx-launchpad](https://github.com/dszakallas/mixxx-launchpad), my Novation Launchpad
 mappings for the popular Mixxx DJ software, which I started back in
 [2017]({% post_url 2017-05-20-modern-javascripting-a-midi-controller %}).
+
+<!--more-->
 The current spike was mostly driven by the desire to add some long awaited features such supporting RGB LEDs
 and samplers. Additionally I wanted to modernize and componentize
 the code and make it easier for users with limited programming skills to customize their layouts.

@@ -7,6 +7,8 @@ tags:
   - Haskell
   - graphs
 ---
+
+<!--more-->
 As a rookie Haskeller coming from imperative languages I am still
 often shocked how elegantly mathematical problems can be expressed in this
 great language. Last time a wrote a [blogpost about recursion](https://blog.davidka.me/?p=129).

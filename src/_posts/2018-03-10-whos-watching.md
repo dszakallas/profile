@@ -7,8 +7,8 @@ tags:
   - Makefile
   - developer tools
 ---
-
-I have yet to meet a serious frontend programmer who hasn\'t used file
+<!--more-->
+I have yet to meet a serious frontend programmer who hasn't used file
 system watcher tasks to recompile/rebuild/redeploy code and enjoy the
 instant feedback. In Javascript land all build tools/bundlers/packers
 and whatnot provide `watch`​ flags to make them watch for changes

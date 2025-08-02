@@ -10,6 +10,7 @@ tags:
 We all know about the Fibonacci sequence. Some of us also know a song that
 uses it to achieve a spiraling feeling (yes, Tool fans!).
 
+<!--more-->
 In Haskell:
 
 ```haskell

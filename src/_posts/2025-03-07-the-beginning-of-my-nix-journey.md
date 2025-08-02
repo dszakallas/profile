@@ -6,11 +6,18 @@ tags:
   - nix
   - developer tools
   - raspberry-pi
+excerpt: It's been over half a year since I started using Nix, and I feel the time has come to look back and reflect on the experience.
+
+
+article_header:
+  type: overlay
+  theme: dark
+  background_image:
+    gradient: 'linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.5))'
+    src: /assets/2025-03-07-the-beginning-of-my-nix-journey/header.png
 ---
 
-It's been over half a year since I started using Nix, and I feel the time has come to look back and reflect
-on the experience.
-
+<!--more-->
 Interestingly, I didn't start using it as a fancy __dotfiles/devenv manager__; in fact, that only came later
 as a side effect (pun intended!). I had a retrogaming Raspberry Pi 4 for some time, running Raspbian with
 [RetroPie](https://retropie.org.uk/). My configuration had evolved organically over the years, as one would expect.

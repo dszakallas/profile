@@ -9,6 +9,8 @@ tags:
   - VST
   - tutorial
 ---
+
+<!--more-->
 A na(t)ive compressor plugin
 ============================
 

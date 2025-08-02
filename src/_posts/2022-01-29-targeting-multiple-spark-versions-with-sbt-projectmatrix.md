@@ -9,9 +9,10 @@ tags:
   - developer tools
 ---
 
-## Introduction
+I was recently involved in projects that had to work on multiple Spark versions. 
 
-I was recently involved in projects that had to work on multiple Spark versions. One of them is an open-source project that targeted Spark 2 and Spark 3 for a while; the other one a collection of internal ETL applications that the team migrated to Spark 3 but also had to support Spark 2 for a longer period of time due to external constraints. Spark 3.0.0 finally ditched the archaic Scala 2.11, making it necessary to cross-compile the library for multiple Scala versions. While almost perfectly source-compatible, it also broke the code a few places where we directly depended on Spark internals. Moreover, some libraries don't have an overlapping version range with both Scala 2.11 and Scala 2.12 support, requiring us to use separate versions of these libraries. In this blogpost, I am going to show how [`sbt-projectmatrix`](https://github.com/sbt/sbt-projectmatrix) can be utilized for cross-compilation with possibly different set of dependencies and platform dependent shims where necessary.
+<!--more-->
+One of them is an open-source project that targeted Spark 2 and Spark 3 for a while; the other one a collection of internal ETL applications that the team migrated to Spark 3 but also had to support Spark 2 for a longer period of time due to external constraints. Spark 3.0.0 finally ditched the archaic Scala 2.11, making it necessary to cross-compile the library for multiple Scala versions. While almost perfectly source-compatible, it also broke the code a few places where we directly depended on Spark internals. Moreover, some libraries don't have an overlapping version range with both Scala 2.11 and Scala 2.12 support, requiring us to use separate versions of these libraries. In this blogpost, I am going to show how [`sbt-projectmatrix`](https://github.com/sbt/sbt-projectmatrix) can be utilized for cross-compilation with possibly different set of dependencies and platform dependent shims where necessary.
 
 Disclaimer: `sbt-projectmatrix` is experimental at the time of writing this article.
 

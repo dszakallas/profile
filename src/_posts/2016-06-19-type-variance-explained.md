@@ -7,6 +7,8 @@ tags:
   - generic programming
 
 ---
+
+<!--more-->
 Reasoning about subtype relations between parameterised types tend
 to confuse developers. If you are a Java developer you\'ve probably seen
 the syntax `? extends T` and `? super T`, or might even used it to

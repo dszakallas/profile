@@ -10,6 +10,7 @@ tags:
 It is quite common to have separate users for different git repos. For example having a public account
 for all your open-source GitHub stuff, and a work account for your employer's private git remote.
 
+<!--more-->
 If you regularly have to clone new repos in each 'role', defaulting to one and changing the
 local repository config in all others quickly becomes cumbersome. Fortunately git can do better!
 

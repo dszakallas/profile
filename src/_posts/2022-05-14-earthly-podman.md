@@ -13,6 +13,8 @@ tags:
 ---
 
 Podman is a daemonless container engine for developing, managing, and running OCI containers on your Linux System.
+
+<!--more-->
 With podman, containers can either be run as root or in rootless mode, which improves security as an attacker will not have root privileges over your system. It has a CLI that serves as a drop-in replacement for Docker to make migration easier, so most users can alias Docker to podman without any issues.
 
 The tutorial covers:

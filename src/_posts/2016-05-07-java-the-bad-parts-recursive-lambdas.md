@@ -10,6 +10,7 @@ tags:
 ---
 Have you ever tried to create a recursive lambda in Java?
 
+<!--more-->
 You might ask why on earth would somebody do that. For you I have a
 confession to begin with: I\'ve been spoiled. I\'ve been spoiled with
 the overwhelming expressiveness of functional programming. I\'ve been

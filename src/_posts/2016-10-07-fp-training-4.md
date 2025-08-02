@@ -7,6 +7,8 @@ tags:
   - Haskell
   - tutorial
 ---
+
+<!--more-->
 ##  Agenda
  - Example 1: factorial
  - Example 2: map

@@ -6,7 +6,7 @@ tags:
   - functional programming
   - quote
 ---
-
+<!--more-->
 As you write more functional programs, you'll sometimes encounter
 situations like this where the functional way of expressing a program
 feels awkward or tedious. Does this imply that purity is the

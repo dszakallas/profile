@@ -11,6 +11,7 @@ tags:
 ---
 GitOps is a way of implementing Continuous Deployment for cloud native applications.
 
+<!--more-->
 Making git the single source of truth for cluster state has many benefits. Without completeness:
 1. offers observability and time-travel with the full change history recorded,
 1. enables modifying the application's configuration and source code with a unified approach,

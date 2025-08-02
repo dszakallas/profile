@@ -8,12 +8,9 @@ tags:
   - Mixxx
 ---
 
-Abstract: Blogpost summarizing the challenges of creating a flexible and customizable MIDI controller mapping for Mixxx targeting multiple Novation Launchpad grid controllers.
-
-Keywords: JavaScript, MIDI, Mixxx, ES6 modules, Babel, Flow
-
 I own two Novation Launchpads. The most iconic use-cases of this cool grid controller is launching samples. Launchpad cover videos are very popular on YouTube. These are done by slicing up the songs, and playing back live, spiced with some flashy visual effects.
 
+<!--more-->
 You can also use launchpads for DJing. While being fit for a handful of things: cueing samples, beatjumping and looping, etc.; the Launchpad have neither a jogwheel nor any rotary controls or faders, so it falls short on functions like scratching or crossfading. Thus, it’s best to use as companion to your other DJ gear.
 
 If you are interested in Mixxx you can download it from its [homepage](https://www.mixxx.org/).

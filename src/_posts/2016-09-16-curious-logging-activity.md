@@ -6,8 +6,9 @@ tags:
   - data analysis
   - R
 ---
-## The heartbeat of our logs
 
+<!--more-->
+## The heartbeat of our logs
 
 Logentries draws a neat linechart to visualize your logging activity. This chart is great for seeing if there are any errors appearing after a change, so you see at a glance if it's worth to check the logs. Looking at one of our services, this chart caught my eye:
 

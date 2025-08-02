@@ -11,7 +11,10 @@ tags:
 
 With this article we are starting a series of blogposts targeting developers who
 want to learn or refresh their knowledge about writing concurrent applications
-in general. The series will focus on well-known and widely adopted concurrency
+in general. 
+
+<!--more-->
+The series will focus on well-known and widely adopted concurrency
 patterns in different programming languages, platforms and runtimes. With this,
 we are diverting from our usual articles targeting solely Node.js.
 

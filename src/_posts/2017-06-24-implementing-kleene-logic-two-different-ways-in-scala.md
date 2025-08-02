@@ -12,6 +12,7 @@ Recently I've been writing a graph query engine at Fault Tolerant System
 Research Group at uni. The frontend is Cypher, a language popularized
 by Neo Technology shipped OOTB with their graph database Neo4j.
 
+<!--more-->
 Recently Cypher is getting standardized in an open source and open government
 initiative under the name openCypher; and other DB vendors, such as the RDBMS giant Oracle
 are starting to support it.
