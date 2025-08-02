@@ -30,7 +30,8 @@ in
   packages = [
     gems
     gems.wrappedRuby
-  ] ++ (with pkgs; [ bundix ]);
+  ]
+  ++ (with pkgs; [ bundix ]);
 
   scripts = {
     upload.exec = "cd hack && npm run upload --silent -- $@";
