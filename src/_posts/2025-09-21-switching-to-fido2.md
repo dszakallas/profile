@@ -159,7 +159,7 @@ in
 }
 ```
 
-### Step 4: Enable Agent Forwarding
+### Step 4: Configuring the SSH Agent
 
 In the configuration above, `AddKeysToAgent yes` signals the intent to use the key with `ssh-agent`.
 However, this is not enough to make it work, as running `ssh-add` with a FIDO2 key results in an error:
@@ -184,6 +184,9 @@ The immediate solution is to start a new agent with a modified allowlist:
 eval $(ssh-agent -P $SSH_FIDO_LIB -s)
 ssh-add -S $SSH_FIDO_LIB ~/.ssh/id_ed25519_sk
 ```
+
+> 💡 If you'd rather confirm adding keys to the agent using a GUI prompt
+> you might want to try [this small utility](https://github.com/theseal/ssh-askpass).
 
 This works, but it's temporary. Making this change permanent on macOS is complicated because
 the system-wide `ssh-agent` is protected by System Integrity Protection (SIP), and its
@@ -235,13 +238,13 @@ in
 }
 ```
 
-After applying this configuration, disable the default system agent for your user and restart your session:
+After applying this configuration, disable the default system agent for your user:
 
 ```bash
 launchctl disable gui/$UID/com.openssh.ssh-agent
 ```
 
-Now, log out and log back in. Your system will be running a custom `ssh-agent` with FIDO2 support.
+> ℹ️ There's no prompt message displayed for touch-only user presence verification when using the agent.
 
 ### Bonus: Signing Git Commits
 
