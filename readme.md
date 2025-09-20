@@ -21,7 +21,7 @@ devenv build outputs.staging
 devenv build outputs.producion
 ```
 
-### Update dependencies
+## Update dependencies
 
 ```bash
 bundle update
