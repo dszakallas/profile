@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Switching from GPG to FIDO2 on my macOS
+title: Switching from GPG to FIDO2 on macOS
 key: 2025-09-21-switching-to-fido2
 tags:
   - nix
