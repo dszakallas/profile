@@ -44,11 +44,10 @@ I recently decided to finally retire GPG for several compelling reasons:
   encountered while generating new keys—present in popular distributions like
   Ubuntu 24.04 LTS—was the final straw.
 
-The YubiKey 5 supports two other applications for SSH authentication: PIV and FIDO2. I immediately
-ruled out PIV due to its historical connection to the
-[FIPS ECDSA scandal](https://arstechnica.com/information-technology/2013/09/the-nsas-dirty-little-secret-is-out-and-its-called-the-dual_ec_drbg/),
-leaving me with **FIDO2**, a modern, open standard for secure authentication developed
-by the [FIDO Alliance](https://fidoalliance.org/).
+The YubiKey 5 supports two other applications for SSH authentication: PIV and FIDO2. Since
+**FIDO2**, is a modern, open standard for secure authentication developed
+by the [FIDO Alliance](https://fidoalliance.org/), I chose that over PIV, which is an older
+standard created by the US government.
 
 This guide is for a very specific audience: those who want to set up FIDO2 authentication on macOS
 using Nix. It's also useful for those who don't use Nix, but you will need to do some manual editing and
