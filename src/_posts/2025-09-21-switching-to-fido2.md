@@ -24,7 +24,7 @@ that using phishing-resistant authentication methods is more of a necessity
 than a nice-to-have nowadays.
 
 An ideal credential is one that is either single-use or has a short validity timespan at most,
-and requires some form of user presence.
+and requires some form of user presence verification.
 
 I am not a high-profile package author, but I have been using my YubiKey as a WebAuthn passkey to
 log into my GitHub and other important accounts for a while.
