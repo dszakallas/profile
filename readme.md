@@ -1,20 +1,29 @@
-# profile
+# [profile](https://szakallas.net/)
+
+## Install
+
+Install Nix and devenv.sh
 
 ## Development
 
-### Hot reload
-
 Spin up development environment with live regen:
 
-```shell
+```bash
 devenv up -d
 ```
 
 Site is available at `http://localhost:4000`.
 
-### Update dependencies
+## Build the site
 
-```shell
+```bash
+devenv build outputs.staging
+devenv build outputs.producion
+```
+
+## Update dependencies
+
+```bash
 bundle update
 bundix
 ```
