@@ -32,7 +32,7 @@ jobs:
           name: devenv
       - run: nix profile install nixpkgs#devenv
       - run: devenv build outputs.production > out
-      - uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@v5
         with:
           aws-region: eu-central-1
           role-to-assume: arn:aws:iam::588757185393:role/ProfileGHAMainBranch
@@ -54,7 +54,7 @@ jobs:
           name: devenv
       - run: nix profile install nixpkgs#devenv
       - run: devenv build outputs.staging > out
-      - uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@v5
         with:
           aws-region: eu-central-1
           role-to-assume: arn:aws:iam::588757185393:role/ProfileGHAStagingBranch
