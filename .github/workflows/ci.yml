@@ -21,8 +21,8 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.WORKFLOW_TOKEN }}
-      - uses: cachix/install-nix-action@v30
-      - uses: cachix/cachix-action@v15
+      - uses: cachix/install-nix-action@v31
+      - uses: cachix/cachix-action@v16
         with:
           name: devenv
       - run: nix profile install nixpkgs#devenv
@@ -50,13 +50,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: cachix/install-nix-action@v30
-      - uses: cachix/cachix-action@v15
+      - uses: cachix/install-nix-action@v31
+      - uses: cachix/cachix-action@v16
         with:
           name: devenv
       - run: nix profile install nixpkgs#devenv
       - run: devenv build outputs.production > out
-      - uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@v5
         with:
           aws-region: eu-central-1
           role-to-assume: arn:aws:iam::588757185393:role/ProfileGHAMainBranch
@@ -72,13 +72,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: cachix/install-nix-action@v30
-      - uses: cachix/cachix-action@v15
+      - uses: cachix/install-nix-action@v31
+      - uses: cachix/cachix-action@v16
         with:
           name: devenv
       - run: nix profile install nixpkgs#devenv
       - run: devenv build outputs.staging > out
-      - uses: aws-actions/configure-aws-credentials@v4
+      - uses: aws-actions/configure-aws-credentials@v5
         with:
           aws-region: eu-central-1
           role-to-assume: arn:aws:iam::588757185393:role/ProfileGHAStagingBranch
