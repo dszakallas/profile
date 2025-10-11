@@ -60,6 +60,14 @@ in
         in
         older_posts_im_not_going_to_fix ++ [ "src/about.md" ];
     };
+    nixfmt-rfc-style = {
+      excludes = [ "gemset.nix" ];
+    };
+    bundix = {
+      enable = true;
+      entry = "bundix";
+      files = "Gemfile(\\.lock)?$";
+    };
   };
 
   processes = {

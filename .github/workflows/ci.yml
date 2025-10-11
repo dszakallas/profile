@@ -1,8 +1,13 @@
-name: Jekyll site CI
+name: CI
 
-on:  # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   push:
-    branches: [ "**" ]
+    branches:
+      - "main"
+  pull_request:
+    types: [opened, synchronize, labeled]
+    branches:
+      - "**"
 
 permissions:
   id-token: write
@@ -12,20 +17,39 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.WORKFLOW_TOKEN }}
       - uses: cachix/install-nix-action@v30
       - uses: cachix/cachix-action@v15
         with:
           name: devenv
       - run: nix profile install nixpkgs#devenv
-      - run: devenv test
+      - run: devenv test --dont-override-dotfile
+      - name: Apply autofixes
+        if: |
+          failure() &&
+          contains(github.event.pull_request.labels.*.name, 'autofix')
+        shell: devenv shell bash -- -e {0}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: apply autofixes"
+            FIX_COMMIT_SHA=$(git rev-parse HEAD)
+            git checkout ${{ github.head_ref }}
+            git cherry-pick ${FIX_COMMIT_SHA}
+            git push origin ${{ github.head_ref }}
+          fi
 
   publish-prod:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: cachix/install-nix-action@v30
       - uses: cachix/cachix-action@v15
         with:
@@ -47,7 +71,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: cachix/install-nix-action@v30
       - uses: cachix/cachix-action@v15
         with:
