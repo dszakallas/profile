@@ -11,10 +11,6 @@ type: article
 <div class="layout--article">
   {%- include article/top/custom.html -%}
 
-  <div class="d-print-none">
-    {%- include article-section-navigator.html -%}
-  </div>
-
   <div class="article__content" itemprop="articleBody">{{ content }}</div>
 
   {%- if _sharing -%}

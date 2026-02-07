@@ -3,11 +3,9 @@
 }
 .article__section-navigator {
   padding-top: map-get($spacers, 3);
-  padding-bottom: map-get($spacers, 3);
-  margin: map-get($spacers, 4) 0;
+  margin: map-get($spacers, 4) 0 map-get($spacers, 3) 0;
   word-wrap: break-word;
   @include split-line(top, 4px);
-  @include split-line(bottom, 4px);
   & > .previous, & > .next {
     width: 50%;
     & > span {
