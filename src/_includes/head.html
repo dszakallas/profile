@@ -14,12 +14,24 @@
 
 {%- include head/favicon.html -%}
 
+<script>
+	// Mark that JavaScript is running so we can safely apply FOUC-prevention styles
+	document.documentElement.classList.add('js');
+</script>
 <style>
-	/* Prevent FOUC (Flash of Unstyled Content) */
-	html:not(.css-loaded) body {
+	/* Prevent FOUC (Flash of Unstyled Content) only when JS is enabled */
+	html.js:not(.css-loaded) body {
 		visibility: hidden;
 	}
 </style>
+<noscript>
+	<style>
+		/* Ensure the page is visible when JavaScript is disabled */
+		html body {
+			visibility: visible !important;
+		}
+	</style>
+</noscript>
 {%- include snippets/prepend-baseurl.html path='/assets/css/theme-light.css' -%}
 {%- assign _theme_light_css = __return -%}
 {%- include snippets/prepend-baseurl.html path='/assets/css/theme-dark.css' -%}
@@ -29,8 +41,7 @@
 	id="theme-css"
 	href="{{ _theme_light_css }}"
 	data-theme-light="{{ _theme_light_css }}"
-	data-theme-dark="{{ _theme_dark_css }}"
-	onload="document.documentElement.classList.add('css-loaded')">
+	data-theme-dark="{{ _theme_dark_css }}">
 <script>
 	(function() {
 		try {
@@ -45,11 +56,42 @@
 			document.documentElement.dataset.theme = effective;
 			document.documentElement.dataset.themePreference = preference;
 
-			// Fallback: show content after 100ms even if CSS hasn't loaded
-			setTimeout(function() {
+			// Function to mark CSS as loaded
+			function markCSSLoaded() {
+				if (fallbackTimer) {
+					clearTimeout(fallbackTimer);
+				}
 				document.documentElement.classList.add('css-loaded');
-			}, 100);
-		} catch (e) {}
+			}
+
+			// Check if stylesheet is already loaded (e.g., from cache)
+			function isStylesheetLoaded(link) {
+				try {
+					// Check if the stylesheet has loaded by accessing its cssRules
+					// This will throw an error if the stylesheet hasn't loaded yet
+					return link.sheet && link.sheet.cssRules;
+				} catch (e) {
+					// If we can't access cssRules, it might be loading or from a different origin
+					// Check if the sheet property exists as a fallback
+					return link.sheet !== null;
+				}
+			}
+
+			// Fallback: show content after 1 second if CSS fails to load
+			var fallbackTimer = setTimeout(markCSSLoaded, 1000);
+
+			// Check if already loaded (e.g., from cache)
+			if (isStylesheetLoaded(link)) {
+				markCSSLoaded();
+			} else {
+				// Set up event listeners for when it loads
+				link.addEventListener('load', markCSSLoaded);
+				link.addEventListener('error', markCSSLoaded);
+			}
+		} catch (e) {
+			// If anything fails, ensure content is visible
+			document.documentElement.classList.add('css-loaded');
+		}
 	})();
 </script>
 

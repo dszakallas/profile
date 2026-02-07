@@ -18,10 +18,11 @@
         $scroll = $(scroll);
       }
       function preCalc() {
+        // Calculate rootLeft BEFORE changing state, to get the correct position
+        rootLeft = $root.offset().left;
         top();
         rootHeight = $root.outerHeight();
         rootTop = $root.offset().top + (isOverallScroller ? 0 :  $scrollTarget.scrollTop());
-        rootLeft = $root.offset().left;
       }
       function calc(needPreCalc) {
         needPreCalc && preCalc();
