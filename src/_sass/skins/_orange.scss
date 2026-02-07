@@ -1,4 +1,6 @@
 ///
+@use "sass:color";
+
 // Skin: Orange
 // Author: Tian Qi
 // Email: kitian616@outlook.com
@@ -43,8 +45,8 @@ $footer-text-color: $text-color-3;
 $footer-background: linear-gradient(60deg, #ffa650 0%, #ff7b50 100%);
 
 // border and shadow colors
-$border-color:     mix($main-color-1, $background-color, 50%);
-$border-color-l:   mix(#000, $background-color, 10%);
+$border-color:     color.mix($main-color-1, $background-color, 50%);
+$border-color-l:   color.mix(#000, $background-color, 10%);
 $decorate-color:   rgba(#000, .1);
 $mask-color:       rgba(#000, .9);
 $select-color:     rgba($main-color-3, .5);
@@ -71,4 +73,4 @@ $github-color:     #000;
 $npm-color:        #fff;
 
 // highlight colors
-@import "skins/highlight/tomorrow-night-eighties";
+@use "highlight/tomorrow-night-eighties";

@@ -13,4 +13,8 @@
       matchUpdateTypes: ['minor', 'patch'],
     },
   ],
+  lockFileMaintenance: {
+    enabled: true,
+    automerge: true
+  },
 }
