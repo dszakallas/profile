@@ -1,15 +1,20 @@
 {
   self,
-  pkgs,
-  lib,
   config,
   inputs,
+  pkgs,
   ...
-}:
-with lib;
+}@args:
 let
+  lib = args.lib // (import ./devenv/lib { inherit (inputs) nixpkgs; });
+  pkgs = args.pkgs // (lib.callPackageWithRec args.pkgs ./devenv/pkgs);
+in
+with lib;
+with pkgs;
+let
+  ruby = pkgs.ruby;
   gems = pkgs.bundlerEnv {
-    inherit (pkgs) ruby;
+    inherit ruby;
     name = "profile-env";
     gemfile = ./Gemfile;
     lockfile = ./Gemfile.lock;
@@ -26,12 +31,53 @@ in
     };
     directory = "./hack";
   };
+  languages.ruby = {
+    enable = true;
+    package = ruby;
+  };
 
-  packages = [
-    gems
-    gems.wrappedRuby
-  ]
-  ++ (with pkgs; [ bundix ]);
+  profiles.agents.module =
+    { ... }:
+    let
+      mcpServers = {
+        playwright = {
+          type = "stdio";
+          command = "${npm."@playwright/mcp"}/bin/playwright-mcp";
+        };
+      };
+    in
+    {
+      imports = [ ./devenv/modules/agents.nix ];
+      config = {
+        packages = with pkgs; [ npm."@playwright/mcp" ];
+        agents.gemini = {
+          enable = true;
+          settings = {
+            enable = true;
+            inherit mcpServers;
+          };
+        };
+        agents.augment = {
+          enable = true;
+          settings = {
+            enable = true;
+            inherit mcpServers;
+          };
+        };
+        agents.vscode = {
+          enable = true;
+          settings = {
+            enable = true;
+            inherit mcpServers;
+          };
+        };
+      };
+    };
+
+  packages = with pkgs; [
+    bundix
+    node2nix
+  ];
 
   scripts = {
     upload.exec = "cd hack && npm run upload --silent -- $@";
@@ -61,7 +107,10 @@ in
         older_posts_im_not_going_to_fix ++ [ "src/about.md" ];
     };
     nixfmt-rfc-style = {
-      excludes = [ "gemset.nix" ];
+      excludes = [
+        "gemset.nix"
+        "devenv/pkgs/npm/_.*\\.nix"
+      ];
     };
     bundix = {
       enable = true;

@@ -1,8 +1,9 @@
 source "https://rubygems.org"
 
-gem "jekyll", "4.4.1"
-gem "jekyll-text-theme", "~> 2.2.6"
-
+gem "jekyll", "~> 4.4.0"
+gem "jekyll-paginate", "~> 1.1"
+gem "jekyll-sitemap", "~> 1.0"
+gem "jekyll-feed", "~> 0.1"
+gem "jemoji", "~> 0.8"
 gem "tzinfo-data"
-
 gem "webrick", "~> 1.7"
