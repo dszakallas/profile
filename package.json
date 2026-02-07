@@ -1,0 +1,30 @@
+{
+  "name": "profile-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Frontend dependencies for szakallas.dev",
+  "scripts": {
+    "upload": "./hack/upload.js",
+    "copy-vendor-assets": "./hack/copy-vendor-assets.js",
+    "postinstall": "./hack/copy-vendor-assets.js src/assets/vendor"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "jquery": "^3.7.1",
+    "chart.js": "^4.4.7",
+    "gitalk": "^1.8.0",
+    "valine": "^1.5.1",
+    "mathjax": "^3.2.2",
+    "mermaid": "^11.4.1"
+  },
+  "devDependencies": {
+    "fs-extra": "^11.2.0",
+    "async": "^3.2.3",
+    "aws-sdk": "^2.1354.0",
+    "mime": "^3.0.0",
+    "pino": "^9.5.0",
+    "s3-diff": "^1.2.1"
+  }
+}
+

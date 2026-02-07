@@ -1,14 +1,9 @@
-/*
-  ISC License
+export function isWinter() {
+  var currentMonth = new Date().getMonth() + 1; // getMonth() returns 0-11
+  return currentMonth === 12 || currentMonth === 1;
+}
 
-  Copyright (c) 2021, Ruby Adkins
-
-  Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
-
-  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-  */
-
-var Snow = function (options) {
+export function Snow (options) {
     document.getElementById(options.id).style.position = "fixed";
     document.getElementById(options.id).style.top = 0;
     document.getElementById(options.id).style.left = 0;
@@ -57,14 +52,15 @@ var Snow = function (options) {
 
     //boolean is snow is true or false
     this.go = false;
+    this.next = null;
     this.snowfall = function () {
-        requestAnimationFrame(() => this.snowfall());
+        this.next = requestAnimationFrame(() => this.snowfall());
+
+        //clear canvas
+        const context = this.canvas.getContext('2d');
+        context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         if (this.go) {
-            //clear canvas
-            const context = this.canvas.getContext('2d');
-            context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
             //update snowflakes
             for (var i = 0; i < num_flakes; i++) {
                 this.snowflakes[i].update();
@@ -77,19 +73,25 @@ var Snow = function (options) {
         }
     }
 
-    this.snowfall();
-
     this.start = function () {
         this.go = true;
+        this.snowfall();
     }
 
     this.stop = function () {
         this.go = false;
+        if (this.next) {
+            cancelAnimationFrame(this.next);
+        }
     }
 
     this.toggle = function () {
         console.log(this.go);
-        this.go = !this.go;
+        if (this.go) {
+            this.stop();
+        } else {
+            this.start();
+        }
     }
 }
 
@@ -182,5 +184,3 @@ var Snowflake = function (canvas, theme, min, max) {
         return Math.random() * (max - min) + min;
     }
 }
-
-export default Snow;

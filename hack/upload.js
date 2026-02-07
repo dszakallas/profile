@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-'use strict'
-
 import AWS from 'aws-sdk'
 import s3diff from 's3-diff'
 import { eachLimit } from 'async'

@@ -58,6 +58,71 @@
       @include flexbox();
     }
   }
+  & > .toggle-container {
+    margin-left: map-get($spacers, 2);
+  }
+}
+
+.toggle-container {
+  @include flexbox();
+  @include flex-direction(row);
+  border: 1px solid rgba($text-color, 0.2);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  
+  .toggle-container__button {
+    @include align-items(center);
+    @include flexbox();
+    @include justify-content(center);
+    min-width: 2.5rem;
+    min-height: 2.5rem;
+    border-radius: 0;
+    padding: 0.5rem;
+    
+    &:not(:last-child) {
+      border-right: 1px solid rgba($text-color, 0.2);
+    }
+    
+    &:hover {
+      background-color: rgba($main-color-1, 0.1);
+    }
+  }
+}
+
+.theme-toggle {
+  .theme-toggle__label {
+    display: none;
+  }
+  .theme-toggle__icon {
+    display: none;
+    font-size: map-get($base, font-size);
+  }
+  &[data-theme-state="system"] {
+    .theme-toggle__icon--system {
+      display: inline-flex;
+    }
+  }
+  &[data-theme-state="dark"] {
+    .theme-toggle__icon--dark {
+      display: inline-flex;
+    }
+  }
+  &[data-theme-state="light"] {
+    .theme-toggle__icon--light {
+      display: inline-flex;
+    }
+  }
+}
+
+.snow-toggle {
+  .snow-toggle__label {
+    display: none;
+  }
+  
+  &[data-snow-state="on"] {
+    background-color: rgba($main-color-1, 0.2);
+    color: $main-color-1;
+  }
 }
 
 .header__brand {

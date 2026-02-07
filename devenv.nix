@@ -29,7 +29,6 @@ in
       enable = true;
       install.enable = true;
     };
-    directory = "./hack";
   };
   languages.ruby = {
     enable = true;
@@ -80,7 +79,8 @@ in
   ];
 
   scripts = {
-    upload.exec = "cd hack && npm run upload --silent -- $@";
+    upload.exec = "npm run upload --silent -- $@";
+    "copy-vendor-assets".exec = "npm run copy-vendor-assets --silent -- $@";
   };
 
   outputs = {
@@ -116,6 +116,13 @@ in
       enable = true;
       entry = "bundix";
       files = "Gemfile(\\.lock)?$";
+    };
+    vendor-assets = {
+      enable = true;
+      name = "vendor-assets";
+      entry = "${pkgs.nodejs}/bin/node hack/copy-vendor-assets.js src/assets/vendor";
+      files = "(package\\.json|package-lock\\.json)$";
+      pass_filenames = false;
     };
   };
 
