@@ -14,6 +14,12 @@
 
 {%- include head/favicon.html -%}
 
+<style>
+	/* Prevent FOUC (Flash of Unstyled Content) */
+	html:not(.css-loaded) body {
+		visibility: hidden;
+	}
+</style>
 {%- include snippets/prepend-baseurl.html path='/assets/css/theme-light.css' -%}
 {%- assign _theme_light_css = __return -%}
 {%- include snippets/prepend-baseurl.html path='/assets/css/theme-dark.css' -%}
@@ -23,7 +29,8 @@
 	id="theme-css"
 	href="{{ _theme_light_css }}"
 	data-theme-light="{{ _theme_light_css }}"
-	data-theme-dark="{{ _theme_dark_css }}">
+	data-theme-dark="{{ _theme_dark_css }}"
+	onload="document.documentElement.classList.add('css-loaded')">
 <script>
 	(function() {
 		try {
@@ -37,6 +44,11 @@
 			}
 			document.documentElement.dataset.theme = effective;
 			document.documentElement.dataset.themePreference = preference;
+
+			// Fallback: show content after 100ms even if CSS hasn't loaded
+			setTimeout(function() {
+				document.documentElement.classList.add('css-loaded');
+			}, 100);
 		} catch (e) {}
 	})();
 </script>
