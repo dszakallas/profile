@@ -53,7 +53,7 @@ This guide is for a very specific audience: those who want to set up FIDO2 authe
 using Nix. It's also useful for those who don't use Nix, but you will need to do some manual editing and
 compiling.
 
-### The Challenge: FIDO2 on macOS
+## The Challenge: FIDO2 on macOS
 
 There's a lengthy discussion about the [hurdles of trying to use OpenSSH with FIDO2 on macOS](https://github.com/Yubico/libfido2/issues/464).
 
@@ -67,7 +67,7 @@ to retain its native macOS Keychain integration.
 The workaround, then, is to compile the standalone FIDO2 library from
 [openssh-portable](https://github.com/openssh/openssh-portable) and convince the system's SSH binaries to use it.
 
-### Step 1: Build the FIDO2 Middleware
+## Step 1: Build the FIDO2 Middleware
 
 A recently added
 [build target in `openssh-portable`](https://github.com/openssh/openssh-portable/commit/ca0697a90e5720ba4d76cb0ae9d5572b5260a16c.patch)
@@ -83,7 +83,7 @@ nix shell github:dszakallas/dotfiles-common/970c8dacdfdadd79544219e98ebc24185434
 
 >💡 If you don't use Nix but use Homebrew, someone has created a tap; check out the discussion linked above.
 
-### Step 2: Generate Your FIDO2-backed SSH Key
+## Step 2: Generate Your FIDO2-backed SSH Key
 
 With the middleware installed, you can now generate a FIDO2-hosted key. Since the system's `ssh-keygen`
 utility lacks built-in FIDO2 support, we must specify the path to our newly compiled library using the
@@ -110,7 +110,7 @@ ssh-keygen -w $SSH_FIDO_LIB -t ed25519-sk
 > - [Karubits: Yubikey and FIDO2 SSH](https://karubits.com/posts/Yubikey-and-FIDO2-SSH/)
 >
 
-### Step 3: Configure the SSH Client
+## Step 3: Configure the SSH Client
 
 Let's assume you saved your new key to `~/.ssh/id_ed25519_sk`. After adding the public key to your
 authorized keys on GitHub or another service, you can test the connection. The crucial step is to
@@ -159,7 +159,7 @@ in
 }
 ```
 
-### Step 4: Configuring the SSH Agent
+## Step 4: Configuring the SSH Agent
 
 In the configuration above, `AddKeysToAgent yes` signals the intent to use the key with `ssh-agent`.
 However, this is not enough to make it work, as running `ssh-add` with a FIDO2 key results in an error:
@@ -246,7 +246,7 @@ launchctl disable gui/$UID/com.openssh.ssh-agent
 
 > ℹ️ There's no prompt message displayed for touch-only user presence verification when using the agent.
 
-### Bonus: Signing Git Commits
+## Bonus: Signing Git Commits
 
 Once SSH agent FIDO2 integration is set up, signing Git
 commits is a breeze.
@@ -262,7 +262,7 @@ git commit -S --allow-empty -m "My signed commit"
 To set it up globally, you can follow the steps in the [official
 YubiKey documentation](https://developers.yubico.com/SSH/Securing_git_with_SSH_and_FIDO2.html).
 
-### Conclusion
+## Conclusion
 
 While macOS does not yet offer a turnkey solution for FIDO2-based SSH authentication,
 it is achievable with some effort, allowing us to migrate away from the aging GPG infrastructure.
