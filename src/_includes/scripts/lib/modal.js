@@ -9,7 +9,7 @@
       var scrollTop;
       function setOptions(options) {
         var _options = options || {};
-        visible = _options.initialVisible === undefined ? false : show;
+        visible = _options.initialVisible === undefined ? false : _options.initialVisible;
         onChange = _options.onChange;
         hideWhenWindowScroll = _options.hideWhenWindowScroll;
       }

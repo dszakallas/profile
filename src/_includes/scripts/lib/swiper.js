@@ -9,7 +9,7 @@
       function setOptions(options) {
         var _options = options || {};
         initialSlide = _options.initialSlide || 0;
-        animation = _options.animation === undefined && true;
+        animation = _options.animation === undefined ? true : _options.animation;
         onChange = onChange || _options.onChange;
         onChangeEnd = onChangeEnd || _options.onChangeEnd;
       }
@@ -179,7 +179,7 @@
         })();
 
         $root.on('touchmove', function(e) {
-          if (e.cancelable & touching) {
+          if (e.cancelable && touching) {
             e.preventDefault();
           }
         });

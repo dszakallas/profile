@@ -172,7 +172,7 @@
     };
     Gallery.prototype._handleChangeEnd = function(index, $dom, preIndex, $preDom) {
       this.curIndex = index;
-      this.lastZoomRect = null; this.lastZoomRect = null;
+      this.zoomRect = null; this.lastZoomRect = null;
       this.lastTranslate = this.translate = { x: 0, y:0 };
       this.lastZoom = this.preZoom = this.zoom = 1;
       this.$activeItem = $dom.find('.gallery-item__content');

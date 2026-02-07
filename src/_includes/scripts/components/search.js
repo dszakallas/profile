@@ -28,7 +28,7 @@
         search.onShow && search.onShow();
         useDefaultSearchBox && $searchInput[0] && $searchInput[0].focus();
       } else {
-        search.onShow && search.onHide();
+        search.onHide && search.onHide();
         useDefaultSearchBox && $searchInput[0] && $searchInput[0].blur();
         setTimeout(function() {
           useDefaultSearchBox && ($searchInput.val(''), $searchBox.removeClass('not-empty'));

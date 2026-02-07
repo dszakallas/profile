@@ -22,7 +22,6 @@ layout: page
         {%- assign _articles = paginator -%}
       {%- else -%}
         {%- assign _articles = site[_key] -%}
-      {%- else -%}
     {%- endcase -%}
   {%- else -%}
     {%- assign _articles = _articles[_key] -%}

@@ -14,7 +14,7 @@
 <div id="vcomments"></div>
 
 {%- if _VALINE_VISITOR -%}    
-<span id="{{page.url}}" class="leancloud-visitors" data-flag-title={{page.title}}>
+<span id="{{ page.url }}" class="leancloud-visitors" data-flag-title="{{ page.title | escape }}">
 </span>
 {%- endif -%}
 
