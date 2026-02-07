@@ -14,8 +14,32 @@
 
 {%- include head/favicon.html -%}
 
-{%- include snippets/prepend-baseurl.html path='/assets/css/main.css' -%}
-<link rel="stylesheet" href="{{ __return }}">
+{%- include snippets/prepend-baseurl.html path='/assets/css/theme-light.css' -%}
+{%- assign _theme_light_css = __return -%}
+{%- include snippets/prepend-baseurl.html path='/assets/css/theme-dark.css' -%}
+{%- assign _theme_dark_css = __return -%}
+<link
+	rel="stylesheet"
+	id="theme-css"
+	href="{{ _theme_light_css }}"
+	data-theme-light="{{ _theme_light_css }}"
+	data-theme-dark="{{ _theme_dark_css }}">
+<script>
+	(function() {
+		try {
+			var stored = localStorage.getItem('theme-preference');
+			var preference = stored || 'system';
+			var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+			var effective = preference === 'system' ? (prefersDark ? 'dark' : 'light') : preference;
+			var link = document.getElementById('theme-css');
+			if (link) {
+				link.href = effective === 'dark' ? link.dataset.themeDark : link.dataset.themeLight;
+			}
+			document.documentElement.dataset.theme = effective;
+			document.documentElement.dataset.themePreference = preference;
+		} catch (e) {}
+	})();
+</script>
 
 {%- include snippets/get-sources.html -%}
 {%- assign _sources = __return -%}

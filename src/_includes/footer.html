@@ -32,22 +32,24 @@
     </div>
   </div>
   <div id="snow"></div>
-  <script type="module">
-   //import the Snow module
-   import * as Snow from '/assets/js/snow.js'
+    <script type="module">
+    import { Snow, isWinter } from '/assets/js/winter-utils.js'
 
-   // Snow script included on the page, already.
-   window.onload = function () {
-       const snow = new Snow.default({
-           id: 'snow',
-           max_size: 5,
-           num_flakes: 25
+     window.onload = function () {
+      const snow = new Snow({
+         id: 'snow',
+         max_size: 5,
+         num_flakes: 25
        });
-       const today = new Date();
-
-       if (today.getMonth() === 11 && today.getDate() >= 24) {
-           snow.start();
+       window.__snow = snow;
+       
+       let enabled = false;
+       if (isWinter()) {
+         try {
+           enabled = localStorage.getItem('snowfall-enabled') === 'true';
+         } catch (e) {}
        }
-   }
-  </script>
+       enabled ? snow.start() : snow.stop();
+     }
+    </script>
 </footer>

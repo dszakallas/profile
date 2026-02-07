@@ -13,7 +13,7 @@ default:
   chart: false
   toc:
     selectors: 'h1,h2,h3'
-  sources: unpkg
+  sources: local
 
   page:
     mode: normal
@@ -40,6 +40,17 @@ default:
     search: default
 
 sources:
+  local:
+    font_awesome: '/assets/vendor/fontawesome/css/all.min.css'
+    jquery: '/assets/vendor/jquery/jquery.min.js'
+    leancloud_js_sdk: '//cdn.jsdelivr.net/npm/leancloud-storage@3.13.2/dist/av-min.js'
+    chart: '/assets/vendor/chart/chart.min.js'
+    gitalk:
+      js: '/assets/vendor/gitalk/gitalk.min.js'
+      css: '/assets/vendor/gitalk/gitalk.css'
+    valine: '/assets/vendor/valine/Valine.min.js'
+    mathjax: '/assets/vendor/mathjax/es5/tex-mml-chtml.js'
+    mermaid: '/assets/vendor/mermaid/mermaid.min.js'
   bootcdn:
     font_awesome: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css'
     jquery: 'https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js'

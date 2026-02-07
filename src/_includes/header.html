@@ -18,6 +18,33 @@
         {%- if site.search.provider -%}
           <button class="button button--secondary button--circle search-button js-search-toggle"><i class="fas fa-search"></i></button>
         {%- endif -%}
+        <div class="toggle-container">
+          <button
+            class="button button--secondary toggle-container__button theme-toggle js-theme-toggle"
+            type="button"
+            data-theme-state="system"
+            aria-label="Theme: system">
+            <span class="theme-toggle__icon theme-toggle__icon--system" aria-hidden="true">
+              <i class="fas fa-desktop"></i>
+            </span>
+            <span class="theme-toggle__icon theme-toggle__icon--dark" aria-hidden="true">
+              <i class="fas fa-moon"></i>
+            </span>
+            <span class="theme-toggle__icon theme-toggle__icon--light" aria-hidden="true">
+              <i class="fas fa-sun"></i>
+            </span>
+            <span class="theme-toggle__label">System</span>
+          </button>
+          <button
+            class="button button--secondary toggle-container__button snow-toggle js-snow-toggle"
+            type="button"
+            data-snow-state="off"
+            aria-label="Snowfall: off"
+            style="display: none;">
+            <i class="fas fa-snowflake"></i>
+            <span class="snow-toggle__label">Snow</span>
+          </button>
+        </div>
       </div>
       {%- if site.data.navigation.header -%}
       <nav class="navigation">

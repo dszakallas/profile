@@ -1,4 +1,4 @@
-text_skin: dark #eg: default | dark | forest | ocean | chocolate | orange
+text_skin: default #eg: default | dark | forest | ocean | chocolate | orange
 
 ## Base settings ##
 # url:  #the base hostname & protocol for your site e.g. https://www.someone.com
@@ -69,28 +69,6 @@ excerpt_type: text # text | html
 markdown: kramdown
 highlighter: rouge
 permalink: /:categories/:year/:month/:day/:title/
-
-exclude:
-  - .travis.yml
-  - Dockerfile
-  - docker-compose.yml
-  - CHANGELOG.md
-  - CHECKLIST.md
-  - Gemfile
-  - Gemfile.lock
-  - LICENSE
-  - README-*.md
-  - README.md
-  - gulpfile.js
-  - jekyll-text-theme.gemspec
-  - package-lock.json
-  - package.json
-  - /docs
-  - /node_modules
-  - /screenshots
-  - /test
-  - /vendor
-  - /tmp
 
 ## Plugins ##
 plugins:

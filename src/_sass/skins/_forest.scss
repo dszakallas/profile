@@ -1,4 +1,6 @@
 ///
+@use "sass:color";
+
 // Skin: Forest
 // Author: Tian Qi
 // Email: kitian616@outlook.com
@@ -44,7 +46,7 @@ $footer-background: $main-color-3;
 
 // border and shadow colors
 $border-color:     #3e758f;
-$border-color-l:   mix(#000, $background-color, 10%);
+$border-color-l:   color.mix(#000, $background-color, 10%);
 $decorate-color:   rgba(#bb6170, .15);
 $mask-color:       rgba(#000, .9);
 $select-color:     rgba($main-color-1, .5);
@@ -59,7 +61,7 @@ $text-color-function: #fff;
 // logo colors
 $mail-color:       #0072c5;
 $facebook-color:   #4267b2;
-$twitter-color:    #1da1f2;
+$x-color:          #000;
 $weibo-color:      #e6162d;
 $google-plus-color:#ea4335;
 $telegram-color:   #32afed;
@@ -71,4 +73,4 @@ $github-color:     #000;
 $npm-color:        #fff;
 
 // highlight colors
-@import "skins/highlight/tomorrow";
+@use "highlight/tomorrow";

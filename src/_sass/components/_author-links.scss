@@ -8,8 +8,8 @@
       .facebook-button {
         @include clickable($text-color-1, $facebook-color);
       }
-      .twitter-button {
-        @include clickable($text-color-1, $twitter-color);
+      .x-button {
+        @include clickable($text-color-1, $x-color);
       }
       .weibo-button {
         @include clickable($text-color-1, $weibo-color);
