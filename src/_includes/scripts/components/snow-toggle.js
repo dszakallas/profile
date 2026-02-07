@@ -35,7 +35,11 @@
     if (!button) {
       return;
     }
-    button.style.display = visible ? '' : 'none';
+    if (visible) {
+      button.classList.remove('toggle-container__button--hidden');
+    } else {
+      button.classList.add('toggle-container__button--hidden');
+    }
   }
 
   function applySnowState(enabled) {

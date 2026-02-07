@@ -78,14 +78,19 @@
     min-height: 2.5rem;
     border-radius: 0;
     padding: 0.5rem;
-    
-    &:not(:last-child) {
+
+    // Only show border-right if this visible button is followed by another visible button
+    &:not(.toggle-container__button--hidden):has(+ .toggle-container__button:not(.toggle-container__button--hidden)) {
       border-right: 1px solid rgba($text-color, 0.2);
     }
-    
+
     &:hover {
       background-color: rgba($main-color-1, 0.1);
     }
+  }
+
+  .toggle-container__button--hidden {
+    display: none;
   }
 }
 

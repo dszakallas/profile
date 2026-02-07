@@ -1,6 +1,6 @@
 export function isWinter() {
   var currentMonth = new Date().getMonth() + 1; // getMonth() returns 0-11
-  return currentMonth === 12 || currentMonth === 1;
+  return currentMonth === 12 || currentMonth === 1 || currentMonth === 2;
 }
 
 export function Snow (options) {
