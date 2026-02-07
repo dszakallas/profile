@@ -1,5 +1,9 @@
 **/auto/**
 
+## Generated
+.augment/mcp.json
+.gemini/settings.json
+.vscode/mcp.json
 
 ## Emacs
 *~
