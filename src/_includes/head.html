@@ -56,22 +56,38 @@
 			document.documentElement.dataset.theme = effective;
 			document.documentElement.dataset.themePreference = preference;
 
+			// Function to mark CSS as loaded
+			function markCSSLoaded() {
+				if (fallbackTimer) {
+					clearTimeout(fallbackTimer);
+				}
+				document.documentElement.classList.add('css-loaded');
+			}
+
+			// Check if stylesheet is already loaded (e.g., from cache)
+			function isStylesheetLoaded(link) {
+				try {
+					// Check if the stylesheet has loaded by accessing its cssRules
+					// This will throw an error if the stylesheet hasn't loaded yet
+					return link.sheet && link.sheet.cssRules;
+				} catch (e) {
+					// If we can't access cssRules, it might be loading or from a different origin
+					// Check if the sheet property exists as a fallback
+					return link.sheet !== null;
+				}
+			}
+
 			// Fallback: show content after 1 second if CSS fails to load
-			var fallbackTimer = setTimeout(function() {
-				document.documentElement.classList.add('css-loaded');
-			}, 1000);
+			var fallbackTimer = setTimeout(markCSSLoaded, 1000);
 
-			// Mark CSS as loaded when it successfully loads
-			link.addEventListener('load', function() {
-				clearTimeout(fallbackTimer);
-				document.documentElement.classList.add('css-loaded');
-			});
-
-			// Also show content if CSS fails to load
-			link.addEventListener('error', function() {
-				clearTimeout(fallbackTimer);
-				document.documentElement.classList.add('css-loaded');
-			});
+			// Check if already loaded (e.g., from cache)
+			if (isStylesheetLoaded(link)) {
+				markCSSLoaded();
+			} else {
+				// Set up event listeners for when it loads
+				link.addEventListener('load', markCSSLoaded);
+				link.addEventListener('error', markCSSLoaded);
+			}
 		} catch (e) {
 			// If anything fails, ensure content is visible
 			document.documentElement.classList.add('css-loaded');
