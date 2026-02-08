@@ -171,7 +171,6 @@
 .navigation {
   @include overflow(auto, "x");
   @include media-breakpoint-down(md) {
-    display: none;
     position: fixed;
     top: map-get($layout, header-height-sm);
     left: 0;
@@ -179,12 +178,21 @@
     background: $header-background;
     flex-direction: column;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    z-index: map-get($z-indexes, navigation);
     pointer-events: auto;
     max-height: calc(100vh - map-get($layout, header-height-sm));
     overflow-y: auto;
     
-    &.navigation--open {
+    // Progressive enhancement: visible by default (no-js)
+    @include flexbox();
+    
+    // When JS is enabled, hide by default
+    .js & {
+      display: none;
+    }
+    
+    // Show when opened via JS
+    .js &.navigation--open {
       @include flexbox();
     }
   }
@@ -247,10 +255,6 @@
   }
 }
 
-.navigation__mobile-toggles {
-  display: none;
-}
-
 .header__menu-toggle {
   background: none;
   border: none;
@@ -266,6 +270,5 @@
 .header__menu-container {
   @include media-breakpoint-down(md) {
     position: relative;
-    z-index: 999;
   }
 }

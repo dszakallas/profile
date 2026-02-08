@@ -4,6 +4,10 @@ layout: none
 <!DOCTYPE html>
 {%- include snippets/get-lang.html -%}
 <html lang="{{ __return }}">
+  <script>
+    // Progressive enhancement: set .js class for JavaScript-dependent styles
+    document.documentElement.classList.add('js');
+  </script>
   <head>
     {%- include analytics.html -%}
     {%- include head.html -%}
