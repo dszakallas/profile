@@ -43,6 +43,5 @@ sources:
   jquery: '/assets/vendor/jquery/jquery.min.js'
   leancloud_js_sdk: '//cdn.jsdelivr.net/npm/leancloud-storage@3.13.2/dist/av-min.js'
   chart: '/assets/vendor/chart/chart.min.js'
-  valine: '/assets/vendor/valine/Valine.min.js'
   mathjax: '/assets/vendor/mathjax/es5/tex-mml-chtml.js'
   mermaid: '/assets/vendor/mermaid/mermaid.min.js'

@@ -45,13 +45,6 @@ const assets = [
     ]
   },
   {
-
-    package: 'valine',
-    files: [
-      { src: 'dist/Valine.min.js', dest: 'valine/Valine.min.js' }
-    ]
-  },
-  {
     package: 'mathjax',
     files: [
       { src: 'es5', dest: 'mathjax/es5' }
