@@ -13,7 +13,6 @@
     "@fortawesome/fontawesome-free": "^6.7.2",
     "jquery": "^3.7.1",
     "chart.js": "^4.4.7",
-    "gitalk": "^1.8.0",
     "valine": "^1.5.1",
     "mathjax": "^3.2.2",
     "mermaid": "^11.4.1"
