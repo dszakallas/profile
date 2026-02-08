@@ -75,6 +75,8 @@ const assets = [
 async function copyAssets() {
   console.log('Copying vendor assets...');
 
+  let errors = 0;
+
   // Clean vendor directory
   await fs.remove(VENDOR_DIR);
   await fs.ensureDir(VENDOR_DIR);
@@ -90,9 +92,14 @@ async function copyAssets() {
         await fs.copy(srcPath, destPath);
         console.log(`✓ Copied ${asset.package}/${file.src} -> ${file.dest}`);
       } catch (error) {
+        errors++;
         console.error(`✗ Failed to copy ${asset.package}/${file.src}:`, error.message);
       }
     }
+  }
+
+  if (errors > 0) {
+    throw new Error(`copying failed for ${errors} assets`);
   }
 
   console.log('Done copying vendor assets!');
