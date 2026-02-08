@@ -45,19 +45,6 @@ const assets = [
     ]
   },
   {
-    package: 'gitalk',
-    files: [
-      { src: 'dist/gitalk.min.js', dest: 'gitalk/gitalk.min.js' },
-      { src: 'dist/gitalk.css', dest: 'gitalk/gitalk.css' }
-    ]
-  },
-  {
-    package: 'valine',
-    files: [
-      { src: 'dist/Valine.min.js', dest: 'valine/Valine.min.js' }
-    ]
-  },
-  {
     package: 'mathjax',
     files: [
       { src: 'es5', dest: 'mathjax/es5' }
