@@ -42,8 +42,9 @@
   margin-right: map-get($spacers, 3);
   white-space: nowrap;
   @include media-breakpoint-down(md) {
-    height: auto;
+    height: map-get($layout, header-height-sm);
     margin-right: 0;
+    @include menu(1, 0);
   }
   & > .header__brand {
     @include flex(1);
@@ -60,6 +61,16 @@
   }
   & > .toggle-container {
     margin-left: map-get($spacers, 2);
+    @include media-breakpoint-down(md) {
+      margin-left: map-get($spacers, 1);
+    }
+  }
+  & > .header__menu-toggle {
+    display: none;
+    @include media-breakpoint-down(md) {
+      @include flexbox();
+      margin-left: map-get($spacers, 1);
+    }
   }
 }
 
@@ -78,6 +89,11 @@
     min-height: 2.5rem;
     border-radius: 0;
     padding: 0.5rem;
+    @include media-breakpoint-down(md) {
+      min-width: 2rem;
+      min-height: 2rem;
+      padding: 0.25rem;
+    }
 
     // Only show border-right if this visible button is followed by another visible button
     &:not(.toggle-container__button--hidden):has(+ .toggle-container__button:not(.toggle-container__button--hidden)) {
@@ -154,18 +170,41 @@
 
 .navigation {
   @include overflow(auto, "x");
+  @include media-breakpoint-down(md) {
+    display: none;
+    position: fixed;
+    top: map-get($layout, header-height-sm);
+    left: 0;
+    right: 0;
+    background: $header-background;
+    flex-direction: column;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    pointer-events: auto;
+    max-height: calc(100vh - map-get($layout, header-height-sm));
+    overflow-y: auto;
+    
+    &.navigation--open {
+      @include flexbox();
+    }
+  }
   & > ul {
     height: map-get($layout, header-height);
     padding-bottom: 0;
     margin: 0;
     @include media-breakpoint-down(md) {
-      padding-bottom: 4px;
-      margin: -4px 0 0 0;
+      padding-bottom: 0;
+      margin: 0;
+      height: auto;
+      flex-direction: column;
+      width: 100%;
     }
     @include menu(3, 2, nowrap);
     @include align-items(center);
     @include media-breakpoint-down(md) {
       height: auto;
+      @include align-items(stretch);
+      @include menu(0, 0, nowrap);
     }
     .search-button {
       @include media-breakpoint-down(md) {
@@ -182,6 +221,19 @@
     content: "";
     @include split-line(bottom, 4px, transparent);
   }
+  @include media-breakpoint-down(md) {
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 100%;
+    padding: 0.75rem map-get($spacers, 3);
+    &::after {
+      display: none;
+    }
+    a {
+      display: block;
+    }
+  }
 }
 .navigation__item--active {
   a {
@@ -189,5 +241,31 @@
   }
   &::after {
     @include split-line(bottom, 4px, $main-color-1);
+  }
+  @include media-breakpoint-down(md) {
+    background-color: rgba($main-color-1, 0.1);
+  }
+}
+
+.navigation__mobile-toggles {
+  display: none;
+}
+
+.header__menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+  color: inherit;
+  &:hover {
+    background-color: rgba($main-color-1, 0.1);
+  }
+}
+
+.header__menu-container {
+  @include media-breakpoint-down(md) {
+    position: relative;
+    z-index: 999;
   }
 }
