@@ -81,6 +81,7 @@ in
   scripts = {
     upload.exec = "npm run upload --silent -- $@";
     "copy-vendor-assets".exec = "npm run copy-vendor-assets --silent -- $@";
+    "build".exec = "${jekyllCmd} build --source src --destination _site";
   };
 
   outputs = {

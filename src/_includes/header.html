@@ -44,10 +44,19 @@
             <span class="snow-toggle__label">Snow</span>
           </button>
         </div>
+        <button
+          class="header__menu-toggle js-menu-toggle"
+          type="button"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+          aria-controls="header-navigation">
+          <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
       </div>
-      {%- if site.data.navigation.header -%}
-      <nav class="navigation">
-        <ul>
+      <div class="header__menu-container">
+        {%- if site.data.navigation.header -%}
+        <nav class="navigation" id="header-navigation">
+          <ul>
           {%- for _item in site.data.navigation.header -%}
             {%- include snippets/get-nav-url.html path=_item.url -%}
             {%- assign _nav_url = __return -%}
@@ -66,5 +75,6 @@
         </ul>
       </nav>
       {%- endif -%}
+      </div>
     </div>
   </header>
