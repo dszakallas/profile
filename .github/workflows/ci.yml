@@ -27,6 +27,13 @@ jobs:
           name: devenv
       - run: nix profile install nixpkgs#devenv
       - run: devenv test --dont-override-dotfile
+      - shell: devenv shell bash -- -e {0}
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Error: There are dirty files in the repository" >&2
+            git status
+            exit 1
+          fi
       - name: Apply autofixes
         if: |
           failure() &&
