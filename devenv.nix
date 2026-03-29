@@ -7,7 +7,7 @@
 }@args:
 let
   lib = args.lib // (import ./devenv/lib { inherit (inputs) nixpkgs; });
-  pkgs = args.pkgs // (lib.callPackageWithRec args.pkgs ./devenv/pkgs);
+  pkgs = args.pkgs;
 in
 with lib;
 with pkgs;
@@ -41,14 +41,14 @@ in
       mcpServers = {
         playwright = {
           type = "stdio";
-          command = "${npm."@playwright/mcp"}/bin/playwright-mcp";
+          command = "${playwright-mcp}/bin/playwright-mcp";
         };
       };
     in
     {
       imports = [ ./devenv/modules/agents.nix ];
       config = {
-        packages = with pkgs; [ npm."@playwright/mcp" ];
+        packages = with pkgs; [ playwright-mcp ];
         agents.gemini = {
           enable = true;
           settings = {
@@ -75,7 +75,6 @@ in
 
   packages = with pkgs; [
     bundix
-    node2nix
   ];
 
   scripts = {
