@@ -3,5 +3,8 @@ header:
       en: About
     url: /about/
   - titles:
+      en: CV
+    url: /cv/
+  - titles:
       en: Archive
     url: /all/
