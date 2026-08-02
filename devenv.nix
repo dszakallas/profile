@@ -99,9 +99,9 @@ in
         in
         older_posts_im_not_going_to_fix ++ [ "src/about.md" ];
     };
-    nixfmt-rfc-style = {
+    nixfmt = {
       excludes = [
-        "gemset.nix"
+        "gemset\\.nix"
         "devenv/pkgs/npm/_.*\\.nix"
       ];
     };
