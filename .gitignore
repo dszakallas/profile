@@ -1,9 +1,18 @@
 **/auto/**
 
 ## Generated
-.augment/mcp.json
-.gemini/settings.json
-.vscode/mcp.json
+/src/cv/index.html
+/src/assets/david_szakallas.pdf
+/src/david_szakallas.pdf
+/opencode.json
+/.opencode
+/.agents
+/.augment
+/.copilot
+/.gemini
+/.vscode
+/.claude
+/.mcp.json
 
 ## Emacs
 *~
