@@ -15,44 +15,17 @@ key: page-about
       <h5>Dávid Szakállas</h5>
     </div>
     <div class="item__description">
-      <p>I am a software engineer experienced in developing/operating data driven applications running on public clouds. I currently work at Pure Storage. In the past I led migrating a science platform to AKS and led establishing containerization and DevOps practices in a data team at Turbine.ai. Before that, I worked on data pipelines running in k8s at Hiya. Previously, I developed the main social database ingestion pipeline, and the credit fraud detection ML training pipeline at Ekata. I hold an M.Sc. in Computer Science Engineering.
-      </p>
-      <p><a href="/david_szakallas.pdf">Printable CV</a></p>
+      <p>Welcome! <strong>szakallas.net</strong> is my personal programming blog and technical notebook. Here, I write about software engineering, site reliability, cloud platforms, programming languages, Nix/NixOS, and side projects.</p>
+      <p>I am a Staff Site Reliability Engineer specializing in operating highly available systems, control planes, and data infrastructure on public clouds and Kubernetes.</p>
+      <p>For a detailed summary of my work history, education, and technical skills, see my <a href="/cv/">CV</a>.</p>
     </div>
   </div>
 </div>
 
-## Experience
+## Technical Interests
 
-- Data lakes
-  - on AWS: EMR, Athena, Glue, S3
-  - on Azure: Databricks, ADLSv2
-  - on K8s: Apache Airflow, Apache Spark
-- Developing backends (Go, Python, Scala)
-- Developing control planes with Go and K8s controller runtime
-- Functional programming, algebraic types, static typing
-- Data science, ML pipelines, neural networks
-- Databases:
-  - PostgreSQL, MariaDB, Dolt
-  - Redis, MongoDB
-  - Elasticsearch
-- IaC/CI/GitOps:
-  - Terraform (OpenTofu), AWS CloudFormation, Azure RM
-  - GitLab CI, GitHub Actions, Jenkins
-  - Flux
-  - Dagger, BuildKit
-
-## Interests
-
-- Fault tolerant systems
-- Programming languages
-- Security & Privacy
-- Incremental stream processing
-
-## Public speaking
-- Spark Schema for Free
-  - Spark + AI Summit Europe 2018 \| Oct 2018, London \| [Video](https://www.youtube.com/watch?v=Km9j2okQFm8) \| [Event Page](https://databricks.com/session/spark-schema-for-free) \| [Slides](/assets/speaking/spark-schema-for-free-spark-summit.pdf)
-  - Scala Brinner #2 (in Hungarian) \| Aug 2018, Budapest \| [Event Page](https://www.meetup.com/Scala-Pair-Programming-Breakfast-Budapest/events/253449564/) \| [Slides](/assets/speaking/spark-schema-for-free-meetup.pdf)
-- openCypher Meeting #4 Remarks \| Whitepages (I only held an internal talk at Whitepages office as the Neo4j Budapest meetup group is inactive since February) \| May 2018, Budapest \| [Slides](/assets/speaking/ocim4.pdf)
-- Writing a Cypher query engine in Clojure (feat. Gábor Szárnyas) - 3rd Budapest Clojure Meetup \| Mar 2018, Budapest \| [Event Page](https://www.meetup.com/Budapest-Clojure-User-Group/events/248220424/) \| [Slides](/assets/speaking/sre.pdf)
-- Scripting a MIDI controller with Javascript - Nodebp 2017 August \| Aug 2017, Budapest \| [Event Page](https://www.meetup.com/nodebp/events/242250790/)
+- Site Reliability & Cloud Platform Engineering
+- Programming Languages (Go, Python, Scala, Clojure) & Functional Programming
+- Reproducible Systems & Declarative Environments with Nix / NixOS
+- Distributed Systems, Observability & Incident Response
+- Open Source & Self-Hosted Infrastructure

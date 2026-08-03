@@ -11,8 +11,16 @@
   }
 }
 
+// Ensure header and footer containers maintain a consistent max-width across all pages
+.header > .main,
+.footer > .main {
+  max-width: map-get($layout, content-max-width) !important;
+}
+
+// Scope content-width overrides to page body content so header and footer do not shift
 .has-aside {
-  .main {
+  .page__main > .main,
+  .page__content > .main {
     max-width: map-get($layout, content-max-width) + map-get($layout, aside-width);
     @include media-breakpoint-down(lg) {
       max-width: map-get($layout, content-max-width);
@@ -21,7 +29,8 @@
 }
 
 .full-width {
-  .main {
+  .page__main > .main,
+  .page__content > .main {
     width: 100%;
     max-width: 100%;
   }
