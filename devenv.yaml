@@ -1,7 +1,9 @@
 inputs:
-  davids-devenvs:
-    url: github:dszakallas/devenvs
-    flake: false
+  bikeshed:
+    url: github:dszakallas/bikeshed
+    inputs:
+      nixpkgs:
+        follows: nixpkgs
   git-hooks:
     url: github:cachix/git-hooks.nix
     inputs:
@@ -9,5 +11,3 @@ inputs:
         follows: nixpkgs
   nixpkgs:
     url: github:cachix/devenv-nixpkgs/rolling
-imports:
-- davids-devenvs/recommended

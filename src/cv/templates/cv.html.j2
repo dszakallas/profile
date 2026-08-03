@@ -1,0 +1,643 @@
+---
+layout: page
+title: CV
+show_title: false
+article_header: false
+full_width: true
+---
+<div class="cv-page">
+  <!-- Main CV Document Container -->
+  <div class="page-container">
+
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <div>
+        <div class="sidebar-header-row">
+          <div>
+            <h1 class="header-name">{{ personal.name }}</h1>
+            <h2 class="header-title">{{ personal.job_title }}</h2>
+          </div>
+          {% if with_latex %}
+          <div class="download-btn-wrapper d-print-none">
+            <a href="/assets/david_szakallas.pdf" class="cv-btn cv-btn-primary" download title="Download PDF CV">
+              <i class="fa-solid fa-file-pdf"></i>
+              <span>PDF</span>
+            </a>
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Contact Badges -->
+        <table class="contact-table">
+          <tr>
+            <td><div class="icon-badge"><i class="fa-solid fa-location-dot"></i></div></td>
+            <td class="contact-cell" colspan="3">{{ personal.location }}</td>
+          </tr>
+          <tr>
+            <td><div class="icon-badge"><i class="fa-solid fa-phone"></i></div></td>
+            <td class="contact-cell" colspan="3">
+              <a href="tel:{{ personal.phone | replace(' ', '') }}" class="contact-link">{{ personal.phone }}</a>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="icon-badge"><i class="fa-solid fa-envelope"></i></div></td>
+            <td class="contact-cell" colspan="3">
+              <a href="mailto:{{ personal.email }}" class="contact-link">{{ personal.email }}</a>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="icon-badge"><i class="fa-brands fa-github"></i></div></td>
+            <td class="contact-cell">
+              <a href="https://github.com/{{ personal.github }}" target="_blank" rel="noopener" class="contact-link">{{ personal.github }}</a>
+            </td>
+            <td style="padding-left: 12px;"><div class="icon-badge"><i class="fa-solid fa-globe"></i></div></td>
+            <td class="contact-cell">
+              <a href="https://{{ personal.website }}" target="_blank" rel="noopener" class="contact-link">{{ personal.website }}</a>
+            </td>
+          </tr>
+          <tr>
+            <td><div class="icon-badge"><i class="fa-brands fa-linkedin-in"></i></div></td>
+            <td class="contact-cell">
+              <a href="https://www.linkedin.com/in/{{ personal.linkedin }}" target="_blank" rel="noopener" class="contact-link">{{ personal.linkedin }}</a>
+            </td>
+            <td colspan="2"></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- About Section -->
+      <section class="sidebar-section">
+        <h3 class="sidebar-title">About</h3>
+        {% for paragraph in about %}
+        <p class="sidebar-text">{{ paragraph }}</p>
+        {% endfor %}
+      </section>
+
+      <!-- Skills Section -->
+      <section class="sidebar-section">
+        <h3 class="sidebar-title">Skills</h3>
+
+        {% for cat in skills %}
+        <div class="skill-category">
+          <div class="skill-category-name">{{ cat.category }}</div>
+          {% for item in cat['items'] %}
+          <div class="skill-item">
+            <div class="skill-fill" style="width: {{ (item.years * 10) | round | int }}%;"></div>
+            <span class="skill-label">{{ item.name }}</span>
+            <span class="skill-value">{{ "%.1f" | format(item.years) }} y</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </section>
+
+      <!-- Misc Section -->
+      <section class="sidebar-section">
+        <h3 class="sidebar-title">Misc</h3>
+        <div>
+          <div class="misc-label">Citizenship</div>
+          <p class="sidebar-text">{{ personal.citizenship }}</p>
+        </div>
+        <div style="margin-top: 6px;">
+          <div class="misc-label">Languages</div>
+          <p class="sidebar-text">{{ personal.languages }}</p>
+        </div>
+      </section>
+    </aside>
+
+    <!-- Main Content Column -->
+    <main class="main-content">
+
+      <!-- Experience Section -->
+      <section>
+        <div class="section-banner">Experience</div>
+        <div class="entry-list">
+
+          {% for exp in experience %}
+          <article>
+            <div class="entry-header">
+              <span class="entry-company">
+                {% if exp.url %}
+                <a href="{{ exp.url }}" target="_blank" rel="noopener">{{ exp.company }}</a>
+                {% else %}
+                {{ exp.company }}
+                {% endif %}
+                {% if exp.company_subtitle %}({{ exp.company_subtitle }}){% endif %}{% if exp.location %}, {{ exp.location }}{% endif %}
+              </span>
+              <span class="entry-date">{{ exp.period | replace('--', '–') }}</span>
+            </div>
+            <div class="entry-role">{{ exp.role }}</div>
+            <div class="entry-description">{{ exp.description }}</div>
+            <div class="chips-container">
+              {% for chip in exp.hard_chips %}
+              <span class="chip chip-hard">{{ chip }}</span>
+              {% endfor %}
+              {% if exp.soft_chips %}
+              {% for chip in exp.soft_chips %}
+              <span class="chip chip-soft">{{ chip }}</span>
+              {% endfor %}
+              {% endif %}
+            </div>
+          </article>
+          {% endfor %}
+
+        </div>
+      </section>
+
+      <!-- Education Section -->
+      <section>
+        <div class="section-banner">Education</div>
+        <div class="entry-list">
+          {% for edu in education %}
+          <article>
+            <div class="entry-header">
+              <span class="entry-company">
+                {% if edu.url %}
+                <a href="{{ edu.url }}" target="_blank" rel="noopener">{{ edu.institution }}</a>
+                {% else %}
+                {{ edu.institution }}
+                {% endif %}{% if edu.location %}, {{ edu.location }}{% endif %}
+              </span>
+              <span class="entry-date">{{ edu.period | replace('--', '–') }}</span>
+            </div>
+            <div class="entry-role">{{ edu.degree }}</div>
+            {% if edu.thesis_title %}
+            <div class="entry-description">
+              Thesis: <a href="{{ edu.thesis_url }}" target="_blank" rel="noopener" style="color: var(--accent-color);">{{ edu.thesis_title }}</a>
+            </div>
+            {% endif %}
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section>
+        <div class="section-banner">Projects</div>
+
+        <div class="subsection-title">Hobby & Open Source</div>
+        <table class="projects-table">
+          {% for prj in projects.hobby %}
+          <tr>
+            <td class="project-name-col">
+              {% if prj.url %}
+              <a href="{{ prj.url }}" target="_blank" rel="noopener">
+                <i class="fa-brands fa-github"></i> {{ prj.name }}
+              </a>
+              {% else %}
+              <strong>{{ prj.name }}</strong>
+              {% endif %}
+            </td>
+            <td>
+              {{ prj.description }}
+              {% if prj.hard_chips or prj.soft_chips %}
+              <div class="chips-container" style="display: inline-flex; margin-left: 8px;">
+                {% for chip in prj.hard_chips %}
+                <span class="chip chip-hard">{{ chip }}</span>
+                {% endfor %}
+                {% if prj.soft_chips %}
+                {% for chip in prj.soft_chips %}
+                <span class="chip chip-soft">{{ chip }}</span>
+                {% endfor %}
+                {% endif %}
+              </div>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <div class="subsection-title" style="margin-top: 14px;">Publications & Talks</div>
+        <table class="projects-table">
+          {% for pub in projects.publications %}
+          <tr>
+            <td style="width: 75px; font-family: var(--font-body); color: var(--text-muted); font-weight: 500;">{{ pub.date }}</td>
+            <td>
+              {% if pub.publisher %}
+              <a href="{{ pub.url }}" target="_blank" rel="noopener" style="color: var(--text-main); text-decoration: none;"><strong>{{ pub.publisher }}</strong>: {{ pub.title }}</a>
+              {% else %}
+              {{ pub.title }}
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </section>
+
+    </main>
+
+  </div>
+</div>
+
+<style>
+  .cv-page {
+    --bg-color: #ffffff;
+    --card-bg: #ffffff;
+    --sidebar-bg: #f8f9fa;
+    --sidebar-border: #e9ecef;
+    --text-main: #212529;
+    --text-muted: #495057;
+    --text-light: #6c757d;
+    --accent-color: #fc4d50;
+    --accent-hover: #e03134;
+    --accent-light: #fbebe8;
+    --section-header-bg: #212529;
+    --section-header-text: #ffffff;
+    --track-bg: #e9ecef;
+    --chip-hard-bg: #212529;
+    --chip-hard-text: #ffffff;
+    --chip-soft-bg: #fc4d50;
+    --chip-soft-text: #ffffff;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-serif: 'Bitter', 'Charter', Georgia, serif;
+    --max-width: 1120px;
+    font-family: var(--font-serif);
+    color: var(--text-main);
+    line-height: 1.5;
+    font-size: 13.5px;
+    margin-top: 12px;
+  }
+
+  html[data-theme="dark"] .cv-page {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --sidebar-bg: #181818;
+    --sidebar-border: #2d2d2d;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --text-light: #707070;
+    --accent-color: #ff6b6b;
+    --accent-hover: #ff8787;
+    --accent-light: #2c1a1d;
+    --section-header-bg: #2d2d2d;
+    --section-header-text: #ffffff;
+    --track-bg: #2d2d2d;
+    --chip-hard-bg: #333333;
+    --chip-hard-text: #e0e0e0;
+    --chip-soft-bg: #ff6b6b;
+    --chip-soft-text: #ffffff;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
+  }
+
+  .cv-page .sidebar-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .cv-btn-primary {
+    background: var(--accent-color);
+    color: #ffffff !important;
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-family: var(--font-body);
+    font-size: 11.5px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    box-shadow: var(--shadow-sm);
+    flex-shrink: 0;
+  }
+  .cv-btn-primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: #ffffff !important;
+    text-decoration: none;
+  }
+
+  .cv-page .page-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    background: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+    display: grid;
+    grid-template-columns: 310px 1fr;
+    overflow: hidden;
+    border: 1px solid var(--sidebar-border);
+  }
+
+  .cv-page .sidebar {
+    background: var(--sidebar-bg);
+    padding: 24px 20px;
+    border-right: 1px solid var(--sidebar-border);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cv-page .header-name {
+    font-family: var(--font-serif);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--accent-color);
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  .cv-page .header-title {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-top: 4px;
+    margin-bottom: 12px;
+  }
+
+  .cv-page .contact-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+    font-size: 12.5px;
+  }
+
+  .cv-page .contact-table td {
+    padding: 3.5px 0;
+    vertical-align: middle;
+  }
+
+  .cv-page .icon-badge {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10.5px;
+    flex-shrink: 0;
+  }
+
+  .cv-page .contact-cell {
+    padding-left: 8px !important;
+  }
+
+  .cv-page .contact-link {
+    color: var(--text-main);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .cv-page .contact-link:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+  }
+
+  .cv-page .sidebar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cv-page .sidebar-title {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+  }
+  .cv-page .sidebar-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--sidebar-border);
+  }
+
+  .cv-page .sidebar-text {
+    color: var(--text-main);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .cv-page .skill-category {
+    margin-bottom: 10px;
+  }
+  .cv-page .skill-category-name {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 4px;
+  }
+  .cv-page .skill-item {
+    position: relative;
+    height: 16px;
+    background: var(--track-bg);
+    margin-bottom: 2px;
+    border-radius: 2px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6px;
+  }
+  .cv-page .skill-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: var(--accent-color);
+    border-radius: 2px 0 0 2px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+  }
+  .cv-page .skill-label, .cv-page .skill-value {
+    font-family: var(--font-body);
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #ffffff;
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  }
+
+  .cv-page .misc-label {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+
+  .cv-page .main-content {
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cv-page .section-banner {
+    background: var(--section-header-bg);
+    color: var(--section-header-text);
+    text-align: center;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-family: var(--font-serif);
+    font-size: 15px;
+    font-weight: 600;
+    font-variant: small-caps;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+  }
+
+  .cv-page .entry-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .cv-page .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+
+  .cv-page .entry-company {
+    font-weight: 700;
+    font-size: 14.5px;
+    color: var(--text-main);
+  }
+  .cv-page .entry-company a {
+    color: var(--accent-color);
+    text-decoration: none;
+  }
+  .cv-page .entry-company a:hover {
+    text-decoration: underline;
+  }
+
+  .cv-page .entry-date {
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .cv-page .entry-role {
+    font-style: italic;
+    color: var(--text-muted);
+    margin-top: 1px;
+    margin-bottom: 4px;
+  }
+
+  .cv-page .entry-description {
+    color: var(--text-main);
+    line-height: 1.45;
+    margin-bottom: 6px;
+  }
+
+  .cv-page .chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 5px;
+  }
+
+  .cv-page .chip {
+    font-family: var(--font-body);
+    font-size: 9px;
+    font-weight: 600;
+    padding: 1.5px 6px;
+    border-radius: 3px;
+    display: inline-block;
+    line-height: 1.3;
+  }
+  .cv-page .chip-hard {
+    background: var(--chip-hard-bg);
+    color: var(--chip-hard-text);
+  }
+  .cv-page .chip-soft {
+    background: var(--chip-soft-bg);
+    color: var(--chip-soft-text);
+  }
+
+  .cv-page .subsection-title {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-top: 4px;
+    margin-bottom: 8px;
+  }
+
+  .cv-page .projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .cv-page .projects-table tr {
+    border-bottom: 1px solid var(--sidebar-border);
+  }
+  .cv-page .projects-table tr:last-child {
+    border-bottom: none;
+  }
+  .cv-page .projects-table td {
+    padding: 6px 0;
+    vertical-align: top;
+  }
+  .cv-page .project-name-col {
+    width: 180px;
+    font-weight: 600;
+    padding-right: 12px !important;
+  }
+  .cv-page .project-name-col a {
+    color: var(--text-main);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .cv-page .project-name-col a:hover {
+    color: var(--accent-color);
+  }
+
+  @media print {
+    .download-btn-wrapper {
+      display: none !important;
+    }
+    .cv-page .page-container {
+      box-shadow: none !important;
+      border: none !important;
+      margin: 0 !important;
+      max-width: 100% !important;
+      grid-template-columns: 260px 1fr !important;
+    }
+    .cv-page .sidebar {
+      background: #f4f4f4 !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .cv-page .section-banner {
+      background: #212529 !important;
+      color: #ffffff !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .cv-page .skill-fill, .cv-page .icon-badge, .cv-page .chip-hard, .cv-page .chip-soft {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .cv-page .page-container {
+      grid-template-columns: 1fr;
+      margin: 0;
+      border-radius: 0;
+      border: none;
+    }
+    .cv-page .sidebar {
+      border-right: none;
+      border-bottom: 1px solid var(--sidebar-border);
+    }
+  }
+</style>

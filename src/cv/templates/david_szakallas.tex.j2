@@ -1,0 +1,82 @@
+\documentclass[a4paper,hidelinks]{cv}
+
+\profilepic{}
+
+\cvname{(( personal.name_tex ))}
+\cvjobtitle{(( personal.job_title_tex ))}
+
+\cvdate{}
+\cvaddress{(( personal.location_tex ))}
+\cvnumberphone{(( personal.phone_tex ))}
+\cvmail{(( personal.email_tex ))}
+\cvgithub{(( personal.github_tex ))}
+\cvlinkedin{(( personal.linkedin_tex ))}
+\cvsite{(( personal.website_tex ))}
+\citizenship{(( personal.citizenship_tex ))}
+\languages{(( personal.languages_tex ))}
+
+\begin{document}
+
+\aboutme{D\'{a}vid is an experienced engineer specializing in developing and operating highly available systems, cloud platforms, and data pipelines on public clouds and Kubernetes. With a strong background in site reliability and distributed systems, he delivers robust infrastructure, observability, and automation.\newline He holds an M.Sc.\ in Computer Science Engineering.}
+
+\skills{%
+((% for cat in skills %))
+  \skillgroup{(( cat.category_tex ))}{%
+((% for item in cat['items'] %))
+    {(( item.name_tex ))}/(( item.years ))((% if not loop.last %)),((% endif %))%
+((% endfor %))
+  }%
+((% endfor %))
+}
+
+\makeprofile
+
+\vspace*{-10pt}
+\section{Experience}
+
+\begin{twenty}
+((% for exp in experience %))
+\twentyitem{((% if exp.url %))\href{(( exp.url ))}{(( exp.company_tex ))}((% else %))(( exp.company_tex ))((% endif %))((% if exp.company_subtitle_tex %)) (((( exp.company_subtitle_tex ))))((% endif %))}{(( exp.location_tex ))}{(( exp.period ))}{%
+  \textit{(( exp.role_tex ))} \\
+  (( exp.description_tex )) \\[1.5pt]
+  ((% for chip in exp.hard_chips_tex %))\hardchip{(( chip ))}((% if not loop.last %)) ((% endif %))((% endfor %))((% if exp.soft_chips_tex %)) ((% for chip in exp.soft_chips_tex %))\softchip{(( chip ))}((% if not loop.last %)) ((% endif %))((% endfor %))((% endif %))%
+}
+
+((% if not loop.last %))
+\twentyseparator
+((% endif %))
+((% endfor %))
+
+\end{twenty}
+
+\section{Education}
+
+\begin{twenty}
+((% for edu in education %))
+\twentyitem{((% if edu.url %))\href{(( edu.url ))}{(( edu.institution_tex ))}((% else %))(( edu.institution_tex ))((% endif %))}{(( edu.location_tex ))}{(( edu.period ))}{%
+  \textit{(( edu.degree_tex ))}((% if edu.thesis_title_tex %)) \\
+  Thesis: \href{(( edu.thesis_url ))}{(( edu.thesis_title_tex ))}((% endif %))%
+}
+
+((% endfor %))
+\end{twenty}
+
+\section{Projects}
+
+\subsection{Hobby \& Open Source}
+\begin{twentyshort}
+((% for prj in projects.hobby %))
+\twentyitemshort{((% if prj.url %))\href{(( prj.url ))}{\faGithub\ \textbf{(( prj.name_tex ))}}((% else %))\textbf{(( prj.name_tex ))}((% endif %))}{%
+  (( prj.description_tex ))((% if prj.hard_chips_tex or prj.soft_chips_tex %)) \hfill ((% for chip in prj.hard_chips_tex %))\hardchip{(( chip ))}((% if not loop.last %)) ((% endif %))((% endfor %))((% if prj.soft_chips_tex %)) ((% for chip in prj.soft_chips_tex %))\softchip{(( chip ))}((% if not loop.last %)) ((% endif %))((% endfor %))((% endif %))((% endif %))%
+}
+((% endfor %))
+\end{twentyshort}
+
+\subsection{Publications \& Talks}
+\begin{twentyshort}
+((% for pub in projects.publications %))
+\twentyitemshort{(( pub.date ))}{((% if pub.publisher %))\href{(( pub.url ))}{\textbf{(( pub.publisher ))}}: (( pub.title_tex ))((% else %))(( pub.title_tex ))((% endif %))}
+((% endfor %))
+\end{twentyshort}
+
+\end{document}
