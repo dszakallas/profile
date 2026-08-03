@@ -1,0 +1,170 @@
+personal:
+  name: Dávid Szakállas
+  job_title: SRE & Platform
+  location: Prague, Czechia
+  phone: "+420 731 886 656"
+  email: david.szakallas@gmail.com
+  github: dszakallas
+  linkedin: dszakallas
+  website: szakallas.net
+  citizenship: EU (Hungarian)
+  languages: Hungarian (Native), English (Professional), Czech (Basic), German (Basic)
+
+about:
+  - Dávid is an experienced engineer specializing in developing and operating highly available systems, cloud platforms, and data pipelines on public clouds and Kubernetes. With a strong background in site reliability and distributed systems, he delivers robust infrastructure, observability, and automation.
+  - He holds an M.Sc. in Computer Science Engineering.
+
+skills:
+  - category: Software Engineering
+    items:
+      - name: Python
+        years: 5.5
+      - name: Scala
+        years: 5.3
+      - name: Go
+        years: 3.8
+      - name: Clojure
+        years: 3.0
+
+  - category: Site Reliability
+    items:
+      - name: CloudOps & Reliability
+        years: 4.4
+      - name: Observability (Prometheus, ELK)
+        years: 3.3
+      - name: Incident Response
+        years: 2.4
+      - name: CloudSec & NetSec (SPIFFE)
+        years: 2.4
+
+  - category: DevOps & Platform
+    items:
+      - name: Kubernetes (Apps & Platform)
+        years: 7.3
+      - name: Linux Containers
+        years: 7.3
+      - name: GitOps (Flux, Argo)
+        years: 5.8
+      - name: IaC & Terraform
+        years: 4.4
+      - name: Nix / NixOS
+        years: 2.0
+
+  - category: Public Clouds
+    items:
+      - name: AWS
+        years: 5.3
+      - name: Azure
+        years: 4.9
+
+  - category: Data Engineering
+    items:
+      - name: Apache Spark
+        years: 6.4
+      - name: Apache Airflow
+        years: 4.4
+      - name: AWS EMR & Data Lakes
+        years: 4.0
+      - name: Databricks
+        years: 3.5
+
+experience:
+  - company: Everpure (formerly Pure Storage)
+    url: https://www.linkedin.com/company/everpure-data
+    location: Prague, Czechia
+    period: Apr 2024 -- Present
+    role: Staff Site Reliability Engineer
+    description: Developing and operating Everpure Cloud Azure Native. Defining SLOs/SLAs, region provisioning, building observability and alerting pipelines, incident response, and internal developer tooling.
+    hard_chips: [azure, k8s, go, gitops, iac, python, terraform, ELK stack, SPIFFE, vcluster, github]
+    soft_chips: [ir, cloudsec, cloudops, devops, netsec, observability]
+
+  - company: Everpure (formerly Pure Storage)
+    url: https://www.linkedin.com/company/everpure-data
+    location: Prague, Czechia
+    period: Nov 2022 -- Apr 2024
+    role: Staff Software Engineer
+    description: Developed backend services and workflows for SaaS/PaaS control planes written in Go and running on Kubernetes.
+    hard_chips: [go, k8s, azure, gitops]
+    soft_chips: [backend engineering, kubernetes operator development]
+
+  - company: Turbine
+    url: https://www.linkedin.com/company/turbine-inc/
+    location: Budapest, Hungary
+    period: May 2021 -- June 2022
+    role: Staff Software / Data Engineer
+    description: Evaluated and led adoption of Kubernetes (AKS) and GitOps (Flux). Productionized Apache Spark ETL workloads on Databricks with CI/CD and unit tests, and performance tuned PySpark applications.
+    hard_chips: [k8s, gitops, python, azure, containers, airflow, databricks]
+    soft_chips: [data lakes, data engineering, platform engineering]
+
+  - company: Graph Data Council
+    company_subtitle: formerly Linked Data Benchmark Council
+    url: https://www.linkedin.com/company/ldbcouncil/
+    location: ""
+    period: Oct 2020 -- Sep 2022
+    role: Open Source Developer (Part-time contract)
+    description: Contributed to LDBC's Social Network Benchmark data generator in Scala and Apache Spark, optimizing generation of multi-terabyte datasets on EMR clusters.
+    hard_chips: [aws, emr, apache spark, apache hadoop, scala]
+    soft_chips: [database benchmarking]
+
+  - company: Hiya
+    url: https://www.linkedin.com/company/hiyainc/
+    location: Budapest, Hungary
+    period: June 2020 -- Apr 2021
+    role: Senior Data Engineer
+    description: Developed and operated data lake on AWS Glue, Spark, Airflow, and Kubernetes. Automated Spark releases, built Prometheus metrics collection, and developed in-house libraries in Scala and Python.
+    hard_chips: [scala, apache spark, aws, gitops, prometheus]
+    soft_chips: [software engineering, data lake design, data platforms ops, observability]
+
+  - company: Ekata
+    url: https://www.linkedin.com/company/ekataglobal/
+    location: Budapest, Hungary
+    period: Oct 2017 -- Feb 2020
+    role: Data Engineer
+    description: Developed the batch data ingestion pipeline for proprietary social graph database in Apache Spark, cutting ingestion time by 80%. Orchestrated supervised ML pipelines with Airflow, Kubernetes, and Databricks.
+    hard_chips: [scala, k8s, airflow, xgboost, aws, databricks]
+    soft_chips: [software engineering, graph databases, ML training and inference, data cleaning, anomaly detection]
+
+education:
+  - institution: Budapest Univ. of Technology & Economics
+    url: https://www.bme.hu/?language=en
+    location: Budapest, Hungary
+    period: 2015 -- 2018
+    degree: M.Sc. in Computer Software Engineering
+    thesis_title: openCypher graph query evaluation with a local search-based algorithm (in Clojure)
+    thesis_url: https://diplomaterv.vik.bme.hu/en/Theses/openCypher-graflekerdezesek-kiertekelese
+
+  - institution: Budapest Univ. of Technology & Economics
+    url: https://www.bme.hu/?language=en
+    location: Budapest, Hungary
+    period: 2011 -- 2015
+    degree: B.Sc. in Computer Software Engineering
+
+projects:
+  hobby:
+    - name: mixxx-launchpad
+      url: https://github.com/dszakallas/mixxx-launchpad
+      description: HID mappings for open-source DJ software (Mixxx)
+      hard_chips: [typescript]
+    - name: bikeshed
+      url: https://github.com/dszakallas/bikeshed
+      description: Nix utilities for workstation configuration
+      hard_chips: [nix]
+    - name: podcaster
+      url: https://github.com/dszakallas/podcaster
+      description: Podcast generation with Google NotebookLM
+      hard_chips: [python]
+      soft_chips: [ai agents]
+    - name: Home Server
+      description: Self-hosted media cluster on NixOS & k3s
+      hard_chips: [nix, baremetal, k8s, go]
+    - name: Retrogaming
+      description: NixOS modules for emulation on Raspberry Pis
+      hard_chips: [nix, c/c++, linux]
+
+  publications:
+    - date: "2023"
+      publisher: LDBC
+      title: Driving competition and collaboration in graph data
+      url: https://ldbcouncil.org/
+    - date: "Oct 2018"
+      title: Spark+AI Summit EU London – Spark Schema for Free
