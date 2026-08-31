@@ -47,7 +47,7 @@
           servers = mcpServers;
         };
       }
-      // lib.genAttrs [ "vscode" "claude" "copilot" "gemini" "opencode" ] (name: {
+      // lib.genAttrs [ "vscode" "claude" "copilot" "gemini" "opencode" "codex" ] (name: {
         enable = true;
         mcp = {
           enable = true;

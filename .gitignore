@@ -12,6 +12,7 @@
 /.gemini
 /.vscode
 /.claude
+/.codex
 /.mcp.json
 
 ## Emacs
