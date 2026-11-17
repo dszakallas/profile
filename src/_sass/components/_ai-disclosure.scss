@@ -1,0 +1,64 @@
+@use "sass:color";
+@use "sass:map";
+
+@mixin ai-disclosure-variant($color) {
+  border-left-color: $color;
+  background-color: rgba($color, .06);
+
+  .ai-disclosure__badge {
+    color: color.mix($color, $text-color, 78%);
+    background-color: rgba($color, .14);
+    border-color: rgba($color, .38);
+  }
+}
+
+.ai-disclosure {
+  @include flexbox();
+  @include align-items(center);
+  @include flex-wrap(wrap);
+  gap: map.get($spacers, 1) map.get($spacers, 2);
+  margin: map.get($spacers, 3) 0 map.get($spacers, 4) 0;
+  padding: map.get($spacers, 2) map.get($spacers, 3);
+  border: 1px solid $border-color-l;
+  border-left-width: 3px;
+  border-radius: map.get($base, border-radius);
+  font-size: map.get($base, font-size-sm);
+  line-height: map.get($base, line-height-sm);
+
+  &__badge {
+    @include inline-flex();
+    @include align-items(center);
+    gap: .35rem;
+    padding: .2rem .6rem;
+    border: 1px solid transparent;
+    border-radius: map.get($button, pill-radius);
+    font-size: map.get($base, font-size-xs);
+    font-weight: map.get($base, font-weight-bold);
+    line-height: 1.2;
+    white-space: nowrap;
+
+    i {
+      font-size: .75rem;
+    }
+  }
+
+  &__description {
+    color: $text-color-l;
+  }
+
+  &--none {
+    @include ai-disclosure-variant($green);
+  }
+
+  &--assisted {
+    @include ai-disclosure-variant($blue);
+  }
+
+  &--partial {
+    @include ai-disclosure-variant($yellow);
+  }
+
+  &--full {
+    @include ai-disclosure-variant($red);
+  }
+}

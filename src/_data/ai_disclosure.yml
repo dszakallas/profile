@@ -1,0 +1,23 @@
+none:
+  label: No AI
+  description: Written by the author without AI assistance.
+  icon: fas fa-pen-nib
+  tone: none
+
+assisted:
+  label: AI-assisted editing
+  description: Use of a tool to check grammar, spelling, clarity, or style, without generating new ideas or content.
+  icon: fas fa-spell-check
+  tone: assisted
+
+partial:
+  label: Partially AI-generated
+  description: Text at least partially, references, coding and visualization, with manual review of the author.
+  icon: fas fa-wand-magic-sparkles
+  tone: partial
+
+full:
+  label: Completely AI-generated
+  description: Content generated completely by AI.
+  icon: fas fa-robot
+  tone: full

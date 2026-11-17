@@ -2,6 +2,7 @@
 layout: article
 title: Switching from GPG to FIDO2 on macOS
 key: 2025-09-21-switching-to-fido2
+ai_disclosure: assisted
 tags:
   - nix
   - ssh

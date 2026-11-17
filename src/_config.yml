@@ -23,6 +23,7 @@ defaults:
         toc: true
       show_edit_on_github: false
       pageview: false
+      ai_disclosure: none
 
 ## GitHub repository (if the site is hosted by GitHub) ##
 repository: dszakallas/profile

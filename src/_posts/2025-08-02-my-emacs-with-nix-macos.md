@@ -2,6 +2,7 @@
 layout: article
 title: My Emacs with Nix on macOS
 key: 2025-08-02-my-emacs-with-nix-macos
+ai_disclosure: assisted
 tags:
   - nix
   - developer tools

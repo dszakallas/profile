@@ -1,0 +1,17 @@
+{%- assign _ai_key = page.ai_disclosure -%}
+{%- if _ai_key and _ai_key != false -%}
+  {%- assign _ai_level = site.data.ai_disclosure[_ai_key] -%}
+  {%- if _ai_level -%}
+    <aside class="ai-disclosure ai-disclosure--{{ _ai_level.tone | default: _ai_key }}" aria-label="AI disclosure">
+      <span class="ai-disclosure__badge">
+        {%- if _ai_level.icon -%}
+          <i class="{{ _ai_level.icon }}" aria-hidden="true"></i>
+        {%- endif -%}
+        <span>{{ _ai_level.label }}</span>
+      </span>
+      {%- if _ai_level.description -%}
+        <span class="ai-disclosure__description">{{ _ai_level.description }}</span>
+      {%- endif -%}
+    </aside>
+  {%- endif -%}
+{%- endif -%}
