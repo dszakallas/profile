@@ -4,7 +4,6 @@ titles:
   en: About
 license: CC-BY-ND-4.0
 key: page-about
-ai_disclosure: none
 ---
 
 <div class="item">

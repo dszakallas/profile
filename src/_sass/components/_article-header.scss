@@ -8,6 +8,7 @@
     display: inline;
   }
   h1 {
+    font-weight: map-get($base, font-weight);
     word-wrap: break-word;
   }
   .split-space {
@@ -37,7 +38,7 @@
     @include media-breakpoint-down(md) {
       font-size: map-get($base, font-size-h3-sm);
     }
-    font-weight: map-get($base, font-weight-bold);
+    font-weight: map-get($base, font-weight);
   }
 
   .article__header {

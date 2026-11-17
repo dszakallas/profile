@@ -11,11 +11,13 @@
   & > .previous, & > .next {
     width: 50%;
     & > span {
-      font-weight: map-get($base, font-weight-bold);
+      font-size: map-get($base, font-size-sm);
+      font-weight: map-get($base, font-weight);
       color: $text-color-l;
     }
     & > a {
       display: block;
+      font-weight: map-get($base, font-weight);
       @include link-colors($text-color, $main-color-1);
     }
   }
